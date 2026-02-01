@@ -1,0 +1,83 @@
+site_name: BioStatRx
+site_url: https://rahulbalwan.github.io/BioStatRx/
+site_author: Rahul
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    # Remove this line if you want sections collapsed by default:
+    - navigation.expand
+    - navigation.indexes
+    - navigation.prune
+
+    - navigation.top
+    - toc.follow
+    - search.highlight
+    - search.suggest
+
+nav:
+  - Home: index.md
+
+  - Foundations:
+      - Probability & Statistics Review:
+          - Introduction: Probability_Statistics/index.md
+          - Probability Basics: Probability_Statistics/1-probability-basics.md
+          - Random Variables: Probability_Statistics/2-random-variables.md
+          - Expectation & Variance: Probability_Statistics/3-expectation-variance.md
+          - Probability Distributions: Probability_Statistics/4-probability-distributions.md
+          - Statistical Functions: Probability_Statistics/5-statistical-functions.md
+
+      - Regression:
+          - Overview: Regression/index.md
+          - Simple Linear Regression: Regression/1-linear-regression-simple.md
+          - Multiple Linear Regression: Regression/2-linear-regression-multiple.md
+          - Logistic Regression: Regression/3-logistic-regression.md
+          - Diagnostics (Linear): Regression/4-diagnostics-linear.md
+          - Categorical Predictors: Regression/5-categorical-predictors.md
+          - Interactions: Regression/6-interactions-effect-modification.md
+          - Nonlinearity & Splines: Regression/7-nonlinearity-splines.md
+          - Collinearity & Confounding: Regression/8-collinearity-confounding-workflow.md
+          - Regularization: Regression/9-model-selection-regularization.md
+          - Reporting Results: Regression/10-reporting-and-interpretation.md
+          - Poisson Regression: Regression/11-poisson-regression.md
+          - Negative Binomial Regression: Regression/12-negative-binomial-regression.md
+          - Cox Regression: Regression/13-cox-regression.md
+
+      - Survival Analysis:
+          - Introduction: Survival_Analysis/index.md
+          - 01 — Why Survival Analysis?: Survival_Analysis/01-why-survival.md
+          - 02 — Time-to-Event & Censoring: Survival_Analysis/02-time-event-censoring.md
+          - 03 — Survival & Hazard Functions: Survival_Analysis/03-survival-hazard.md
+          - 04 — Risk Sets & Event Times: Survival_Analysis/04-risk-sets.md
+          - 05 — Kaplan–Meier Estimator: Survival_Analysis/05-kaplan-meier.md
+          - 06 — KM Confidence Intervals & Median: Survival_Analysis/06-km-confidence-intervals-median.md
+          - 07 — Log-rank Test: Survival_Analysis/07-logrank-test.md
+          - 08 — Cox Proportional Hazards: Survival_Analysis/08-cox-proportional-hazards.md
+          - 09 — Cox Diagnostics: Survival_Analysis/09-cox-diagnostics.md
+          - 10 — Time-dependent Covariates: Survival_Analysis/10-time-dependent-covariates.md
+          - 11 — Parametric Survival Models: Survival_Analysis/11-parametric-survival-models.md
+          - 12 — Competing Risks: Survival_Analysis/12-competing-risks.md
+          - 13 — Frailty Models: Survival_Analysis/13-frailty-models.md
+          - 14 — Recurrent Events: Survival_Analysis/14-recurrent-events.md
+          - 15 — Survival Summary & Workflow: Survival_Analysis/15-survival-analysis-summary-workflow.md
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
