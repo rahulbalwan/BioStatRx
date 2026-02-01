@@ -6,7 +6,7 @@ theme:
   name: material
   features:
     - navigation.sections
-    # Remove this line if you want sections collapsed by default:
+    # If you want everything collapsed by default, REMOVE the next line:
     - navigation.expand
     - navigation.indexes
     - navigation.prune
@@ -15,6 +15,11 @@ theme:
     - toc.follow
     - search.highlight
     - search.suggest
+
+plugins:
+  - search
+  - awesome-pages
+
 
 nav:
   - Home: index.md
@@ -62,6 +67,15 @@ nav:
           - 14 — Recurrent Events: Survival_Analysis/14-recurrent-events.md
           - 15 — Survival Summary & Workflow: Survival_Analysis/15-survival-analysis-summary-workflow.md
 
+
+  - Advanced Topics:
+      - Bayesian Statistics: Bayesian_Statistics/index.md
+      - Clinical Trials: Clinical_Trials/index.md
+      - Infectious Disease Modelling: Infectious_Disease_Modelling/index.md
+      - Machine Learning: Machine_Learning/index.md
+      - Meta Analysis: Meta_Analysis/index.md
+      - Reproducible Research: Reproducible_Research/index.md
+
 markdown_extensions:
   - admonition
   - toc:
@@ -80,4 +94,3 @@ markdown_extensions:
 extra_javascript:
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
-

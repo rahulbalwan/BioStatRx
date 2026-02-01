@@ -1,0 +1,18 @@
+title: Survival Analysis
+nav:
+  - index.md
+  - 01-why-survival.md
+  - 02-time-event-censoring.md
+  - 03-survival-hazard.md
+  - 04-risk-sets.md
+  - 05-kaplan-meier.md
+  - 06-km-confidence-intervals-median.md
+  - 07-logrank-test.md
+  - 08-cox-proportional-hazards.md
+  - 09-cox-diagnostics.md
+  - 10-time-dependent-covariates.md
+  - 11-parametric-survival-models.md
+  - 12-competing-risks.md
+  - 13-frailty-models.md
+  - 14-recurrent-events.md
+  - 15-survival-analysis-summary-workflow.md
