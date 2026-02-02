@@ -1,0 +1,12 @@
+
+title: Clinical Trials
+nav:
+  - index.md
+  - 01-clinical-trials-foundations-&-phases.md
+  - 02-randomization-&-allocation-concealment.md
+  - 03-trial-designs.md
+  - 04-outcomes-endpoints-&-estimands.md
+  - 05-sample-size-&-power.md
+  - 06-analysis-population-&-missing-data.md
+  - 07-safety-analysis-adverse-events.md
+  - 08-reporting.md
