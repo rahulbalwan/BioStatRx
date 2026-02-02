@@ -1,4 +1,4 @@
-# 05 — Sample Size & Power 
+# 05 — Sample Size & Power
 
 A clinical trial that is too small may fail to detect a clinically meaningful effect.  
 A trial that is too large can waste resources or expose unnecessary participants to risk.
@@ -22,9 +22,9 @@ We provide implementations in **R** and **Python**.
 ### 1.1 Hypotheses
 Most superiority trials test:
 
-\[
+$$
 H_0: \Delta = 0 \quad \text{vs} \quad H_1: \Delta \ne 0
-\]
+$$
 
 where \(\Delta\) is the treatment effect (difference in means, difference in proportions, log hazard ratio, etc.).
 
@@ -35,7 +35,7 @@ Typical values:
 - 0.05 (two-sided)
 - 0.025 (one-sided)
 
-### 1.3 Power (1 - \(\beta\))
+### 1.3 Power (\(1-\beta\))
 Probability of detecting an effect if it truly exists.
 
 Common targets:
@@ -55,13 +55,13 @@ Examples:
 ## 2. General sample size ingredients
 
 To plan sample size you must specify:
-1) primary endpoint type (continuous/binary/time-to-event)
-2) effect size
-3) variability (SD, baseline rate, hazard)
-4) desired power
-5) significance level
-6) allocation ratio
-7) expected dropout / loss-to-follow-up
+1) primary endpoint type (continuous/binary/time-to-event)  
+2) effect size  
+3) variability (SD, baseline risk, hazard/event rate)  
+4) desired power  
+5) significance level  
+6) allocation ratio  
+7) expected dropout / loss-to-follow-up  
 8) design features (clustering, repeated measures, interim analyses)
 
 ---
@@ -72,14 +72,16 @@ To plan sample size you must specify:
 Endpoint: change from baseline or post-treatment measurement.
 
 Common approach:
-- two-sample comparison (t-test / ANCOVA-based approximation)
+- two-sample comparison (t-test) or regression-based comparison
+- ANCOVA-style planning can be approximated using an “effective SD”
 
 Assume equal SD \(\sigma\), 1:1 allocation, two-sided \(\alpha\).
 
 The standardized effect size is:
-\[
+
+$$
 d = \frac{\mu_1 - \mu_0}{\sigma}
-\]
+$$
 
 ### 3.2 Key inputs
 - \(\Delta = \mu_1 - \mu_0\) (difference in means)
@@ -87,9 +89,15 @@ d = \frac{\mu_1 - \mu_0}{\sigma}
 - \(\alpha\), power
 - allocation ratio
 
-Practical note:
+Practical note:  
 Using ANCOVA (adjusting for baseline) often reduces variance and increases power.  
-A common approximation uses an “effective SD” based on baseline correlation.
+A common approximation is to use:
+
+$$
+\sigma_{\text{eff}} = \sigma \sqrt{1-\rho^2}
+$$
+
+where \(\rho\) is the correlation between baseline and follow-up. (Higher \(\rho\) → smaller \(\sigma_{\text{eff}}\) → more power.)
 
 ---
 
@@ -103,13 +111,13 @@ A common approximation uses an “effective SD” based on baseline correlation.
 Inputs:
 - control risk \(p_0\)
 - treatment risk \(p_1\)
-- effect measure:
-  - absolute risk difference \(p_1 - p_0\)
-  - risk ratio \(p_1/p_0\)
-  - odds ratio (less intuitive clinically)
 
-Power formulas typically use:
-- difference in proportions
+Effect measures:
+- absolute risk difference \(p_1 - p_0\)
+- risk ratio \(p_1/p_0\)
+- odds ratio (less intuitive clinically)
+
+Many standard power functions compute sample size for a difference in proportions using a normal approximation.
 
 ---
 
@@ -119,17 +127,20 @@ For survival endpoints, power depends strongly on the **number of events** rathe
 
 ### 5.1 Hazard ratio
 Common effect measure:
-\[
+
+$$
 HR = \frac{h_1(t)}{h_0(t)}
-\]
+$$
 
 If \(HR < 1\), treatment reduces risk.
 
 ### 5.2 Event-based approximation (log-rank)
-A classic result (Freedman-type approximation):
-\[
-D \approx \frac{(z_{1-\alpha/2} + z_{1-\beta})^2}{(\log HR)^2 \, p(1-p)}
-\]
+A classic approximation (Freedman-type):
+
+$$
+D \approx \frac{\left(z_{1-\alpha/2} + z_{1-\beta}\right)^2}{\left(\log HR\right)^2 \, p(1-p)}
+$$
+
 where:
 - \(D\) = required number of events
 - \(p\) = allocation proportion (0.5 for equal groups)
@@ -138,24 +149,24 @@ Then total sample size depends on:
 - accrual time
 - follow-up time
 - baseline event rate
-- dropout
+- dropout / censoring
 
 ---
 
 ## 6. Adjusting for dropout / loss-to-follow-up
 
-If you expect \(r\) proportion dropout, inflate:
+If you expect dropout proportion \(r\), inflate:
 
-\[
+$$
 n_{\text{adjusted}} = \frac{n}{1-r}
-\]
+$$
 
 Example:
 - needed \(n=200\)
 - expect 15% dropout
-- adjusted \(n = 200 / 0.85 = 235.3 \rightarrow 236\)
+- adjusted \(n = 200/0.85 = 235.3 \rightarrow 236\)
 
-Dropout may also reduce observed events in survival trials.
+In survival trials, dropout reduces observed events, so you may need additional inflation beyond this simple formula.
 
 ---
 
@@ -183,11 +194,17 @@ Example:
     effect_size = delta / sd
 
     analysis = TTestIndPower()
-    n_per_group = analysis.solve_power(effect_size=effect_size, alpha=0.05, power=0.80, ratio=1.0, alternative='two-sided')
+    n_per_group = analysis.solve_power(
+        effect_size=effect_size,
+        alpha=0.05,
+        power=0.80,
+        ratio=1.0,
+        alternative="two-sided"
+    )
     n_per_group
     ```
 
-Total n is about \(2 \times n_{\text{per group}}\).
+Total \(n \approx 2 \times n_{\text{per group}}\).
 
 ---
 
@@ -208,7 +225,13 @@ Example:
     es = proportion_effectsize(p1, p0)  # Cohen's h
 
     analysis = NormalIndPower()
-    n_per_group = analysis.solve_power(effect_size=es, alpha=0.05, power=0.80, ratio=1.0, alternative='two-sided')
+    n_per_group = analysis.solve_power(
+        effect_size=es,
+        alpha=0.05,
+        power=0.80,
+        ratio=1.0,
+        alternative="two-sided"
+    )
     n_per_group
     ```
 
@@ -228,7 +251,7 @@ Example:
 
 ---
 
-## 10A. Python: Event-based survival calculation 
+## 10A. Python: Event-based survival calculation
 
 Example:
 - HR = 0.75
@@ -249,18 +272,16 @@ Example:
     z_alpha = norm.ppf(1 - alpha/2)
     z_beta = norm.ppf(power)
 
-    D = ((z_alpha + z_beta)**2) / ((np.log(HR))**2 * p * (1-p))
+    D = ((z_alpha + z_beta)**2) / ((np.log(HR))**2 * p * (1 - p))
     D
     ```
 
 This returns required number of events \(D\).  
-To convert events into sample size, you need an event probability during follow-up (or simulate).
+To convert events into sample size, you need the expected event probability during follow-up (or simulate accrual/censoring).
 
 ---
 
 ## 11A. Python: Simulation-based power (continuous endpoint)
-
-Simulation is often the clearest way to understand power.
 
 Scenario:
 - n per group = 60
@@ -287,7 +308,7 @@ Scenario:
     sim_power_continuous(n_per_group=60, delta=5, sd=12, reps=2000)
     ```
 
-Now you can vary n to see how power changes.
+Now vary \(n\) to see how power changes.
 
 ---
 
@@ -305,7 +326,14 @@ R is widely used for trial design because it has well-developed power and surviv
     delta <- 5
     sd <- 12
 
-    power.t.test(delta = delta, sd = sd, power = 0.80, sig.level = 0.05, type = "two.sample", alternative = "two.sided")
+    power.t.test(
+      delta = delta,
+      sd = sd,
+      power = 0.80,
+      sig.level = 0.05,
+      type = "two.sample",
+      alternative = "two.sided"
+    )
     ```
 
 ---
@@ -313,15 +341,21 @@ R is widely used for trial design because it has well-developed power and surviv
 ## 13B. R: Binary endpoint sample size
 
 Example:
-- p0 = 0.40
-- p1 = 0.55
+- \(p_0 = 0.40\)
+- \(p_1 = 0.55\)
 
 !!! interactive "R"
     ```r
     p0 <- 0.40
     p1 <- 0.55
 
-    power.prop.test(p1 = p0, p2 = p1, power = 0.80, sig.level = 0.05, alternative = "two.sided")
+    power.prop.test(
+      p1 = p0,
+      p2 = p1,
+      power = 0.80,
+      sig.level = 0.05,
+      alternative = "two.sided"
+    )
     ```
 
 ---
@@ -337,7 +371,7 @@ Example:
 
 ---
 
-## 15B. R: Event-based survival calculation 
+## 15B. R: Event-based survival calculation
 
 !!! interactive "R"
     ```r
@@ -349,7 +383,7 @@ Example:
     z_alpha <- qnorm(1 - alpha/2)
     z_beta <- qnorm(power)
 
-    D <- ((z_alpha + z_beta)^2) / ((log(HR))^2 * p * (1-p))
+    D <- ((z_alpha + z_beta)^2) / ((log(HR))^2 * p * (1 - p))
     D
     ```
 
@@ -389,14 +423,14 @@ Estimate from:
 - pilot studies
 - published literature
 - registry data
-- internal historical controls (careful)
+- internal historical controls (use carefully)
 
 ### 17.3 Sensitivity analyses
 Always compute sample size under multiple plausible assumptions:
 - higher SD
 - lower effect
 - higher dropout
-- lower event rate
+- lower event probability (survival)
 
 Present as a table (best practice).
 
@@ -407,10 +441,10 @@ Present as a table (best practice).
 <details>
 <summary>Click to try</summary>
 
-1. Continuous endpoint: compute n per group for delta=3 and SD=12 (alpha=0.05, power=0.80).  
-2. Binary endpoint: compute n per group for p0=0.30, p1=0.40.  
-3. Survival: compute required events for HR=0.80 and HR=0.70. Compare.  
-4. Use simulation to estimate power for n per group = 40, 60, 80 for delta=5, SD=12.  
+1. Continuous endpoint: compute \(n\) per group for \(\Delta=3\) and SD=12 (\(\alpha=0.05\), power=0.80).  
+2. Binary endpoint: compute \(n\) per group for \(p_0=0.30\), \(p_1=0.40\).  
+3. Survival: compute required events for \(HR=0.80\) and \(HR=0.70\). Compare.  
+4. Use simulation to estimate power for \(n\) per group = 40, 60, 80 for \(\Delta=5\), SD=12.  
 5. Apply dropout inflation: if you need 160 total participants and expect 20% dropout, how many should you recruit?
 
 </details>
@@ -419,10 +453,8 @@ Present as a table (best practice).
 
 ## 19. Summary
 
-- Sample size requires specifying effect size, variability/rates, alpha, power, and allocation ratio.
+- Sample size requires specifying effect size, variability/rates, \(\alpha\), power, and allocation ratio.
 - Continuous and binary endpoints have standard formula-based power methods.
 - Time-to-event power is driven by the number of events; sample size depends on event probability during follow-up.
 - Dropout inflates required recruitment.
 - Simulation-based power provides an intuitive and flexible approach.
-
----

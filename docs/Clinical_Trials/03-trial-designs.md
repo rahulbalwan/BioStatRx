@@ -16,7 +16,7 @@ This chapter covers the major clinical trial designs used in biomedical research
 
 ---
 
-## 1. Parallel-group randomized controlled trials 
+## 1. Parallel-group randomized controlled trials
 
 ### 1.1 What it is
 Participants are randomized to one of two or more groups and followed forward.
@@ -44,7 +44,7 @@ Each participant receives only one assigned intervention.
 
 ---
 
-## 2. Cross-over trials 
+## 2. Cross-over trials
 
 Cross-over designs are common when:
 - the condition is stable
@@ -54,8 +54,8 @@ Cross-over designs are common when:
 ### 2.1 Basic 2×2 cross-over design
 Each participant receives both treatments in different periods:
 
-- Sequence 1: A → B  
-- Sequence 2: B → A  
+- Sequence 1: A → B
+- Sequence 2: B → A
 
 Often includes a washout period between treatments.
 
@@ -66,7 +66,7 @@ A simple way to think:
 - parallel design compares person-to-person differences
 - cross-over compares within-person differences
 
-This often increases power for the same n.
+This often increases power for the same \(n\).
 
 ### 2.3 Key assumptions and problems
 - **Carryover effect:** treatment effect persists into the next period
@@ -79,9 +79,20 @@ Cross-over designs are not suitable for:
 - outcomes that permanently change after first treatment
 - progressive diseases where baseline changes over time
 
-### 2.4 Typical analysis 
-For a continuous outcome, a common approach is:
-- model outcome ~ treatment + period + sequence + subject(random)
+### 2.4 Typical analysis (continuous outcome)
+A standard model includes treatment and period effects, and accounts for repeated measures within subject:
+
+\[
+Y_{ij} = \beta_0 + \beta_T T_{ij} + \beta_P P_{ij} + b_i + \varepsilon_{ij},
+\quad b_i \sim \mathcal{N}(0,\sigma_b^2),\ \varepsilon_{ij}\sim \mathcal{N}(0,\sigma^2)
+\]
+
+- \(i\) indexes subject, \(j\) indexes period
+- \(T_{ij}\) indicates treatment received in that period
+- \(P_{ij}\) indicates period (1 or 2)
+- \(b_i\) is a random subject effect
+
+(Sequence effects may be explored, but the above captures the core structure.)
 
 ---
 
@@ -103,9 +114,10 @@ Examples of clusters:
 ### 3.2 The key statistical issue: intracluster correlation (ICC)
 Within a cluster, outcomes tend to be correlated.
 
-Define ICC:
+A common ICC definition (continuous outcomes):
+
 \[
-\rho = \frac{\sigma^2_{\text{between clusters}}}{\sigma^2_{\text{between}} + \sigma^2_{\text{within}}}
+\rho = \frac{\sigma^2_{\text{between}}}{\sigma^2_{\text{between}} + \sigma^2_{\text{within}}}
 \]
 
 Even small ICC can inflate required sample size.
@@ -118,8 +130,9 @@ For equal cluster size \(m\):
 \]
 
 Effective sample size is approximately:
+
 \[
-n_{\text{eff}} = \frac{n}{\text{Design Effect}}
+n_{\text{eff}} \approx \frac{n}{\text{Design Effect}}
 \]
 
 ### 3.4 Typical analysis
@@ -138,10 +151,10 @@ A common design is a 2×2 factorial trial:
 - Factor B: Exercise vs No exercise
 
 Groups:
-1. A0B0 (control)
-2. A1B0 (drug only)
-3. A0B1 (exercise only)
-4. A1B1 (both)
+1. \(A_0B_0\) (control)
+2. \(A_1B_0\) (drug only)
+3. \(A_0B_1\) (exercise only)
+4. \(A_1B_1\) (both)
 
 ### 4.1 When factorial works best
 Factorial designs are most efficient when the two treatments:
@@ -152,7 +165,7 @@ Factorial designs are most efficient when the two treatments:
 The key question is whether there is interaction:
 
 \[
-Y = \beta_0 + \beta_A A + \beta_B B + \beta_{AB}(A\times B) + \epsilon
+Y = \beta_0 + \beta_A A + \beta_B B + \beta_{AB}(A\times B) + \varepsilon
 \]
 
 - \(\beta_A\) = main effect of A (averaged over B)
@@ -163,7 +176,7 @@ If interaction is large, interpretation becomes more complex and power for main 
 
 ---
 
-## 5. Adaptive trial designs 
+## 5. Adaptive trial designs
 
 Adaptive designs allow modifications based on interim data while controlling Type I error.
 
@@ -175,7 +188,7 @@ Examples:
 
 Adaptive designs require:
 - careful pre-specification
-- independent data monitoring committee
+- an independent data monitoring committee
 - appropriate statistical control
 
 We keep this section conceptual; later pages can go deeper.
@@ -195,7 +208,6 @@ We simulate:
 !!! interactive "Python"
     ```python
     import numpy as np
-    import pandas as pd
 
     np.random.seed(202)
 
@@ -206,18 +218,14 @@ We simulate:
         return est
 
     def simulate_crossover(n=30, effect=-1.0, sd_within=1.0):
-        # each subject gets both A and B; effect applies to A (treatment)
-        # Let Treatment=A, Control=B
-        # randomize sequence AB or BA
-        seq = np.random.binomial(1, 0.5, n)  # 1=AB, 0=BA
-        # subject baseline
+        # Each subject has a baseline level; both periods measured.
         subj = np.random.normal(0, 1.0, n)
 
-        # outcomes: baseline + treatment effect + within noise
+        # Outcomes under A (treatment) and B (control)
         y_A = subj + effect + np.random.normal(0, sd_within, n)
-        y_B = subj + 0.0 + np.random.normal(0, sd_within, n)
+        y_B = subj + 0.0    + np.random.normal(0, sd_within, n)
 
-        # paired difference A-B estimates effect
+        # Paired difference estimates treatment effect
         est = (y_A - y_B).mean()
         return est
 
@@ -246,8 +254,8 @@ Interpretation:
     de
     ```
 
-If your nominal sample size is n individuals:
-- effective n is about \(n/de\)
+If your nominal sample size is \(n\) individuals:
+- effective \(n\) is about \(n/\text{DE}\)
 
 ---
 
@@ -257,6 +265,7 @@ If your nominal sample size is n individuals:
     ```python
     import numpy as np
     import pandas as pd
+    import statsmodels.formula.api as smf
 
     np.random.seed(777)
 
@@ -272,15 +281,7 @@ If your nominal sample size is n individuals:
 
     y = beta0 + betaA*A + betaB*B + betaAB*(A*B) + np.random.normal(0, 1, n)
 
-    df = pd.DataFrame({"y": y, "A": A, "B": B, "AxB": A*B})
-    df.head()
-    ```
-
-Fit regression:
-
-!!! interactive "Python"
-    ```python
-    import statsmodels.formula.api as smf
+    df = pd.DataFrame({"y": y, "A": A, "B": B})
 
     fit = smf.ols("y ~ A + B + A:B", data=df).fit()
     fit.summary().tables[1]
@@ -305,12 +306,9 @@ Fit regression:
     }
 
     simulate_crossover <- function(n=30, effect=-1, sd_within=1) {
-      seq <- rbinom(n, 1, 0.5)
       subj <- rnorm(n, 0, 1)
-
       yA <- subj + effect + rnorm(n, 0, sd_within)
       yB <- subj + rnorm(n, 0, sd_within)
-
       mean(yA - yB)
     }
 
@@ -376,7 +374,7 @@ Choose when:
 Choose when:
 - condition stable
 - treatment effect reversible
-- outcome quickly measurable
+- outcome quickly measurable  
 Avoid when:
 - carryover likely
 - disease progressive
@@ -385,20 +383,20 @@ Avoid when:
 ### Cluster randomized
 Choose when:
 - contamination is likely
-- intervention is delivered at group level
+- intervention is delivered at group level  
 Remember:
 - account for ICC in sample size and analysis
 
 ### Factorial
 Choose when:
 - testing two interventions simultaneously
-- interaction expected to be small/moderate
+- interaction expected to be small/moderate  
 Plan:
 - pre-specify whether interaction will be tested formally
 
 ### Adaptive
 Choose when:
-- early stopping or efficiency is needed
+- early stopping or efficiency is needed  
 Requires:
 - strong planning, governance, and pre-specified rules
 
@@ -410,8 +408,8 @@ Requires:
 <summary>Click to try</summary>
 
 1. Modify the cross-over simulation so that carryover exists (e.g., add +0.4 to period 2 outcomes in one sequence) and see how it biases estimates if ignored.  
-2. Compute design effect for m=10, 25, 50 across ICC = 0.01, 0.05, 0.10. Make a small table.  
-3. In factorial simulation, set betaAB=0 and compare how the interaction term behaves across repeated simulations.  
+2. Compute design effect for \(m=10, 25, 50\) across ICC \(=0.01, 0.05, 0.10\). Make a small table.  
+3. In factorial simulation, set \(\beta_{AB}=0\) and compare how the interaction term behaves across repeated simulations.  
 4. Write a short paragraph: which design would you use for a vaccine education program delivered at school level, and why?  
 5. For a chronic stable condition with fast reversible effect, compare sample size needs of parallel vs cross-over conceptually.
 
@@ -426,5 +424,3 @@ Requires:
 - Cluster randomized trials need ICC-aware design and analysis.
 - Factorial designs test multiple interventions efficiently but must consider interaction.
 - Adaptive designs improve efficiency but require strict pre-planning and oversight.
-
----

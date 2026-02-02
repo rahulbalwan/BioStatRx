@@ -13,12 +13,12 @@ This chapter gives a practical, biostatistics-focused framework for analyzing an
 - safety analysis populations
 - incidence proportions vs exposure-adjusted incidence rates (EAIR)
 - summary tables by event category (SOC/PT style)
-- lab abnormalities and “shift tables”
+- lab abnormalities and shift tables
 - reproducible reporting in R and Python with toy data
 
 ---
 
-## 1. Key safety terminology 
+## 1. Key safety terminology
 
 Different trials have slightly different definitions, but the concepts are consistent.
 
@@ -33,8 +33,8 @@ Important:
 Typically includes events such as:
 - death
 - life-threatening event
-- hospitalization/prolonged hospitalization
-- persistent disability/incapacity
+- hospitalization or prolonged hospitalization
+- persistent disability or incapacity
 - congenital anomaly
 - other medically important event
 
@@ -57,13 +57,11 @@ Safety reporting often focuses on TEAEs because they align with exposure.
 
 ---
 
-## 2. Safety analysis populations 
+## 2. Safety analysis populations
 
 Safety analysis is usually based on an “as-treated” or “safety set” population.
 
-Common definitions:
-
-### 2.1 Safety set 
+### 2.1 Safety set
 All participants who received at least one dose of study treatment, analyzed according to treatment actually received.
 
 This differs from ITT because:
@@ -75,7 +73,7 @@ If someone is randomized but never takes treatment, counting them in safety summ
 Safety analyses often use:
 - actual exposure time
 - risk windows
-- “on-treatment” vs “intended treatment” definitions
+- on-treatment vs intended treatment definitions
 
 ---
 
@@ -84,10 +82,10 @@ Safety analyses often use:
 Safety summaries usually include:
 
 1) Overall AE burden
-- number (%) with ≥1 AE
-- number (%) with ≥1 SAE
-- number (%) discontinuation due to AE
-- number (%) death (AE leading to death)
+- number (%) with at least one AE
+- number (%) with at least one SAE
+- number (%) with discontinuation due to AE
+- number (%) with death
 
 2) Most common AEs
 - by system organ class (SOC)
@@ -95,14 +93,14 @@ Safety summaries usually include:
 - often sorted by frequency
 
 3) Exposure-adjusted rates
-- AE per person-year
-- especially important if follow-up differs between arms
+- events per person-year (often per 100 person-years)
+- important if follow-up differs between arms
 
 4) Severity and relatedness
 - mild/moderate/severe
-- related vs unrelated to treatment (reported but interpret cautiously)
+- related vs unrelated to treatment (reported, but interpret cautiously)
 
-5) Lab abnormalities and vitals
+5) Labs and vitals
 - shifts from baseline category to worst post-baseline category
 - threshold-based abnormality rates (e.g., ALT > 3× ULN)
 
@@ -111,9 +109,10 @@ Safety summaries usually include:
 ## 4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)
 
 ### 4.1 Incidence proportion (risk)
-\[
-\text{Risk} = \frac{\# \text{participants with at least one event}}{\# \text{participants at risk}}
-\]
+
+$$
+\text{Risk} = \frac{\#\text{participants with at least one event}}{\#\text{participants at risk}}
+$$
 
 This answers:
 > What proportion of participants experienced at least one event?
@@ -123,10 +122,16 @@ Use when:
 - you want a participant-level interpretation
 
 ### 4.2 Exposure-adjusted incidence rate (EAIR)
-\[
-\text{EAIR} = \frac{\# \text{events}}{\text{total person-time}}
-\]
-Often expressed per 100 person-years.
+
+$$
+\text{EAIR} = \frac{\#\text{events}}{\text{total person-time}}
+$$
+
+Often expressed per 100 person-years:
+
+$$
+\text{EAIR}_{100} = 100 \times \frac{\#\text{events}}{\text{total person-years}}
+$$
 
 This answers:
 > How frequently do events occur, accounting for time under observation?
@@ -138,8 +143,8 @@ Use when:
 
 ### 4.3 Which numerator to use for EAIR?
 Two common choices:
-- number of participants with ≥1 event (for “first event rate”)
-- number of events (for recurrent events)
+- number of participants with at least one event (first-event rate)
+- number of events (recurrent-event rate)
 
 You must clearly specify which.
 
@@ -152,13 +157,18 @@ Safety comparisons are often descriptive, but inferential methods exist.
 ### 5.1 Risk difference / risk ratio
 For “any AE yes/no”:
 - compare proportions
-- CI for risk difference or RR
+- compute confidence intervals for risk difference or risk ratio
 
-### 5.2 Poisson/Negative binomial models for rates
-For count outcomes (multiple events), with offset:
-\[
-\log(E[Y]) = \beta_0 + \beta_1 \text{Treatment} + \log(\text{person-time})
-\]
+### 5.2 Poisson / negative binomial models for rates
+For count outcomes (multiple events), with an offset:
+
+$$
+\log\bigl(E[Y]\bigr) = \beta_0 + \beta_1 \,\mathrm{Trt} + \log(\text{person-time})
+$$
+
+Then:
+- \(\exp(\beta_1)\) is the rate ratio (treatment vs control)
+
 If overdispersion exists, use negative binomial.
 
 ### 5.3 Time-to-event for first AE
@@ -190,16 +200,18 @@ We generate toy AE data with:
     n = 300
     trt = np.random.binomial(1, 0.5, n)  # 1=treatment, 0=control
 
-    # exposure time in days (treatment group slightly shorter, e.g., due to discontinuations)
-    exposure_days = np.where(trt==1,
-                             np.random.gamma(shape=5, scale=18, size=n),   # mean ~90
-                             np.random.gamma(shape=5, scale=20, size=n))   # mean ~100
+    # exposure time in days (treatment group slightly shorter, e.g., discontinuations)
+    exposure_days = np.where(
+        trt == 1,
+        np.random.gamma(shape=5, scale=18, size=n),  # mean ~90
+        np.random.gamma(shape=5, scale=20, size=n)   # mean ~100
+    )
 
     exposure_py = exposure_days / 365.25
 
     # AE event generation: Poisson rate depends on treatment
     base_rate = 2.0  # events per person-year in control
-    rate = np.where(trt==1, base_rate*1.25, base_rate)  # treatment has higher AE rate
+    rate = np.where(trt == 1, base_rate * 1.25, base_rate)  # higher AE rate on treatment
     ae_count = np.random.poisson(rate * exposure_py)
 
     # create SOC/PT categories for each AE event (event-level dataset)
@@ -212,8 +224,8 @@ We generate toy AE data with:
     }
 
     rows = []
-    for pid in range(1, n+1):
-        k = ae_count[pid-1]
+    for pid in range(1, n + 1):
+        k = ae_count[pid - 1]
         if k == 0:
             continue
         for _ in range(k):
@@ -221,13 +233,13 @@ We generate toy AE data with:
             pt = np.random.choice(pts_by_soc[soc])
             severity = np.random.choice(["Mild", "Moderate", "Severe"], p=[0.65, 0.30, 0.05])
             sae = np.random.binomial(1, 0.04)  # rare SAEs
-            rows.append([pid, trt[pid-1], soc, pt, severity, sae])
+            rows.append([pid, trt[pid - 1], soc, pt, severity, sae])
 
-    ae = pd.DataFrame(rows, columns=["participant_id","trt","SOC","PT","severity","SAE"])
+    ae = pd.DataFrame(rows, columns=["participant_id", "trt", "SOC", "PT", "severity", "SAE"])
 
     # participant-level frame
     subj = pd.DataFrame({
-        "participant_id": range(1, n+1),
+        "participant_id": range(1, n + 1),
         "trt": trt,
         "exposure_days": exposure_days,
         "exposure_py": exposure_py,
@@ -239,7 +251,7 @@ We generate toy AE data with:
 
 ---
 
-## 7A. Python: Participant-level safety summary (≥1 AE, ≥1 SAE)
+## 7A. Python: Participant-level safety summary (at least one AE, at least one SAE)
 
 !!! interactive "Python"
     ```python
@@ -247,11 +259,15 @@ We generate toy AE data with:
     subj["any_AE"] = (subj["ae_count"] > 0).astype(int)
 
     # indicator: any SAE (participant-level)
-    any_sae = ae.groupby("participant_id")["SAE"].max()
-    subj = subj.merge(any_sae.rename("any_SAE"), left_on="participant_id", right_index=True, how="left")
-    subj["any_SAE"] = subj["any_SAE"].fillna(0).astype(int)
+    if len(ae) > 0:
+        any_sae = ae.groupby("participant_id")["SAE"].max()
+        subj = subj.merge(any_sae.rename("any_SAE"), left_on="participant_id", right_index=True, how="left")
+        subj["any_SAE"] = subj["any_SAE"].fillna(0).astype(int)
+    else:
+        subj["any_SAE"] = 0
 
-    summary = subj.groupby("trt")[["any_AE","any_SAE"]].mean()
+    # proportions by arm
+    summary = subj.groupby("trt")[["any_AE", "any_SAE"]].mean()
     summary
     ```
 
@@ -275,12 +291,12 @@ Convert to events per 100 person-years:
 
 !!! interactive "Python"
     ```python
-    (100*eair).rename("events_per_100_person_years")
+    (100 * eair).rename("events_per_100_person_years")
     ```
 
 ---
 
-## 9A. Python: SOC and PT frequency tables 
+## 9A. Python: SOC and PT frequency tables
 
 Often safety tables report:
 - number (%) of participants with at least one event in a category
@@ -289,36 +305,41 @@ We compute participant-level incidence by SOC and PT.
 
 !!! interactive "Python"
     ```python
-    # participant-level SOC incidence
-    soc_inc = (ae.groupby(["trt","SOC","participant_id"])
-                 .size()
-                 .reset_index(name="n")
-                 .groupby(["trt","SOC"])
-                 .size()
-                 .reset_index(name="n_participants"))
+    # participant-level SOC incidence: unique participants within each SOC
+    if len(ae) > 0:
+        soc_inc = (ae.groupby(["trt", "SOC", "participant_id"])
+                     .size()
+                     .reset_index(name="n")
+                     .groupby(["trt", "SOC"])
+                     .size()
+                     .reset_index(name="n_participants"))
 
-    # denominator by arm
-    denom = subj.groupby("trt").size().rename("N").reset_index()
+        denom = subj.groupby("trt").size().rename("N").reset_index()
 
-    soc_inc = soc_inc.merge(denom, on="trt")
-    soc_inc["pct"] = 100*soc_inc["n_participants"]/soc_inc["N"]
-    soc_inc.sort_values(["trt","n_participants"], ascending=[True, False]).head(10)
+        soc_inc = soc_inc.merge(denom, on="trt")
+        soc_inc["pct"] = 100 * soc_inc["n_participants"] / soc_inc["N"]
+
+        soc_inc.sort_values(["trt", "n_participants"], ascending=[True, False]).head(10)
     ```
 
 Similarly for PT:
 
 !!! interactive "Python"
     ```python
-    pt_inc = (ae.groupby(["trt","PT","participant_id"])
-                .size()
-                .reset_index(name="n")
-                .groupby(["trt","PT"])
-                .size()
-                .reset_index(name="n_participants"))
+    if len(ae) > 0:
+        pt_inc = (ae.groupby(["trt", "PT", "participant_id"])
+                    .size()
+                    .reset_index(name="n")
+                    .groupby(["trt", "PT"])
+                    .size()
+                    .reset_index(name="n_participants"))
 
-    pt_inc = pt_inc.merge(denom, on="trt")
-    pt_inc["pct"] = 100*pt_inc["n_participants"]/pt_inc["N"]
-    pt_inc.sort_values(["trt","n_participants"], ascending=[True, False]).head(12)
+        denom = subj.groupby("trt").size().rename("N").reset_index()
+
+        pt_inc = pt_inc.merge(denom, on="trt")
+        pt_inc["pct"] = 100 * pt_inc["n_participants"] / pt_inc["N"]
+
+        pt_inc.sort_values(["trt", "n_participants"], ascending=[True, False]).head(12)
     ```
 
 ---
@@ -326,17 +347,25 @@ Similarly for PT:
 ## 10A. Python: Modeling AE counts with Poisson regression (rate ratio)
 
 We fit:
-\[
-\log(E[\text{AE count}]) = \beta_0 + \beta_1 \text{trt} + \log(\text{person-years})
-\]
+
+$$
+\log\bigl(E[Y]\bigr) = \beta_0 + \beta_1 \,\mathrm{trt} + \log(\text{person-years})
+$$
+
 so \(\exp(\beta_1)\) is the AE rate ratio.
 
 !!! interactive "Python"
     ```python
     import statsmodels.api as sm
+    import numpy as np
 
     X = sm.add_constant(subj["trt"])
-    model = sm.GLM(subj["ae_count"], X, family=sm.families.Poisson(), offset=np.log(subj["exposure_py"]))
+    model = sm.GLM(
+        subj["ae_count"],
+        X,
+        family=sm.families.Poisson(),
+        offset=np.log(subj["exposure_py"])
+    )
     fit = model.fit()
     fit.summary().tables[1]
     ```
@@ -345,9 +374,7 @@ Rate ratio estimate:
 
 !!! interactive "Python"
     ```python
-    import numpy as np
-
-    rr = np.exp(fit.params["trt"])
+    rr = float(np.exp(fit.params["trt"]))
     rr
     ```
 
@@ -376,13 +403,15 @@ If this is much larger than ~1, consider negative binomial.
     n <- 300
     trt <- rbinom(n, 1, 0.5)
 
-    exposure_days <- ifelse(trt==1,
-                            rgamma(n, shape=5, scale=18),
-                            rgamma(n, shape=5, scale=20))
+    exposure_days <- ifelse(
+      trt == 1,
+      rgamma(n, shape=5, scale=18),
+      rgamma(n, shape=5, scale=20)
+    )
     exposure_py <- exposure_days / 365.25
 
     base_rate <- 2.0
-    rate <- ifelse(trt==1, base_rate*1.25, base_rate)
+    rate <- ifelse(trt == 1, base_rate * 1.25, base_rate)
     ae_count <- rpois(n, rate * exposure_py)
 
     subj <- data.frame(
@@ -400,25 +429,25 @@ Create event-level AE data with SOC/PT:
 
 !!! interactive "R"
     ```r
-    socs <- c("Gastrointestinal disorders","Nervous system disorders","Infections","Skin disorders")
+    socs <- c("Gastrointestinal disorders", "Nervous system disorders", "Infections", "Skin disorders")
 
     pts_by_soc <- list(
-      "Gastrointestinal disorders" = c("Nausea","Diarrhoea","Abdominal pain"),
-      "Nervous system disorders" = c("Headache","Dizziness"),
-      "Infections" = c("Upper respiratory infection","Urinary tract infection"),
-      "Skin disorders" = c("Rash","Pruritus")
+      "Gastrointestinal disorders" = c("Nausea", "Diarrhoea", "Abdominal pain"),
+      "Nervous system disorders" = c("Headache", "Dizziness"),
+      "Infections" = c("Upper respiratory infection", "Urinary tract infection"),
+      "Skin disorders" = c("Rash", "Pruritus")
     )
 
     ae <- data.frame()
 
     for (pid in 1:n) {
       k <- ae_count[pid]
-      if (k==0) next
+      if (k == 0) next
 
       for (j in 1:k) {
-        soc <- sample(socs, 1, prob=c(0.28,0.26,0.26,0.20))
+        soc <- sample(socs, 1, prob=c(0.28, 0.26, 0.26, 0.20))
         pt <- sample(pts_by_soc[[soc]], 1)
-        severity <- sample(c("Mild","Moderate","Severe"), 1, prob=c(0.65,0.30,0.05))
+        severity <- sample(c("Mild", "Moderate", "Severe"), 1, prob=c(0.65, 0.30, 0.05))
         sae <- rbinom(1, 1, 0.04)
 
         ae <- rbind(ae, data.frame(
@@ -443,12 +472,11 @@ Create event-level AE data with SOC/PT:
     ```r
     subj$any_AE <- as.integer(subj$ae_count > 0)
 
-    # any SAE by participant
     if (nrow(ae) > 0) {
       any_sae <- aggregate(SAE ~ participant_id, data=ae, FUN=max)
       subj <- merge(subj, any_sae, by="participant_id", all.x=TRUE)
       subj$SAE[is.na(subj$SAE)] <- 0
-      names(subj)[names(subj)=="SAE"] <- "any_SAE"
+      names(subj)[names(subj) == "SAE"] <- "any_SAE"
     } else {
       subj$any_SAE <- 0
     }
@@ -464,26 +492,25 @@ Create event-level AE data with SOC/PT:
     ```r
     eair <- aggregate(cbind(ae_count, exposure_py) ~ trt, data=subj, FUN=sum)
     eair$rate <- eair$ae_count / eair$exposure_py
-    eair$rate_per_100py <- 100*eair$rate
+    eair$rate_per_100py <- 100 * eair$rate
     eair
     ```
 
 ---
 
-## 14B. R: SOC and PT incidence (participants with ≥1 event)
+## 14B. R: SOC and PT incidence (participants with at least one event)
 
 !!! interactive "R"
     ```r
-    # Denominator
     denom <- table(subj$trt)
 
-    # SOC incidence: count unique participants per SOC
     if (nrow(ae) > 0) {
-      soc_inc <- unique(ae[, c("trt","SOC","participant_id")])
+      soc_inc <- unique(ae[, c("trt", "SOC", "participant_id")])
       soc_tab <- as.data.frame(table(soc_inc$trt, soc_inc$SOC))
-      names(soc_tab) <- c("trt","SOC","n_participants")
+      names(soc_tab) <- c("trt", "SOC", "n_participants")
       soc_tab$N <- as.numeric(denom[as.character(soc_tab$trt)])
-      soc_tab$pct <- 100*soc_tab$n_participants/soc_tab$N
+      soc_tab$pct <- 100 * soc_tab$n_participants / soc_tab$N
+
       soc_tab[order(soc_tab$trt, -soc_tab$n_participants), ][1:10, ]
     }
     ```
@@ -493,11 +520,12 @@ PT incidence:
 !!! interactive "R"
     ```r
     if (nrow(ae) > 0) {
-      pt_inc <- unique(ae[, c("trt","PT","participant_id")])
+      pt_inc <- unique(ae[, c("trt", "PT", "participant_id")])
       pt_tab <- as.data.frame(table(pt_inc$trt, pt_inc$PT))
-      names(pt_tab) <- c("trt","PT","n_participants")
+      names(pt_tab) <- c("trt", "PT", "n_participants")
       pt_tab$N <- as.numeric(denom[as.character(pt_tab$trt)])
-      pt_tab$pct <- 100*pt_tab$n_participants/pt_tab$N
+      pt_tab$pct <- 100 * pt_tab$n_participants / pt_tab$N
+
       pt_tab[order(pt_tab$trt, -pt_tab$n_participants), ][1:12, ]
     }
     ```
@@ -522,7 +550,7 @@ Overdispersion check:
     deviance(fit) / df.residual(fit)
     ```
 
-If much > 1, consider negative binomial:
+If much larger than 1, consider negative binomial:
 
 !!! interactive "R"
     ```r
@@ -538,25 +566,26 @@ If much > 1, consider negative binomial:
 
 ---
 
-## 16. Lab safety and “shift tables” 
+## 16. Lab safety and shift tables
 
-Many trials monitor labs such as ALT/AST, creatinine, neutrophils.
+Many trials monitor labs such as ALT/AST, creatinine, and neutrophils.
 
 A common reporting tool is a shift table:
-- baseline category (normal/high)
+- baseline category (e.g., normal / high)
 - worst post-baseline category
 
 Example categories:
 - Normal
 - Grade 1
 - Grade 2+
+
 based on clinical thresholds.
 
 Shift tables are descriptive but very informative for safety evaluation.
 
 ---
 
-## 17. Practical reporting guidance 
+## 17. Practical reporting guidance
 
 Safety reporting typically includes:
 - overall AE/SAE/discontinuation/death summary
@@ -568,7 +597,7 @@ Safety reporting typically includes:
 
 Important reporting principle:
 - always provide denominators (N per arm)
-- clarify the risk window (treatment-emergent definition)
+- clearly define the risk window (what counts as treatment-emergent)
 
 ---
 
@@ -577,10 +606,10 @@ Important reporting principle:
 <details>
 <summary>Click to try</summary>
 
-1. Change base_rate from 2.0 to 1.0 and treatment multiplier from 1.25 to 1.10. Recompute EAIR and Poisson RR.  
+1. Change `base_rate` from 2.0 to 1.0 and treatment multiplier from 1.25 to 1.10. Recompute EAIR and Poisson RR.  
 2. Make exposure time identical in both arms and compare incidence proportions vs EAIR. Do conclusions change?  
 3. Simulate a scenario with strong overdispersion (e.g., add subject-level frailty) and compare Poisson vs negative binomial.  
-4. Create a table of “top 5 PTs” by incidence for each arm.  
+4. Create a table of the top 5 PTs by incidence for each arm.  
 5. Define an AESI category (e.g., infections) and compute incidence proportion and rate ratio for that subset.
 
 </details>
@@ -594,5 +623,3 @@ Important reporting principle:
 - Exposure-adjusted rates account for different follow-up and recurrent events.
 - Poisson/negative binomial models allow rate ratio estimation with person-time offsets.
 - Clear, denominator-aware reporting is essential for interpretable safety results.
-
----

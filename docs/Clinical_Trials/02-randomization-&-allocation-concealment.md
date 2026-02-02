@@ -76,9 +76,10 @@ You can have:
 Each participant is assigned independently using a fixed probability.
 
 For 1:1 allocation:
-\[
-P(\text{Treatment}) = 0.5,\quad P(\text{Control}) = 0.5
-\]
+
+$$
+P(\mathrm{Treatment}) = 0.5,\qquad P(\mathrm{Control}) = 0.5
+$$
 
 Pros:
 - simplest
@@ -291,14 +292,9 @@ A convenient block size is 6 (4 treatment, 2 control).
     import pandas as pd
 
     def block_randomization_ratio(n, ratio=(2,1), block_size=6, seed=123):
-        if block_size != sum(ratio) * (block_size // sum(ratio)):
-            # simple sanity check; user should choose compatible sizes
-            pass
-
         rng = np.random.default_rng(seed)
 
         t, c = ratio
-        # scale ratio to block_size
         k = block_size // (t + c)
         block = ["Treatment"]*(t*k) + ["Control"]*(c*k)
 
@@ -345,7 +341,6 @@ This is common in multicenter trials:
 
         for _, idx in out.groupby(strata_cols).groups.items():
             m = len(idx)
-            # different seed per stratum
             sub_seed = int(rng.integers(1, 10**9))
             sub = random_block_randomization(m, block_sizes=block_sizes, seed=sub_seed)
             out.loc[list(idx), "assignment"] = sub["assignment"].values
@@ -360,7 +355,6 @@ Quick balance check:
 
 !!! interactive "Python"
     ```python
-    # Check balance by strata
     balance = df_rand.groupby(["site", "sex", "assignment"]).size().unstack(fill_value=0)
     balance
     ```
@@ -571,5 +565,3 @@ Randomization protects treatment comparisons from confounding, but proper implem
 - stratified randomization improves balance on important prognostic factors
 - allocation concealment prevents selection bias and is essential even if blinding is not possible
 - baseline p-values are discouraged; use descriptive baseline tables instead
-
----
