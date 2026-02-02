@@ -16,7 +16,7 @@ This chapter covers the major clinical trial designs used in biomedical research
 
 ---
 
-## 1. Parallel-group randomized controlled trials (the default design)
+## 1. Parallel-group randomized controlled trials 
 
 ### 1.1 What it is
 Participants are randomized to one of two or more groups and followed forward.
@@ -44,7 +44,7 @@ Each participant receives only one assigned intervention.
 
 ---
 
-## 2. Cross-over trials (within-subject design)
+## 2. Cross-over trials 
 
 Cross-over designs are common when:
 - the condition is stable
@@ -79,7 +79,7 @@ Cross-over designs are not suitable for:
 - outcomes that permanently change after first treatment
 - progressive diseases where baseline changes over time
 
-### 2.4 Typical analysis (simple)
+### 2.4 Typical analysis 
 For a continuous outcome, a common approach is:
 - model outcome ~ treatment + period + sequence + subject(random)
 
@@ -163,7 +163,7 @@ If interaction is large, interpretation becomes more complex and power for main 
 
 ---
 
-## 5. Adaptive trial designs (overview)
+## 5. Adaptive trial designs 
 
 Adaptive designs allow modifications based on interim data while controlling Type I error.
 
@@ -364,7 +364,7 @@ Fit regression:
 
 ---
 
-## 12. Design choice guide (practical)
+## 12. Design choice guide
 
 ### Parallel-group
 Choose when:

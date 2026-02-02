@@ -1,4 +1,4 @@
-# 04 — Outcomes, Endpoints, and Estimands (What Exactly Are We Estimating?)
+# 04 — Outcomes, Endpoints, and Estimands
 
 Clinical trials are not just about collecting data — they are about answering a very specific question *clearly and unambiguously*.
 
@@ -16,7 +16,7 @@ This is a practical biostatistics chapter: you will learn how to translate a cli
 
 ---
 
-## 1. Outcome vs endpoint vs estimand (key definitions)
+## 1. Outcome vs endpoint vs estimand
 
 ### 1.1 Outcome
 An outcome is any measurement collected during the trial.
@@ -205,7 +205,7 @@ Interpretation:
 Danger:
 - can introduce bias if discontinuation relates to prognosis
 
-### 6.5 Principal stratum strategy (advanced)
+### 6.5 Principal stratum strategy 
 Estimate effect within a latent subgroup defined by intercurrent event behavior.
 
 Example:
@@ -401,7 +401,7 @@ Interpretation:
 
 ---
 
-## 16. How to write endpoints/estimands in a protocol (template)
+## 16. How to write endpoints/estimands in a protocol
 
 Example template:
 

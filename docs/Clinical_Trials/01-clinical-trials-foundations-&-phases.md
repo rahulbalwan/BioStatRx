@@ -1,4 +1,4 @@
-# 01 — Clinical Trials Foundations & Phases (Biostatistics Focus)
+# 01 — Clinical Trials Foundations & Phases 
 
 Clinical trials are the gold standard for answering causal questions in medicine and public health.  
 Unlike observational studies, trials are designed to **control bias** (especially confounding) using **randomization**, structured follow-up, and pre-specified analysis plans.
@@ -127,7 +127,7 @@ Clinical trials are often discussed in phases (drug development context).
 
 ---
 
-## 6. Efficacy vs Effectiveness (important distinction)
+## 6. Efficacy vs Effectiveness 
 
 ### Efficacy
 - “Does it work under ideal conditions?”

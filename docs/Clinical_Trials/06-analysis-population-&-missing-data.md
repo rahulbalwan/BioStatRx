@@ -132,7 +132,7 @@ This allows readers and regulators to evaluate robustness.
 
 ---
 
-## 6. Missing data (the big topic)
+## 6. Missing data
 
 Missing outcomes occur due to:
 - dropout
@@ -145,8 +145,7 @@ Before choosing methods, understand *why* data are missing.
 
 ---
 
-## 7. Missing data mechanisms (high-level but essential)
-
+## 7. Missing data mechanisms
 ### 7.1 MCAR: Missing Completely At Random
 Missingness does not depend on observed or unobserved data.
 
@@ -187,7 +186,7 @@ Cons:
 
 Acceptable only under strong conditions (rare).
 
-### 8.2 Single imputation (generally discouraged as primary)
+### 8.2 Single imputation 
 Examples:
 - last observation carried forward (LOCF)
 - baseline carried forward
@@ -305,7 +304,7 @@ Mean imputation can bias effect and understate uncertainty.
 
 ---
 
-## 12A. Python: Imputation using observed covariates (conceptual MI-style workflow)
+## 12A. Python: Imputation using observed covariates (MI-style workflow)
 
 We do a principled imputation using baseline severity and treatment as predictors.
 
@@ -429,7 +428,7 @@ Interpretation:
 
 ---
 
-## 16. Sensitivity analyses (what to do in real trials)
+## 16. Sensitivity analyses 
 
 Because missingness may be MNAR, trials often include sensitivity analyses such as:
 - different imputation models

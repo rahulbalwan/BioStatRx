@@ -1,4 +1,4 @@
-# 08 — Reporting & Interpretation (CONSORT, Effect Sizes, Plots, Reproducibility)
+# 08 — Reporting & Interpretation 
 
 A clinical trial result is only useful if it is reported clearly and reproducibly.
 
@@ -42,7 +42,7 @@ Even if you don’t memorize the checklist, your trial reporting should naturall
 
 ---
 
-## 2. Participant flow (CONSORT flow diagram)
+## 2. Participant flow 
 
 A typical flow includes:
 - assessed for eligibility
@@ -270,7 +270,7 @@ Interpretation:
 
 ---
 
-## 12A. Python: CONSORT-style counts (simple)
+## 12A. Python: CONSORT-style counts 
 
 !!! interactive "Python"
     ```python
@@ -472,7 +472,7 @@ Interpretation:
 
 ---
 
-## 21. How to write results (template text)
+## 21. How to write results 
 
 A high-quality results paragraph usually includes:
 - point estimate
@@ -487,7 +487,7 @@ Do not over-focus on p-values; include them if required, but interpret the CI pr
 
 ---
 
-## 22. Common interpretation mistakes (avoid these)
+## 22. Common interpretation mistakes 
 
 - “No significant difference” does not mean “no difference”
   - check CI width and clinically relevant effects
@@ -498,7 +498,7 @@ Do not over-focus on p-values; include them if required, but interpret the CI pr
 
 ---
 
-## 23. Reproducible reporting workflow (practical suggestion)
+## 23. Reproducible reporting workflow 
 
 A simple, robust structure:
 

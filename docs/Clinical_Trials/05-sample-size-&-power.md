@@ -1,4 +1,4 @@
-# 05 — Sample Size & Power (Continuous, Binary, Time-to-Event)
+# 05 — Sample Size & Power 
 
 A clinical trial that is too small may fail to detect a clinically meaningful effect.  
 A trial that is too large can waste resources or expose unnecessary participants to risk.
@@ -52,7 +52,7 @@ Examples:
 
 ---
 
-## 2. General sample size ingredients (always needed)
+## 2. General sample size ingredients
 
 To plan sample size you must specify:
 1) primary endpoint type (continuous/binary/time-to-event)
@@ -228,7 +228,7 @@ Example:
 
 ---
 
-## 10A. Python: Event-based survival calculation (simple approximation)
+## 10A. Python: Event-based survival calculation 
 
 Example:
 - HR = 0.75
@@ -337,7 +337,7 @@ Example:
 
 ---
 
-## 15B. R: Event-based survival calculation (simple approximation)
+## 15B. R: Event-based survival calculation 
 
 !!! interactive "R"
     ```r
@@ -376,7 +376,7 @@ Example:
 
 ---
 
-## 17. Practical guidance: choosing inputs responsibly
+## 17. Practical guidance
 
 ### 17.1 Effect size
 Effect size should be:

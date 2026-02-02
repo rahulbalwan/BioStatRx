@@ -18,7 +18,7 @@ This chapter gives a practical, biostatistics-focused framework for analyzing an
 
 ---
 
-## 1. Key safety terminology (trial standard)
+## 1. Key safety terminology 
 
 Different trials have slightly different definitions, but the concepts are consistent.
 
@@ -57,13 +57,13 @@ Safety reporting often focuses on TEAEs because they align with exposure.
 
 ---
 
-## 2. Safety analysis populations (who is included?)
+## 2. Safety analysis populations 
 
 Safety analysis is usually based on an “as-treated” or “safety set” population.
 
 Common definitions:
 
-### 2.1 Safety set (typical)
+### 2.1 Safety set 
 All participants who received at least one dose of study treatment, analyzed according to treatment actually received.
 
 This differs from ITT because:
@@ -280,7 +280,7 @@ Convert to events per 100 person-years:
 
 ---
 
-## 9A. Python: SOC and PT frequency tables (participant-level incidence)
+## 9A. Python: SOC and PT frequency tables 
 
 Often safety tables report:
 - number (%) of participants with at least one event in a category
@@ -538,7 +538,7 @@ If much > 1, consider negative binomial:
 
 ---
 
-## 16. Lab safety and “shift tables” (concept)
+## 16. Lab safety and “shift tables” 
 
 Many trials monitor labs such as ALT/AST, creatinine, neutrophils.
 
@@ -556,7 +556,7 @@ Shift tables are descriptive but very informative for safety evaluation.
 
 ---
 
-## 17. Practical reporting guidance (what to include)
+## 17. Practical reporting guidance 
 
 Safety reporting typically includes:
 - overall AE/SAE/discontinuation/death summary

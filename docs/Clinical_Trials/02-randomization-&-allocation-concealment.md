@@ -1,4 +1,4 @@
-# 02 — Randomization & Allocation Concealment (Detailed, Biostatistics Focus)
+# 02 — Randomization & Allocation Concealment
 
 Randomization is the design feature that makes a clinical trial fundamentally different from an observational study.  
 It protects the treatment comparison from confounding and forms the basis for valid inference.
@@ -31,11 +31,11 @@ Randomization guarantees balance **on average** across repeated trials. In any s
 
 ---
 
-## 2. Allocation concealment vs blinding (a critical distinction)
+## 2. Allocation concealment vs blinding
 
 These two concepts are often confused. They address different biases.
 
-### 2.1 Allocation concealment (prevents selection bias)
+### 2.1 Allocation concealment
 Allocation concealment means:
 - the person enrolling participants cannot predict or influence the next assignment
 
@@ -52,7 +52,7 @@ Common concealment methods:
 - pharmacy-controlled dispensing
 - sequentially numbered, opaque, sealed envelopes (SNOSE) when done correctly
 
-### 2.2 Blinding (prevents performance and assessment bias)
+### 2.2 Blinding
 Blinding means:
 - participants, clinicians, and/or outcome assessors do not know treatment assignment
 
@@ -70,7 +70,7 @@ You can have:
 
 ---
 
-## 3. Randomization methods (what they are and when to use them)
+## 3. Randomization methods
 
 ### 3.1 Simple randomization
 Each participant is assigned independently using a fixed probability.
@@ -172,9 +172,9 @@ Minimization is often run via specialized randomization systems rather than simp
 ## 4. Baseline balance: what to do and what not to do
 
 ### 4.1 What to do
-- Provide a baseline characteristics table (CONSORT style)
+- Provide a baseline characteristics table 
 - Look for clinically meaningful imbalances
-- Pre-specify adjustment covariates (don’t decide after seeing imbalance)
+- Pre-specify adjustment covariates
 
 ### 4.2 What not to do: baseline p-values
 Testing baseline differences with p-values is widely discouraged because:
@@ -184,7 +184,7 @@ Testing baseline differences with p-values is widely discouraged because:
 
 Instead:
 - report descriptive summaries
-- optionally report standardized differences (common in some fields)
+- optionally report standardized differences 
 
 ---
 
@@ -251,7 +251,7 @@ We will show:
 
 ---
 
-## 7A. Python: Random block sizes (recommended)
+## 7A. Python: Random block sizes 
 
 !!! interactive "Python"
     ```python
@@ -317,7 +317,7 @@ A convenient block size is 6 (4 treatment, 2 control).
 
 ---
 
-## 9A. Python: Stratified block randomization (by site and sex)
+## 9A. Python: Stratified block randomization
 
 This is common in multicenter trials:
 - stratify by site
@@ -419,7 +419,7 @@ R is frequently used by trial statisticians for randomization lists and audit-fr
 
 ---
 
-## 12B. R: Random block sizes (recommended)
+## 12B. R: Random block sizes
 
 !!! interactive "R"
     ```r
