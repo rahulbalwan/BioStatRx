@@ -69,9 +69,9 @@ For inference (p-values, CI) to be reliable, we usually want:
 ## 3. Residual plots (the #1 diagnostic)
 
 Residuals vs fitted:
-- random cloud around 0 ✅
-- curve pattern → nonlinearity ❌
-- funnel shape → heteroscedasticity ❌
+- random cloud around 0 
+- curve pattern → nonlinearity 
+- funnel shape → heteroscedasticity 
 
 !!! interactive "Python"
     ```python
