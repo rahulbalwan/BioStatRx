@@ -1,0 +1,2346 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/10-time-dependent-covariates/">
+      
+      
+        <link rel="prev" href="../09-cox-diagnostics/">
+      
+      
+        <link rel="next" href="../11-parametric-survival-models/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Time-dependent Covariates - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#time-dependent-covariates-extended-cox-model" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Time-dependent Covariates
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-time-dependent-covariate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a time-dependent covariate?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-two-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Two concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Two concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-time-dependent-covariate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Time-dependent covariate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-time-varying-effect-non-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Time-varying effect (non-PH)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-time-dependent-covariates-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why time-dependent covariates matter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Why time-dependent covariates matter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-treatment-initiation-happens-after-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Treatment initiation happens after baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-immortal-time-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Immortal time bias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Immortal time bias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-correct-data-structure-startstop-counting-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Correct data structure: start–stop (counting process)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6example-delayed-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.Example: delayed treatment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-practical-steps-to-build-time-dependent-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Practical steps to build time-dependent dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Practical steps to build time-dependent dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-time-dependent-covariate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a time-dependent covariate?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-two-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Two concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Two concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-time-dependent-covariate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Time-dependent covariate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-time-varying-effect-non-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Time-varying effect (non-PH)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-time-dependent-covariates-matter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why time-dependent covariates matter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Why time-dependent covariates matter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-treatment-initiation-happens-after-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Treatment initiation happens after baseline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-immortal-time-bias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Immortal time bias
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Immortal time bias">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-correct-data-structure-startstop-counting-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Correct data structure: start–stop (counting process)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6example-delayed-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.Example: delayed treatment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-practical-steps-to-build-time-dependent-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Practical steps to build time-dependent dataset
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Practical steps to build time-dependent dataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="time-dependent-covariates-extended-cox-model">Time-Dependent Covariates (Extended Cox Model)<a class="headerlink" href="#time-dependent-covariates-extended-cox-model" title="Permanent link">&para;</a></h1>
+<p>In many real clinical and epidemiological studies, covariates <strong>change over time</strong>.</p>
+<p>Examples:
+ - treatment starts later or changes dose
+ - biomarkers change (CD4 count, blood pressure, viral load)
+ - smoking status changes
+ - a patient becomes infected or vaccinated during follow-up
+ - hospital discharge changes risk of in-hospital outcomes</p>
+<p>Standard Cox assumes covariates are fixed:</p>
+<div class="arithmatex">\[
+X_i \text{ is constant for the entire follow-up}
+\]</div>
+<p>When this is false, standard Cox can become biased—sometimes severely.</p>
+<p>This chapter covers:</p>
+<ul>
+<li>what time-dependent covariates are  </li>
+<li>how to structure data correctly (start–stop / counting process)  </li>
+<li>how to fit models in <strong>Python and R</strong>  </li>
+<li>classic bias: <strong>immortal time bias</strong>  </li>
+<li>how to interpret results correctly  </li>
+</ul>
+<hr />
+<h2 id="1-what-is-a-time-dependent-covariate">1. What is a time-dependent covariate?<a class="headerlink" href="#1-what-is-a-time-dependent-covariate" title="Permanent link">&para;</a></h2>
+<p>A time-dependent covariate is a covariate that depends on time:</p>
+<div class="arithmatex">\[
+X_i(t)
+\]</div>
+<p>Cox becomes:</p>
+<div class="arithmatex">\[
+h(t|X(t))=h_0(t)\exp(\beta^T X(t))
+\]</div>
+<p>The model is still Cox PH—same idea—but covariates can update.</p>
+<hr />
+<h2 id="2-two-concepts">2. Two concepts<a class="headerlink" href="#2-two-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="21-time-dependent-covariate">2.1 Time-dependent covariate<a class="headerlink" href="#21-time-dependent-covariate" title="Permanent link">&para;</a></h3>
+<p>The covariate value changes over time.
+ Example:
+  - treatment: 0 before drug starts, 1 after drug starts</p>
+<h3 id="22-time-varying-effect-non-ph">2.2 Time-varying effect (non-PH)<a class="headerlink" href="#22-time-varying-effect-non-ph" title="Permanent link">&para;</a></h3>
+<p>The effect of a covariate changes over time (PH violation).
+ Example:
+  - treatment HR = 0.6 early but 1.1 late</p>
+<p>These are different:
+ - Time-dependent covariate is about <strong>X(t)</strong>
+ - Time-varying effect is about <strong>β(t)</strong></p>
+<hr />
+<h2 id="3-why-time-dependent-covariates-matter">3. Why time-dependent covariates matter<a class="headerlink" href="#3-why-time-dependent-covariates-matter" title="Permanent link">&para;</a></h2>
+<h3 id="31-treatment-initiation-happens-after-baseline">3.1 Treatment initiation happens after baseline<a class="headerlink" href="#31-treatment-initiation-happens-after-baseline" title="Permanent link">&para;</a></h3>
+<p>Example: observational study of statin use.</p>
+<p>If a patient starts statin at month 6, and we code:</p>
+<ul>
+<li><code>statin = 1</code> from time 0</li>
+</ul>
+<p>Then we falsely give the drug credit for survival during months 0–6 even though they weren’t on it.</p>
+<p>This creates a major bias.</p>
+<hr />
+<h2 id="4-immortal-time-bias">4. Immortal time bias<a class="headerlink" href="#4-immortal-time-bias" title="Permanent link">&para;</a></h2>
+<p>Immortal time bias occurs when:</p>
+<blockquote>
+<p>to be classified as “treated”, the subject must survive long enough to receive treatment.</p>
+</blockquote>
+<p>So early time becomes “immortal” (event cannot occur before treatment starts if you require survival to receive it).</p>
+<p>If you label them as treated from baseline, you inflate treatment benefit.</p>
+<h3 id="41-example">4.1 Example<a class="headerlink" href="#41-example" title="Permanent link">&para;</a></h3>
+<ul>
+<li>surgery at day 60</li>
+<li>
+<p>patient must survive 60 days to have surgery
+If you label surgery group at day 0:</p>
+</li>
+<li>
+<p>they appear to have better survival, partly because they had to survive long enough.</p>
+</li>
+</ul>
+<p>Correct fix: treat surgery status as time-dependent.</p>
+<hr />
+<h2 id="5-correct-data-structure-startstop-counting-process">5. Correct data structure: start–stop (counting process)<a class="headerlink" href="#5-correct-data-structure-startstop-counting-process" title="Permanent link">&para;</a></h2>
+<p>Instead of one row per subject:</p>
+<p>| id | time | event | treatment |</p>
+<p>We use multiple rows:</p>
+<p>| id | start | stop | event | treatment |</p>
+<p>Each row represents a time interval where covariates are constant.</p>
+<hr />
+<h2 id="6example-delayed-treatment">6.Example: delayed treatment<a class="headerlink" href="#6example-delayed-treatment" title="Permanent link">&para;</a></h2>
+<p>A patient:
+ - enters at time 0
+ - starts treatment at time 5
+ - experiences event at time 10</p>
+<p>Correct representation:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">start</th>
+<th style="text-align: right;">stop</th>
+<th style="text-align: right;">event</th>
+<th style="text-align: right;">trt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Now the model knows:
+ - untreated from 0 to 5
+ - treated from 5 to 10</p>
+<hr />
+<h2 id="7-practical-steps-to-build-time-dependent-dataset">7. Practical steps to build time-dependent dataset<a class="headerlink" href="#7-practical-steps-to-build-time-dependent-dataset" title="Permanent link">&para;</a></h2>
+<h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h3>
+<p>Identify covariates that change (treatment start, biomarker measurement times)</p>
+<h3 id="step-2">Step 2<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
+<p>Split each subject’s follow-up into intervals</p>
+<h3 id="step-3">Step 3<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
+<p>Create start–stop rows with updated covariates</p>
+<h3 id="step-4">Step 4<a class="headerlink" href="#step-4" title="Permanent link">&para;</a></h3>
+<p>Fit extended Cox using start–stop format</p>
+<hr />
+<h1 id="part-a-python-lifelines">PART A — PYTHON (lifelines)<a class="headerlink" href="#part-a-python-lifelines" title="Permanent link">&para;</a></h1>
+<p>Python survival modeling with time-dependent covariates is typically done using:</p>
+<ul>
+<li><code>CoxTimeVaryingFitter</code> from lifelines</li>
+</ul>
+<hr />
+<h2 id="8a-simulate-a-delayed-treatment-dataset-python">8A. Simulate a delayed treatment dataset (Python)<a class="headerlink" href="#8a-simulate-a-delayed-treatment-dataset-python" title="Permanent link">&para;</a></h2>
+<p>We simulate:
+- each subject has a treatment start time
+- before that they are untreated
+- after that they are treated
+- treatment reduces hazard</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">777</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+
+<span class="c1"># Treatment start time (some start late, some early)</span>
+<span class="n">t_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># baseline covariate</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># true effects</span>
+<span class="n">beta_age</span> <span class="o">=</span> <span class="mf">0.03</span>
+<span class="n">beta_trt</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.60</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="mf">0.05</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># hazard before treatment</span>
+    <span class="n">h0</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_trt</span><span class="o">*</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># hazard after treatment</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_trt</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># simulate event time in two-stage piecewise exponential</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">h0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">t1</span> <span class="o">&lt;</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="c1"># event occurs before treatment begins</span>
+        <span class="n">event_time</span> <span class="o">=</span> <span class="n">t1</span>
+        <span class="c1"># one interval only: untreated</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">event_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># survived untreated period</span>
+        <span class="c1"># then simulate time after treatment</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">h1</span><span class="p">)</span>
+        <span class="n">event_time</span> <span class="o">=</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">t2</span>
+
+        <span class="c1"># censoring</span>
+        <span class="n">censor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event_time</span> <span class="o">&lt;=</span> <span class="n">censor</span><span class="p">:</span>
+            <span class="c1"># two intervals: untreated then treated; event in second</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">event_time</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># censored in second interval</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">censor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+
+<span class="n">tv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;start&quot;</span><span class="p">,</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="s2">&quot;treatment&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">])</span>
+<span class="n">tv</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>This is start–stop format.</p>
+<hr />
+<h2 id="9a-fit-time-dependent-cox-in-python">9A. Fit time-dependent Cox in Python<a class="headerlink" href="#9a-fit-time-dependent-cox-in-python" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxTimeVaryingFitter</span>
+
+<span class="n">ctv</span> <span class="o">=</span> <span class="n">CoxTimeVaryingFitter</span><span class="p">()</span>
+<span class="n">ctv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tv</span><span class="p">,</span> <span class="n">id_col</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">start_col</span><span class="o">=</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">stop_col</span><span class="o">=</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+
+<span class="n">ctv</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- <code>exp(coef)</code> for treatment is the hazard ratio comparing treated vs untreated at the same time.</p>
+<p>Expected:
+- HR &lt; 1 (protective)</p>
+<hr />
+<h2 id="10a-what-happens-if-we-do-it-wrong-baseline-treatment-only">10A. What happens if we do it WRONG (baseline treatment only)<a class="headerlink" href="#10a-what-happens-if-we-do-it-wrong-baseline-treatment-only" title="Permanent link">&para;</a></h2>
+<p>Wrong approach:
+- label treated if they ever got treatment
+- then fit standard Cox</p>
+<p>This creates immortal time bias.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Collapse to one row per person</span>
+<span class="n">baseline</span> <span class="o">=</span> <span class="n">tv</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">time</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span><span class="s2">&quot;max&quot;</span><span class="p">),</span>
+    <span class="n">event</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="s2">&quot;max&quot;</span><span class="p">),</span>
+    <span class="n">age</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;first&quot;</span><span class="p">),</span>
+    <span class="n">ever_treated</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;treatment&quot;</span><span class="p">,</span><span class="s2">&quot;max&quot;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+<span class="n">cph_wrong</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph_wrong</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">baseline</span><span class="p">[[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">,</span><span class="s2">&quot;ever_treated&quot;</span><span class="p">]],</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+
+<span class="n">cph_wrong</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Compare HR from:
+- time-dependent model (correct)
+- baseline ever-treated Cox (wrong)</p>
+<p>You will usually see the wrong model make treatment look <em>more protective</em> than it truly is.</p>
+<hr />
+<h1 id="part-b-r-survival">PART B — R (survival)<a class="headerlink" href="#part-b-r-survival" title="Permanent link">&para;</a></h1>
+<p>In R, time-dependent covariates are handled using:</p>
+<ul>
+<li><code>coxph()</code> with <code>Surv(start, stop, event)</code> form<br />
+(i.e., counting-process notation)</li>
+</ul>
+<hr />
+<h2 id="11b-simulate-delayed-treatment-dataset-in-r">11B. Simulate delayed treatment dataset in R<a class="headerlink" href="#11b-simulate-delayed-treatment-dataset-in-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">777</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">200</span>
+
+<span class="n">t_start</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">)</span>
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+
+<span class="n">beta_age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.03</span>
+<span class="n">beta_trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.60</span>
+<span class="n">base</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.05</span>
+
+<span class="n">rows</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span>
+<span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span>
+
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="n">h0</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_trt</span><span class="o">*</span><span class="m">0</span><span class="p">)</span>
+<span class="w">  </span><span class="n">h1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_trt</span><span class="o">*</span><span class="m">1</span><span class="p">)</span>
+
+<span class="w">  </span><span class="n">t1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h0</span><span class="p">)</span>
+
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">t1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">event_time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t1</span>
+<span class="w">    </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">event_time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="m">1</span><span class="p">,</span>
+<span class="w">                              </span><span class="n">treatment</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="w">    </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="n">t2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h1</span><span class="p">)</span>
+<span class="w">    </span><span class="n">event_time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t2</span>
+<span class="w">    </span><span class="n">censor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">)</span>
+
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">event_time</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">censor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="m">0</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">treatment</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">=</span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">event_time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="m">1</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">treatment</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="m">0</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">treatment</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">=</span><span class="n">t_start</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">censor</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="m">0</span><span class="p">,</span>
+<span class="w">                                </span><span class="n">treatment</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">tv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">tv</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="12b-fit-time-dependent-cox-in-r">12B. Fit time-dependent Cox in R<a class="headerlink" href="#12b-fit-time-dependent-cox-in-r" title="Permanent link">&para;</a></h2>
+<p>Use:</p>
+<div class="arithmatex">\[
+Surv(start, stop, event)
+\]</div>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit_td</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">tv</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_td</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- <code>exp(coef)</code> for treatment is HR comparing treated vs untreated intervals.</p>
+<hr />
+<h2 id="13b-wrong-baseline-ever-treated-model-in-r">13B. WRONG baseline ever-treated model in R<a class="headerlink" href="#13b-wrong-baseline-ever-treated-model-in-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">baseline</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">tv</span><span class="p">,</span>
+<span class="w">                      </span><span class="n">FUN</span><span class="o">=</span><span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
+
+<span class="c1"># baseline time is max stop per id</span>
+<span class="n">time_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">stop</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">tv</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">max</span><span class="p">)</span>
+
+<span class="n">baseline</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">time_max</span><span class="o">$</span><span class="n">stop</span>
+<span class="n">baseline</span><span class="o">$</span><span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">event</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">tv</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">max</span><span class="p">)</span><span class="o">$</span><span class="n">event</span>
+<span class="n">baseline</span><span class="o">$</span><span class="n">ever_treated</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">treatment</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">tv</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">max</span><span class="p">)</span><span class="o">$</span><span class="n">treatment</span>
+
+<span class="n">fit_wrong</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ever_treated</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">baseline</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_wrong</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Compare:
+- <code>fit_td</code> (correct)
+- <code>fit_wrong</code> (biased)</p>
+<hr />
+<h2 id="14-interpretation-rules">14. Interpretation rules<a class="headerlink" href="#14-interpretation-rules" title="Permanent link">&para;</a></h2>
+<h3 id="141-treatment-hr-in-time-dependent-cox">14.1 Treatment HR in time-dependent Cox<a class="headerlink" href="#141-treatment-hr-in-time-dependent-cox" title="Permanent link">&para;</a></h3>
+<p>HR compares:
+- hazard when <strong>currently treated</strong>
+vs
+- hazard when <strong>currently untreated</strong></p>
+<p>It does NOT compare “ever treated” vs “never treated”.</p>
+<h3 id="142-time-dependent-biomarker-eg-cd4-count">14.2 Time-dependent biomarker (e.g., CD4 count)<a class="headerlink" href="#142-time-dependent-biomarker-eg-cd4-count" title="Permanent link">&para;</a></h3>
+<p>If CD4 changes over time, you model:</p>
+<div class="arithmatex">\[
+h(t)=h_0(t)\exp(\beta \cdot CD4(t))
+\]</div>
+<p>Interpretation:
+- at time t, higher CD4 is associated with lower/higher hazard.</p>
+<hr />
+<h2 id="15-common-scenarios">15. Common scenarios<a class="headerlink" href="#15-common-scenarios" title="Permanent link">&para;</a></h2>
+<h3 id="151-treatment-switching">15.1 Treatment switching<a class="headerlink" href="#151-treatment-switching" title="Permanent link">&para;</a></h3>
+<p>Patients may:
+ - stop drug
+ - start new drug
+ - change dose</p>
+<p>Time-dependent Cox handles this by updating treatment status across intervals.</p>
+<h3 id="152-longitudinal-biomarkers">15.2 Longitudinal biomarkers<a class="headerlink" href="#152-longitudinal-biomarkers" title="Permanent link">&para;</a></h3>
+<p>If measurements occur at repeated visits:
+ - split follow-up at visit times
+ - carry-forward biomarker value until next measurement</p>
+<hr />
+<h2 id="16-common-mistakes">16. Common mistakes<a class="headerlink" href="#16-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-coding-ever-treated-as-baseline">Mistake 1: coding “ever treated” as baseline<a class="headerlink" href="#mistake-1-coding-ever-treated-as-baseline" title="Permanent link">&para;</a></h3>
+<p>→ immortal time bias</p>
+<p>Fix: use start–stop data and time-dependent treatment variable.</p>
+<h3 id="mistake-2-using-event-time-itself-to-define-covariate-reverse-causality">Mistake 2: using event time itself to define covariate (reverse causality)<a class="headerlink" href="#mistake-2-using-event-time-itself-to-define-covariate-reverse-causality" title="Permanent link">&para;</a></h3>
+<p>Example:
+ - covariate measured after event
+ This can create bias.</p>
+<p>Fix: ensure covariate values are known BEFORE each interval.</p>
+<h3 id="mistake-3-too-many-splits-without-reason">Mistake 3: too many splits without reason<a class="headerlink" href="#mistake-3-too-many-splits-without-reason" title="Permanent link">&para;</a></h3>
+<p>Very fine splitting can become heavy computationally.</p>
+<p>Fix: split only when covariates change or at visit times.</p>
+<hr />
+<h2 id="17-key-takeaways">17. Key takeaways<a class="headerlink" href="#17-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Time-dependent covariates are covariates <span class="arithmatex">\(X(t)\)</span> that change over time.</li>
+<li>Use start–stop (counting-process) format.</li>
+<li>Extended Cox handles delayed treatment and longitudinal predictors correctly.</li>
+<li>Avoid immortal time bias by not using baseline “ever treated.”</li>
+<li>Interpretation is about <strong>current covariate value at time t</strong>.</li>
+</ul>
+<hr />
+<h2 id="18-exercises">18. Exercises<a class="headerlink" href="#18-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+ 1. Simulate delayed treatment and compare HR from correct time-dependent Cox vs wrong baseline ever-treated Cox.  
+ 2. Add a biomarker measured every 3 months; create start–stop intervals and fit model.  
+ 3. Create treatment switching (0→1→0) and model it.  
+ 4. In R, fit time-dependent Cox with `Surv(start, stop, event)`. Confirm matches Python results.  
+ 5. Explain immortal time bias in one paragraph with a real clinical example.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

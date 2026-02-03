@@ -1,0 +1,2326 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Clinical_Trials/01-clinical-trials-foundations-%26-phases/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-randomization-%26-allocation-concealment/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Foundations & Phases - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#clinical-trials-foundations-phases" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Foundations & Phases
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Survival_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Clinical Trials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations & Phases
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations & Phases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-clinical-trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a clinical trial?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-trials-are-special-vs-observational-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why trials are special (vs observational studies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Why trials are special (vs observational studies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-the-confounding-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 The confounding problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-randomization-breaks-confounding-in-expectation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Randomization breaks confounding (in expectation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-trial-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Key trial terminology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Key trial terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-intervention-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Intervention / treatment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-control-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Control group
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-outcome-and-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Outcome and endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-follow-up-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Follow-up time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-censoring-time-to-event-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Censoring (time-to-event trials)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-types-of-clinical-trials-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Types of clinical trials (high-level)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Types of clinical trials (high-level)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-superiority-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Superiority trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-non-inferiority-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Non-inferiority trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-equivalence-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Equivalence trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trial-phases-iiv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Trial phases (I–IV)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trial phases (I–IV)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-i-safety-dose-first-in-human" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase I — Safety &amp; dose (first-in-human)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-ii-preliminary-efficacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase II — Preliminary efficacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-iii-confirmatory-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase III — Confirmatory trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-iv-post-marketing-surveillance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase IV — Post-marketing surveillance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-efficacy-vs-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Efficacy vs Effectiveness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Efficacy vs Effectiveness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#efficacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effectiveness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trial-protocol-and-statistical-analysis-plan-sap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trial protocol and statistical analysis plan (SAP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-simple-trial-example-continuous-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. A simple trial example (continuous endpoint)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. A simple trial example (continuous endpoint)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-estimand-plain-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key estimand (plain language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-interactive-simulation-python-why-randomization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Interactive simulation (Python): why randomization matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interactive-simulation-r-why-randomization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interactive simulation (R): why randomization matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-randomization-%26-allocation-concealment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Randomization & Allocation Concealment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-trial-designs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trial Designs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-outcomes-endpoints-%26-estimands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outcomes, Endpoints & Estimands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sample-size-%26-power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Size & Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-analysis-population-%26-missing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Population & Missing Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-safety-analysis-adverse-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety Analysis & Adverse Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting & Interpretation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-clinical-trial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a clinical trial?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-trials-are-special-vs-observational-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why trials are special (vs observational studies)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Why trials are special (vs observational studies)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-the-confounding-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 The confounding problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-randomization-breaks-confounding-in-expectation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Randomization breaks confounding (in expectation)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-key-trial-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Key trial terminology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Key trial terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-intervention-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Intervention / treatment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-control-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Control group
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-outcome-and-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Outcome and endpoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-follow-up-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Follow-up time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-censoring-time-to-event-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5 Censoring (time-to-event trials)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-types-of-clinical-trials-high-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Types of clinical trials (high-level)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Types of clinical trials (high-level)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-superiority-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Superiority trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-non-inferiority-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Non-inferiority trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-equivalence-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Equivalence trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trial-phases-iiv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Trial phases (I–IV)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trial phases (I–IV)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-i-safety-dose-first-in-human" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase I — Safety &amp; dose (first-in-human)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-ii-preliminary-efficacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase II — Preliminary efficacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-iii-confirmatory-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase III — Confirmatory trials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-iv-post-marketing-surveillance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase IV — Post-marketing surveillance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-efficacy-vs-effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Efficacy vs Effectiveness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Efficacy vs Effectiveness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#efficacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Efficacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#effectiveness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Effectiveness
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-trial-protocol-and-statistical-analysis-plan-sap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Trial protocol and statistical analysis plan (SAP)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-a-simple-trial-example-continuous-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. A simple trial example (continuous endpoint)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. A simple trial example (continuous endpoint)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-estimand-plain-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key estimand (plain language)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-interactive-simulation-python-why-randomization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Interactive simulation (Python): why randomization matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-interactive-simulation-r-why-randomization-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Interactive simulation (R): why randomization matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="clinical-trials-foundations-phases">Clinical Trials Foundations &amp; Phases<a class="headerlink" href="#clinical-trials-foundations-phases" title="Permanent link">&para;</a></h1>
+<p>Clinical trials are the gold standard for answering causal questions in medicine and public health.<br />
+Unlike observational studies, trials are designed to <strong>control bias</strong> (especially confounding) using <strong>randomization</strong>, structured follow-up, and pre-specified analysis plans.</p>
+<p>This chapter builds the foundation you’ll need for the rest of the Clinical Trials module.</p>
+<hr />
+<h2 id="1-what-is-a-clinical-trial">1. What is a clinical trial?<a class="headerlink" href="#1-what-is-a-clinical-trial" title="Permanent link">&para;</a></h2>
+<p>A <strong>clinical trial</strong> is a prospective study in which participants are assigned to one or more interventions to evaluate effects on health outcomes.</p>
+<p>Core features:
+- <strong>Prospective</strong> follow-up (time flows forward)
+- <strong>Intervention</strong> is assigned by the study (not chosen by the patient/doctor)
+- Outcomes are measured in a structured way</p>
+<p>In biostatistics, trials are mainly about:
+- estimating treatment effects
+- quantifying uncertainty (confidence intervals)
+- preventing biased inference</p>
+<hr />
+<h2 id="2-why-trials-are-special-vs-observational-studies">2. Why trials are special (vs observational studies)<a class="headerlink" href="#2-why-trials-are-special-vs-observational-studies" title="Permanent link">&para;</a></h2>
+<h3 id="21-the-confounding-problem">2.1 The confounding problem<a class="headerlink" href="#21-the-confounding-problem" title="Permanent link">&para;</a></h3>
+<p>In observational studies, treatment is not assigned randomly. People who receive treatment can differ systematically.</p>
+<p>Example:
+- sicker patients might be more likely to receive a new drug
+- patients with more resources might access better care</p>
+<p>These differences cause <strong>confounding</strong>, making treatment comparisons biased.</p>
+<h3 id="22-randomization-breaks-confounding-in-expectation">2.2 Randomization breaks confounding (in expectation)<a class="headerlink" href="#22-randomization-breaks-confounding-in-expectation" title="Permanent link">&para;</a></h3>
+<p>Randomization ensures that, on average, treatment groups are comparable at baseline:
+- measured covariates: age, sex, BMI, severity
+- unmeasured covariates: unknown risk factors</p>
+<p>So differences in outcome can be attributed to treatment (under assumptions).</p>
+<hr />
+<h2 id="3-key-trial-terminology">3. Key trial terminology<a class="headerlink" href="#3-key-trial-terminology" title="Permanent link">&para;</a></h2>
+<h3 id="31-intervention-treatment">3.1 Intervention / treatment<a class="headerlink" href="#31-intervention-treatment" title="Permanent link">&para;</a></h3>
+<p>What is being tested:
+- drug vs placebo
+- new therapy vs standard care
+- dose A vs dose B</p>
+<h3 id="32-control-group">3.2 Control group<a class="headerlink" href="#32-control-group" title="Permanent link">&para;</a></h3>
+<p>The comparison group could be:
+- placebo
+- standard-of-care
+- active comparator</p>
+<h3 id="33-outcome-and-endpoint">3.3 Outcome and endpoint<a class="headerlink" href="#33-outcome-and-endpoint" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Outcome</strong>: what is measured (e.g., blood pressure)</li>
+<li><strong>Endpoint</strong>: the specific trial-defined quantity used for analysis (e.g., change in SBP at 12 weeks)</li>
+</ul>
+<h3 id="34-follow-up-time">3.4 Follow-up time<a class="headerlink" href="#34-follow-up-time" title="Permanent link">&para;</a></h3>
+<p>Most trials have:
+- start time (randomization/baseline)
+- fixed follow-up schedule
+- final assessment window</p>
+<h3 id="35-censoring-time-to-event-trials">3.5 Censoring (time-to-event trials)<a class="headerlink" href="#35-censoring-time-to-event-trials" title="Permanent link">&para;</a></h3>
+<p>If the endpoint is time-to-event:
+- participant may not experience the event during the study
+- we handle it using survival analysis methods</p>
+<hr />
+<h2 id="4-types-of-clinical-trials-high-level">4. Types of clinical trials (high-level)<a class="headerlink" href="#4-types-of-clinical-trials-high-level" title="Permanent link">&para;</a></h2>
+<h3 id="41-superiority-trials">4.1 Superiority trials<a class="headerlink" href="#41-superiority-trials" title="Permanent link">&para;</a></h3>
+<p>Goal: show new treatment is better than control.</p>
+<div class="arithmatex">\[
+H_0: \Delta \le 0 \quad \text{vs} \quad H_1: \Delta &gt; 0
+\]</div>
+<h3 id="42-non-inferiority-trials">4.2 Non-inferiority trials<a class="headerlink" href="#42-non-inferiority-trials" title="Permanent link">&para;</a></h3>
+<p>Goal: show new treatment is not worse than control beyond a margin <span class="arithmatex">\(\delta\)</span>.</p>
+<div class="arithmatex">\[
+H_0: \Delta \le -\delta \quad \text{vs} \quad H_1: \Delta &gt; -\delta
+\]</div>
+<p>Common when:
+- new treatment is cheaper, safer, or easier to deliver</p>
+<h3 id="43-equivalence-trials">4.3 Equivalence trials<a class="headerlink" href="#43-equivalence-trials" title="Permanent link">&para;</a></h3>
+<p>Goal: show treatments are similar within a margin.</p>
+<div class="arithmatex">\[
+-\delta &lt; \Delta &lt; \delta
+\]</div>
+<hr />
+<h2 id="5-trial-phases-iiv">5. Trial phases (I–IV)<a class="headerlink" href="#5-trial-phases-iiv" title="Permanent link">&para;</a></h2>
+<p>Clinical trials are often discussed in phases (drug development context).</p>
+<h3 id="phase-i-safety-dose-first-in-human">Phase I — Safety &amp; dose (first-in-human)<a class="headerlink" href="#phase-i-safety-dose-first-in-human" title="Permanent link">&para;</a></h3>
+<ul>
+<li>small sample (20–80)</li>
+<li>focus: safety, tolerability, dose-finding</li>
+<li>may include healthy volunteers or patients (oncology often patients)</li>
+</ul>
+<h3 id="phase-ii-preliminary-efficacy">Phase II — Preliminary efficacy<a class="headerlink" href="#phase-ii-preliminary-efficacy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>moderate sample (100–300)</li>
+<li>focus: efficacy signals + continued safety</li>
+<li>refine dose, endpoints, feasibility</li>
+</ul>
+<h3 id="phase-iii-confirmatory-trials">Phase III — Confirmatory trials<a class="headerlink" href="#phase-iii-confirmatory-trials" title="Permanent link">&para;</a></h3>
+<ul>
+<li>large sample (hundreds to thousands)</li>
+<li>focus: definitive evidence of efficacy + safety</li>
+<li>designed for regulatory approval decisions</li>
+</ul>
+<h3 id="phase-iv-post-marketing-surveillance">Phase IV — Post-marketing surveillance<a class="headerlink" href="#phase-iv-post-marketing-surveillance" title="Permanent link">&para;</a></h3>
+<ul>
+<li>after approval</li>
+<li>rare adverse events, long-term outcomes, real-world effectiveness</li>
+</ul>
+<hr />
+<h2 id="6-efficacy-vs-effectiveness">6. Efficacy vs Effectiveness<a class="headerlink" href="#6-efficacy-vs-effectiveness" title="Permanent link">&para;</a></h2>
+<h3 id="efficacy">Efficacy<a class="headerlink" href="#efficacy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>“Does it work under ideal conditions?”</li>
+<li>often in controlled settings, strict inclusion/exclusion criteria</li>
+</ul>
+<h3 id="effectiveness">Effectiveness<a class="headerlink" href="#effectiveness" title="Permanent link">&para;</a></h3>
+<ul>
+<li>“Does it work in real-world practice?”</li>
+<li>pragmatic trials, broader populations, messy conditions</li>
+</ul>
+<p>Biostat tip:
+- pragmatic designs often need careful handling of adherence and missingness.</p>
+<hr />
+<h2 id="7-trial-protocol-and-statistical-analysis-plan-sap">7. Trial protocol and statistical analysis plan (SAP)<a class="headerlink" href="#7-trial-protocol-and-statistical-analysis-plan-sap" title="Permanent link">&para;</a></h2>
+<p>Every trial should have:
+- <strong>protocol</strong> (clinical + operational plan)
+- <strong>SAP</strong> (exact statistical methods before seeing data)</p>
+<p>This reduces:
+- p-hacking
+- outcome switching
+- selective reporting</p>
+<p>Minimum SAP items:
+- primary endpoint definition
+- analysis population (ITT vs PP)
+- model and covariates
+- missing data strategy
+- multiplicity strategy (if relevant)</p>
+<hr />
+<h2 id="8-a-simple-trial-example-continuous-endpoint">8. A simple trial example (continuous endpoint)<a class="headerlink" href="#8-a-simple-trial-example-continuous-endpoint" title="Permanent link">&para;</a></h2>
+<p>Imagine a parallel-group trial:
+- treatment vs placebo
+- outcome: systolic blood pressure at 12 weeks
+- compare mean change from baseline</p>
+<h3 id="key-estimand-plain-language">Key estimand (plain language)<a class="headerlink" href="#key-estimand-plain-language" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Average difference in BP at 12 weeks between treatment and placebo, among all randomized patients.”</p>
+</blockquote>
+<p>This is typically an <strong>ITT-type</strong> estimand.</p>
+<hr />
+<h2 id="9-interactive-simulation-python-why-randomization-matters">9. Interactive simulation (Python): why randomization matters<a class="headerlink" href="#9-interactive-simulation-python-why-randomization-matters" title="Permanent link">&para;</a></h2>
+<p>We will simulate a scenario where:
+- treatment is associated with severity in observational allocation
+- randomization fixes it</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">600</span>
+
+<span class="c1"># Baseline severity (higher = worse)</span>
+<span class="n">severity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># True treatment effect (reduces outcome)</span>
+<span class="n">true_effect</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.6</span>
+
+<span class="c1"># Outcome depends on severity + treatment + noise</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># -------- Observational allocation (confounded) --------</span>
+<span class="c1"># People with higher severity more likely to receive treatment</span>
+<span class="n">p_treat_obs</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span> <span class="o">*</span> <span class="n">severity</span><span class="p">))</span>
+<span class="n">treat_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p_treat_obs</span><span class="p">)</span>
+
+<span class="n">outcome_obs</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">severity</span> <span class="o">+</span> <span class="n">true_effect</span> <span class="o">*</span> <span class="n">treat_obs</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="n">df_obs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="n">severity</span><span class="p">,</span> <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat_obs</span><span class="p">,</span> <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome_obs</span><span class="p">})</span>
+
+<span class="c1"># naive difference in means</span>
+<span class="n">naive_diff_obs</span> <span class="o">=</span> <span class="n">df_obs</span><span class="p">[</span><span class="n">df_obs</span><span class="o">.</span><span class="n">treat</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_obs</span><span class="p">[</span><span class="n">df_obs</span><span class="o">.</span><span class="n">treat</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">naive_diff_obs</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- even though treatment truly helps, confounding can distort the estimate.</p>
+<p>Now compare to randomized allocation:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># -------- Randomized allocation --------</span>
+<span class="n">treat_rct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">outcome_rct</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">severity</span> <span class="o">+</span> <span class="n">true_effect</span> <span class="o">*</span> <span class="n">treat_rct</span> <span class="o">+</span> <span class="n">noise</span>
+
+<span class="n">df_rct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;severity&quot;</span><span class="p">:</span> <span class="n">severity</span><span class="p">,</span> <span class="s2">&quot;treat&quot;</span><span class="p">:</span> <span class="n">treat_rct</span><span class="p">,</span> <span class="s2">&quot;outcome&quot;</span><span class="p">:</span> <span class="n">outcome_rct</span><span class="p">})</span>
+
+<span class="n">naive_diff_rct</span> <span class="o">=</span> <span class="n">df_rct</span><span class="p">[</span><span class="n">df_rct</span><span class="o">.</span><span class="n">treat</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_rct</span><span class="p">[</span><span class="n">df_rct</span><span class="o">.</span><span class="n">treat</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outcome</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">naive_diff_rct</span>
+</code></pre></div>
+</div>
+<p>You should see the randomized estimate is much closer to the true effect.</p>
+<hr />
+<h2 id="10-interactive-simulation-r-why-randomization-matters">10. Interactive simulation (R): why randomization matters<a class="headerlink" href="#10-interactive-simulation-r-why-randomization-matters" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">600</span>
+<span class="n">severity</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+
+<span class="n">true_effect</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.6</span>
+<span class="n">noise</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+
+<span class="c1"># Observational allocation (confounded)</span>
+<span class="n">p_treat_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="m">-1.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">severity</span><span class="p">))</span>
+<span class="n">treat_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">p_treat_obs</span><span class="p">)</span>
+
+<span class="n">outcome_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">severity</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">true_effect</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">treat_obs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">noise</span>
+<span class="n">df_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">severity</span><span class="o">=</span><span class="n">severity</span><span class="p">,</span><span class="w"> </span><span class="n">treat</span><span class="o">=</span><span class="n">treat_obs</span><span class="p">,</span><span class="w"> </span><span class="n">outcome</span><span class="o">=</span><span class="n">outcome_obs</span><span class="p">)</span>
+
+<span class="n">naive_diff_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">df_obs</span><span class="o">$</span><span class="n">outcome</span><span class="p">[</span><span class="n">df_obs</span><span class="o">$</span><span class="n">treat</span><span class="o">==</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">df_obs</span><span class="o">$</span><span class="n">outcome</span><span class="p">[</span><span class="n">df_obs</span><span class="o">$</span><span class="n">treat</span><span class="o">==</span><span class="m">0</span><span class="p">])</span>
+<span class="n">naive_diff_obs</span>
+</code></pre></div>
+</div>
+<p>Randomized allocation:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">treat_rct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">outcome_rct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">severity</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">true_effect</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">treat_rct</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">noise</span>
+<span class="n">df_rct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">severity</span><span class="o">=</span><span class="n">severity</span><span class="p">,</span><span class="w"> </span><span class="n">treat</span><span class="o">=</span><span class="n">treat_rct</span><span class="p">,</span><span class="w"> </span><span class="n">outcome</span><span class="o">=</span><span class="n">outcome_rct</span><span class="p">)</span>
+
+<span class="n">naive_diff_rct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">df_rct</span><span class="o">$</span><span class="n">outcome</span><span class="p">[</span><span class="n">df_rct</span><span class="o">$</span><span class="n">treat</span><span class="o">==</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">df_rct</span><span class="o">$</span><span class="n">outcome</span><span class="p">[</span><span class="n">df_rct</span><span class="o">$</span><span class="n">treat</span><span class="o">==</span><span class="m">0</span><span class="p">])</span>
+<span class="n">naive_diff_rct</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="11-exercises">11. Exercises<a class="headerlink" href="#11-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Modify the confounding strength (change 1.2 to 2.0 in the logistic allocation) and see how the naive observational estimate changes.  
+2. Change the true treatment effect from -0.6 to -0.2 and repeat.  
+3. Increase sample size to 3000 and check how the randomized estimate stabilizes.  
+4. Plot severity distributions by group for observational vs randomized settings.  
+5. Think: Why does randomization work “in expectation” but not necessarily perfectly in small samples?
+
+</details>
+
+<hr />
+<h2 id="12-summary">12. Summary<a class="headerlink" href="#12-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Clinical trials are designed for <strong>causal inference</strong>.</li>
+<li>Randomization reduces confounding and improves validity.</li>
+<li>Trial phases (I–IV) reflect safety → efficacy → confirmation → surveillance.</li>
+<li>Trials must define endpoints, populations, and analysis strategy <strong>before</strong> seeing results.</li>
+<li>Simulations show how observational allocation can bias treatment comparisons.</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

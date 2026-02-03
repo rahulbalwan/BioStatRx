@@ -1,0 +1,2192 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Clinical_Trials/03-trial-designs/">
+      
+      
+        <link rel="prev" href="../02-randomization-%26-allocation-concealment/">
+      
+      
+        <link rel="next" href="../04-outcomes-endpoints-%26-estimands/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Trial Designs - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#trial-designs-parallel-cross-over-cluster-factorial-adaptive" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Trial Designs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Survival_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Clinical Trials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-clinical-trials-foundations-%26-phases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations & Phases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-randomization-%26-allocation-concealment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Randomization & Allocation Concealment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trial Designs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trial Designs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-parallel-group-randomized-controlled-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Parallel-group randomized controlled trials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Parallel-group randomized controlled trials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What it is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Strengths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Weaknesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-typical-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Typical analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cross-over-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cross-over trials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Cross-over trials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-22-cross-over-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic 2×2 cross-over design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-cross-over-is-efficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why cross-over is efficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-key-assumptions-and-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Key assumptions and problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-typical-analysis-continuous-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Typical analysis (continuous outcome)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cluster-randomized-trials-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cluster randomized trials (CRT)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Cluster randomized trials (CRT)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-why-use-cluster-randomization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Why use cluster randomization?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-the-key-statistical-issue-intracluster-correlation-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The key statistical issue: intracluster correlation (ICC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-design-effect-effective-sample-size-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Design effect (effective sample size reduction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-typical-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Typical analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-factorial-trials-testing-two-interventions-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Factorial trials (testing two interventions at once)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Factorial trials (testing two interventions at once)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-when-factorial-works-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 When factorial works best
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-main-effects-vs-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Main effects vs interaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-trial-designs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Adaptive trial designs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-outcomes-endpoints-%26-estimands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outcomes, Endpoints & Estimands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sample-size-%26-power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Size & Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-analysis-population-%26-missing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Population & Missing Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-safety-analysis-adverse-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety Analysis & Adverse Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting & Interpretation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-parallel-group-randomized-controlled-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Parallel-group randomized controlled trials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Parallel-group randomized controlled trials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-what-it-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 What it is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-strengths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Strengths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-weaknesses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Weaknesses
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-typical-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Typical analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cross-over-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cross-over trials
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Cross-over trials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-basic-22-cross-over-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Basic 2×2 cross-over design
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-cross-over-is-efficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why cross-over is efficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-key-assumptions-and-problems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Key assumptions and problems
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-typical-analysis-continuous-outcome" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Typical analysis (continuous outcome)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cluster-randomized-trials-crt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cluster randomized trials (CRT)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Cluster randomized trials (CRT)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-why-use-cluster-randomization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Why use cluster randomization?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-the-key-statistical-issue-intracluster-correlation-icc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 The key statistical issue: intracluster correlation (ICC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-design-effect-effective-sample-size-reduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Design effect (effective sample size reduction)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-typical-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 Typical analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-factorial-trials-testing-two-interventions-at-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Factorial trials (testing two interventions at once)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Factorial trials (testing two interventions at once)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-when-factorial-works-best" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 When factorial works best
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-main-effects-vs-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Main effects vs interaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adaptive-trial-designs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Adaptive trial designs
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="trial-designs-parallel-cross-over-cluster-factorial-adaptive">Trial Designs (Parallel, Cross-over, Cluster, Factorial, Adaptive)<a class="headerlink" href="#trial-designs-parallel-cross-over-cluster-factorial-adaptive" title="Permanent link">&para;</a></h1>
+<p>A trial design is the blueprint that determines:
+- how participants are assigned to interventions
+- what comparisons are made
+- how outcomes are measured
+- what sources of bias and variability must be controlled</p>
+<p>In biostatistics, the design choice affects:
+- what causal question you can answer
+- sample size and power
+- the correct analysis method
+- how generalizable the results are</p>
+<p>This chapter covers the major clinical trial designs used in biomedical research, with clear guidance on when to use each design and how to analyze them in practice.</p>
+<hr />
+<h2 id="1-parallel-group-randomized-controlled-trials">1. Parallel-group randomized controlled trials<a class="headerlink" href="#1-parallel-group-randomized-controlled-trials" title="Permanent link">&para;</a></h2>
+<h3 id="11-what-it-is">1.1 What it is<a class="headerlink" href="#11-what-it-is" title="Permanent link">&para;</a></h3>
+<p>Participants are randomized to one of two or more groups and followed forward.</p>
+<p>Example:
+- Treatment vs Control
+- Dose A vs Dose B vs Placebo</p>
+<p>Each participant receives only one assigned intervention.</p>
+<h3 id="12-strengths">1.2 Strengths<a class="headerlink" href="#12-strengths" title="Permanent link">&para;</a></h3>
+<ul>
+<li>simple interpretation</li>
+<li>minimal assumptions relative to other designs</li>
+<li>widely accepted by regulators</li>
+<li>works for many endpoint types: continuous, binary, time-to-event</li>
+</ul>
+<h3 id="13-weaknesses">1.3 Weaknesses<a class="headerlink" href="#13-weaknesses" title="Permanent link">&para;</a></h3>
+<ul>
+<li>between-subject variability can be large</li>
+<li>may require larger sample size than within-subject designs</li>
+</ul>
+<h3 id="14-typical-analysis">1.4 Typical analysis<a class="headerlink" href="#14-typical-analysis" title="Permanent link">&para;</a></h3>
+<ul>
+<li>continuous outcome: two-sample t-test / linear regression</li>
+<li>binary outcome: chi-square / logistic regression</li>
+<li>time-to-event: log-rank / Cox regression</li>
+</ul>
+<hr />
+<h2 id="2-cross-over-trials">2. Cross-over trials<a class="headerlink" href="#2-cross-over-trials" title="Permanent link">&para;</a></h2>
+<p>Cross-over designs are common when:
+- the condition is stable
+- the treatment effect is reversible
+- outcomes return to baseline after washout</p>
+<h3 id="21-basic-22-cross-over-design">2.1 Basic 2×2 cross-over design<a class="headerlink" href="#21-basic-22-cross-over-design" title="Permanent link">&para;</a></h3>
+<p>Each participant receives both treatments in different periods:</p>
+<ul>
+<li>Sequence 1: A → B</li>
+<li>Sequence 2: B → A</li>
+</ul>
+<p>Often includes a washout period between treatments.</p>
+<h3 id="22-why-cross-over-is-efficient">2.2 Why cross-over is efficient<a class="headerlink" href="#22-why-cross-over-is-efficient" title="Permanent link">&para;</a></h3>
+<p>Because each participant serves as their own control, variability is reduced.</p>
+<p>A simple way to think:
+- parallel design compares person-to-person differences
+- cross-over compares within-person differences</p>
+<p>This often increases power for the same <span class="arithmatex">\(n\)</span>.</p>
+<h3 id="23-key-assumptions-and-problems">2.3 Key assumptions and problems<a class="headerlink" href="#23-key-assumptions-and-problems" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Carryover effect:</strong> treatment effect persists into the next period</li>
+<li><strong>Period effect:</strong> outcome changes across time regardless of treatment</li>
+<li><strong>Washout adequacy:</strong> must remove lingering effects</li>
+<li><strong>Dropout:</strong> can bias if not random</li>
+</ul>
+<p>Cross-over designs are not suitable for:
+- curative treatments
+- outcomes that permanently change after first treatment
+- progressive diseases where baseline changes over time</p>
+<h3 id="24-typical-analysis-continuous-outcome">2.4 Typical analysis (continuous outcome)<a class="headerlink" href="#24-typical-analysis-continuous-outcome" title="Permanent link">&para;</a></h3>
+<p>A standard model includes treatment and period effects, and accounts for repeated measures within subject:</p>
+<div class="arithmatex">\[
+Y_{ij} = \beta_0 + \beta_T T_{ij} + \beta_P P_{ij} + b_i + \varepsilon_{ij},
+\quad b_i \sim \mathcal{N}(0,\sigma_b^2),\ \varepsilon_{ij}\sim \mathcal{N}(0,\sigma^2)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(i\)</span> indexes subject, <span class="arithmatex">\(j\)</span> indexes period</li>
+<li><span class="arithmatex">\(T_{ij}\)</span> indicates treatment received in that period</li>
+<li><span class="arithmatex">\(P_{ij}\)</span> indicates period (1 or 2)</li>
+<li><span class="arithmatex">\(b_i\)</span> is a random subject effect</li>
+</ul>
+<p>(Sequence effects may be explored, but the above captures the core structure.)</p>
+<hr />
+<h2 id="3-cluster-randomized-trials-crt">3. Cluster randomized trials (CRT)<a class="headerlink" href="#3-cluster-randomized-trials-crt" title="Permanent link">&para;</a></h2>
+<p>In a cluster randomized trial, the unit of randomization is a group (cluster), not an individual.</p>
+<p>Examples of clusters:
+- hospitals
+- schools
+- villages
+- clinics</p>
+<h3 id="31-why-use-cluster-randomization">3.1 Why use cluster randomization?<a class="headerlink" href="#31-why-use-cluster-randomization" title="Permanent link">&para;</a></h3>
+<ul>
+<li>avoids contamination (e.g., education intervention would spill over)</li>
+<li>intervention naturally delivered at cluster level (policy, training)</li>
+<li>logistical reasons</li>
+</ul>
+<h3 id="32-the-key-statistical-issue-intracluster-correlation-icc">3.2 The key statistical issue: intracluster correlation (ICC)<a class="headerlink" href="#32-the-key-statistical-issue-intracluster-correlation-icc" title="Permanent link">&para;</a></h3>
+<p>Within a cluster, outcomes tend to be correlated.</p>
+<p>A common ICC definition (continuous outcomes):</p>
+<div class="arithmatex">\[
+\rho = \frac{\sigma^2_{\text{between}}}{\sigma^2_{\text{between}} + \sigma^2_{\text{within}}}
+\]</div>
+<p>Even small ICC can inflate required sample size.</p>
+<h3 id="33-design-effect-effective-sample-size-reduction">3.3 Design effect (effective sample size reduction)<a class="headerlink" href="#33-design-effect-effective-sample-size-reduction" title="Permanent link">&para;</a></h3>
+<p>For equal cluster size <span class="arithmatex">\(m\)</span>:</p>
+<div class="arithmatex">\[
+\text{Design Effect} = 1 + (m-1)\rho
+\]</div>
+<p>Effective sample size is approximately:</p>
+<div class="arithmatex">\[
+n_{\text{eff}} \approx \frac{n}{\text{Design Effect}}
+\]</div>
+<h3 id="34-typical-analysis">3.4 Typical analysis<a class="headerlink" href="#34-typical-analysis" title="Permanent link">&para;</a></h3>
+<p>You must account for clustering:
+- mixed effects models (random intercept for cluster)
+- GEEs with cluster-robust SE
+- cluster-level summary analyses (simple but less efficient)</p>
+<hr />
+<h2 id="4-factorial-trials-testing-two-interventions-at-once">4. Factorial trials (testing two interventions at once)<a class="headerlink" href="#4-factorial-trials-testing-two-interventions-at-once" title="Permanent link">&para;</a></h2>
+<p>A common design is a 2×2 factorial trial:</p>
+<ul>
+<li>Factor A: Drug vs No drug</li>
+<li>Factor B: Exercise vs No exercise</li>
+</ul>
+<p>Groups:
+1. <span class="arithmatex">\(A_0B_0\)</span> (control)
+2. <span class="arithmatex">\(A_1B_0\)</span> (drug only)
+3. <span class="arithmatex">\(A_0B_1\)</span> (exercise only)
+4. <span class="arithmatex">\(A_1B_1\)</span> (both)</p>
+<h3 id="41-when-factorial-works-best">4.1 When factorial works best<a class="headerlink" href="#41-when-factorial-works-best" title="Permanent link">&para;</a></h3>
+<p>Factorial designs are most efficient when the two treatments:
+- act through different mechanisms
+- do not interact strongly</p>
+<h3 id="42-main-effects-vs-interaction">4.2 Main effects vs interaction<a class="headerlink" href="#42-main-effects-vs-interaction" title="Permanent link">&para;</a></h3>
+<p>The key question is whether there is interaction:</p>
+<div class="arithmatex">\[
+Y = \beta_0 + \beta_A A + \beta_B B + \beta_{AB}(A\times B) + \varepsilon
+\]</div>
+<ul>
+<li><span class="arithmatex">\(\beta_A\)</span> = main effect of A (averaged over B)</li>
+<li><span class="arithmatex">\(\beta_B\)</span> = main effect of B</li>
+<li><span class="arithmatex">\(\beta_{AB}\)</span> = interaction</li>
+</ul>
+<p>If interaction is large, interpretation becomes more complex and power for main effects can drop.</p>
+<hr />
+<h2 id="5-adaptive-trial-designs">5. Adaptive trial designs<a class="headerlink" href="#5-adaptive-trial-designs" title="Permanent link">&para;</a></h2>
+<p>Adaptive designs allow modifications based on interim data while controlling Type I error.</p>
+<p>Examples:
+- group sequential designs (early stopping)
+- sample size re-estimation
+- adaptive randomization (more weight to better arm)
+- multi-arm multi-stage (MAMS) designs</p>
+<p>Adaptive designs require:
+- careful pre-specification
+- an independent data monitoring committee
+- appropriate statistical control</p>
+<p>We keep this section conceptual; later pages can go deeper.</p>
+<hr />
+<h1 id="part-a-simulations-and-analysis-in-python">Part A — Simulations and analysis in Python<a class="headerlink" href="#part-a-simulations-and-analysis-in-python" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="6a-python-parallel-vs-cross-over-efficiency-simulation">6A. Python: Parallel vs cross-over efficiency simulation<a class="headerlink" href="#6a-python-parallel-vs-cross-over-efficiency-simulation" title="Permanent link">&para;</a></h2>
+<p>We simulate:
+- same treatment effect
+- compare standard error of estimated effect under two designs</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">202</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_parallel</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">effect</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
+    <span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">effect</span><span class="o">*</span><span class="n">trt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">est</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">trt</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">trt</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">est</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">simulate_crossover</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">effect</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sd_within</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="c1"># Each subject has a baseline level; both periods measured.</span>
+    <span class="n">subj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># Outcomes under A (treatment) and B (control)</span>
+    <span class="n">y_A</span> <span class="o">=</span> <span class="n">subj</span> <span class="o">+</span> <span class="n">effect</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd_within</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">y_B</span> <span class="o">=</span> <span class="n">subj</span> <span class="o">+</span> <span class="mf">0.0</span>    <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd_within</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+    <span class="c1"># Paired difference estimates treatment effect</span>
+    <span class="n">est</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_A</span> <span class="o">-</span> <span class="n">y_B</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">est</span>
+
+<span class="n">reps</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">par_est</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">simulate_parallel</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">reps</span><span class="p">)])</span>
+<span class="n">cro_est</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">simulate_crossover</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">reps</span><span class="p">)])</span>
+
+<span class="n">par_est</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">cro_est</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Smaller SD of estimates means greater efficiency.</p>
+<hr />
+<h2 id="7a-python-cluster-design-effect-calculation">7A. Python: Cluster design effect calculation<a class="headerlink" href="#7a-python-cluster-design-effect-calculation" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">design_effect</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">icc</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">icc</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="mi">25</span>      <span class="c1"># cluster size</span>
+<span class="n">icc</span> <span class="o">=</span> <span class="mf">0.02</span>  <span class="c1"># intracluster correlation</span>
+<span class="n">de</span> <span class="o">=</span> <span class="n">design_effect</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">icc</span><span class="p">)</span>
+<span class="n">de</span>
+</code></pre></div>
+</div>
+<p>If your nominal sample size is <span class="arithmatex">\(n\)</span> individuals:
+- effective <span class="arithmatex">\(n\)</span> is about <span class="arithmatex">\(n/\text{DE}\)</span></p>
+<hr />
+<h2 id="8a-python-factorial-trial-simulation-with-interaction">8A. Python: Factorial trial simulation with interaction<a class="headerlink" href="#8a-python-factorial-trial-simulation-with-interaction" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">777</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">800</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># true model</span>
+<span class="n">beta0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">betaA</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.6</span>
+<span class="n">betaB</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.4</span>
+<span class="n">betaAB</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.8</span>  <span class="c1"># interaction (synergy)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">beta0</span> <span class="o">+</span> <span class="n">betaA</span><span class="o">*</span><span class="n">A</span> <span class="o">+</span> <span class="n">betaB</span><span class="o">*</span><span class="n">B</span> <span class="o">+</span> <span class="n">betaAB</span><span class="o">*</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="n">A</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">:</span> <span class="n">B</span><span class="p">})</span>
+
+<span class="n">fit</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;y ~ A + B + A:B&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">fit</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<hr />
+<h1 id="part-b-simulations-and-analysis-in-r">Part B — Simulations and analysis in R<a class="headerlink" href="#part-b-simulations-and-analysis-in-r" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="9b-r-parallel-vs-cross-over-efficiency-simulation">9B. R: Parallel vs cross-over efficiency simulation<a class="headerlink" href="#9b-r-parallel-vs-cross-over-efficiency-simulation" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">202</span><span class="p">)</span>
+
+<span class="n">simulate_parallel</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="n">effect</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">effect</span><span class="o">*</span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">trt</span><span class="o">==</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">trt</span><span class="o">==</span><span class="m">0</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="n">simulate_crossover</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">effect</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="n">sd_within</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">subj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">yA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">subj</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">effect</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd_within</span><span class="p">)</span>
+<span class="w">  </span><span class="n">yB</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">subj</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">sd_within</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">mean</span><span class="p">(</span><span class="n">yA</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">yB</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">reps</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2000</span>
+<span class="n">par_est</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">replicate</span><span class="p">(</span><span class="n">reps</span><span class="p">,</span><span class="w"> </span><span class="nf">simulate_parallel</span><span class="p">())</span>
+<span class="n">cro_est</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">replicate</span><span class="p">(</span><span class="n">reps</span><span class="p">,</span><span class="w"> </span><span class="nf">simulate_crossover</span><span class="p">())</span>
+
+<span class="nf">sd</span><span class="p">(</span><span class="n">par_est</span><span class="p">)</span>
+<span class="nf">sd</span><span class="p">(</span><span class="n">cro_est</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10b-r-cluster-design-effect-calculation">10B. R: Cluster design effect calculation<a class="headerlink" href="#10b-r-cluster-design-effect-calculation" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">design_effect</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">icc</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">m</span><span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="n">icc</span>
+<span class="p">}</span>
+
+<span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">25</span>
+<span class="n">icc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.02</span>
+<span class="nf">design_effect</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">icc</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="11b-r-factorial-trial-simulation-regression">11B. R: Factorial trial simulation + regression<a class="headerlink" href="#11b-r-factorial-trial-simulation-regression" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">777</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">800</span>
+<span class="n">A</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">B</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">beta0</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="n">betaA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.6</span>
+<span class="n">betaB</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.4</span>
+<span class="n">betaAB</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.8</span>
+
+<span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">beta0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">betaA</span><span class="o">*</span><span class="n">A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">betaB</span><span class="o">*</span><span class="n">B</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">betaAB</span><span class="o">*</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+
+<span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">A</span><span class="o">:</span><span class="n">B</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="12-design-choice-guide">12. Design choice guide<a class="headerlink" href="#12-design-choice-guide" title="Permanent link">&para;</a></h2>
+<h3 id="parallel-group">Parallel-group<a class="headerlink" href="#parallel-group" title="Permanent link">&para;</a></h3>
+<p>Choose when:
+- outcomes irreversible or long-lasting
+- disease progresses over time
+- intervention has long-term effects</p>
+<h3 id="cross-over">Cross-over<a class="headerlink" href="#cross-over" title="Permanent link">&para;</a></h3>
+<p>Choose when:
+- condition stable
+- treatment effect reversible
+- outcome quickly measurable<br />
+Avoid when:
+- carryover likely
+- disease progressive
+- long washout needed</p>
+<h3 id="cluster-randomized">Cluster randomized<a class="headerlink" href="#cluster-randomized" title="Permanent link">&para;</a></h3>
+<p>Choose when:
+- contamination is likely
+- intervention is delivered at group level<br />
+Remember:
+- account for ICC in sample size and analysis</p>
+<h3 id="factorial">Factorial<a class="headerlink" href="#factorial" title="Permanent link">&para;</a></h3>
+<p>Choose when:
+- testing two interventions simultaneously
+- interaction expected to be small/moderate<br />
+Plan:
+- pre-specify whether interaction will be tested formally</p>
+<h3 id="adaptive">Adaptive<a class="headerlink" href="#adaptive" title="Permanent link">&para;</a></h3>
+<p>Choose when:
+- early stopping or efficiency is needed<br />
+Requires:
+- strong planning, governance, and pre-specified rules</p>
+<hr />
+<h2 id="13-exercises">13. Exercises<a class="headerlink" href="#13-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Modify the cross-over simulation so that carryover exists (e.g., add +0.4 to period 2 outcomes in one sequence) and see how it biases estimates if ignored.  
+2. Compute design effect for \(m=10, 25, 50\) across ICC \(=0.01, 0.05, 0.10\). Make a small table.  
+3. In factorial simulation, set \(\beta_{AB}=0\) and compare how the interaction term behaves across repeated simulations.  
+4. Write a short paragraph: which design would you use for a vaccine education program delivered at school level, and why?  
+5. For a chronic stable condition with fast reversible effect, compare sample size needs of parallel vs cross-over conceptually.
+
+</details>
+
+<hr />
+<h2 id="14-summary">14. Summary<a class="headerlink" href="#14-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Parallel-group trials are the default and simplest to interpret.</li>
+<li>Cross-over trials gain efficiency but require strong assumptions (no carryover, stable condition).</li>
+<li>Cluster randomized trials need ICC-aware design and analysis.</li>
+<li>Factorial designs test multiple interventions efficiently but must consider interaction.</li>
+<li>Adaptive designs improve efficiency but require strict pre-planning and oversight.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2045 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/11-parametric-survival-models/">
+      
+      
+        <link rel="prev" href="../10-time-dependent-covariates/">
+      
+      
+        <link rel="next" href="../12-competing-risks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Parametric Survival Models - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#parametric-survival-models-exponential-weibull-log-normal-aft" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Parametric Survival Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="parametric-survival-models-exponential-weibull-log-normal-aft">Parametric Survival Models (Exponential, Weibull, Log-normal, AFT)<a class="headerlink" href="#parametric-survival-models-exponential-weibull-log-normal-aft" title="Permanent link">&para;</a></h1>
+<p>So far you’ve learned:</p>
+<ul>
+<li>Kaplan–Meier (nonparametric)</li>
+<li>Cox regression (semi-parametric)</li>
+</ul>
+<p>Both are powerful, but sometimes we need:</p>
+<ul>
+<li>smooth survival curves  </li>
+<li>explicit survival formulas  </li>
+<li>extrapolation beyond observed follow-up  </li>
+<li>simulation and prediction  </li>
+<li>health-economic modeling  </li>
+</ul>
+<p>For these, we use:</p>
+<h1 id="parametric-survival-models">Parametric Survival Models<a class="headerlink" href="#parametric-survival-models" title="Permanent link">&para;</a></h1>
+<p>Parametric survival models assume survival times follow a known distribution:</p>
+<div class="arithmatex">\[
+T \sim \text{some distribution}
+\]</div>
+<p>Examples:
+- Exponential
+- Weibull
+- Log-normal
+- Log-logistic</p>
+<p>This chapter gives maximum clarity + <strong>interactive code in Python and R</strong>.</p>
+<hr />
+<h2 id="1-big-picture-why-parametric-models">1. Big picture: why parametric models?<a class="headerlink" href="#1-big-picture-why-parametric-models" title="Permanent link">&para;</a></h2>
+<h3 id="11-limitations-of-cox">1.1 Limitations of Cox<a class="headerlink" href="#11-limitations-of-cox" title="Permanent link">&para;</a></h3>
+<p>Cox does not specify <span class="arithmatex">\(h_0(t)\)</span>, so:</p>
+<ul>
+<li>baseline hazard unknown</li>
+<li>extrapolation beyond observed time is unreliable</li>
+<li>simulations require extra steps</li>
+</ul>
+<h3 id="12-advantages-of-parametric-models">1.2 Advantages of parametric models<a class="headerlink" href="#12-advantages-of-parametric-models" title="Permanent link">&para;</a></h3>
+<p>Parametric models give:</p>
+<ul>
+<li>closed-form <span class="arithmatex">\(S(t)\)</span> and <span class="arithmatex">\(h(t)\)</span>  </li>
+<li>smoother and more stable estimates  </li>
+<li>extrapolation (common in HTA, cost-effectiveness)  </li>
+<li>efficient estimation when distribution fits well  </li>
+</ul>
+<h3 id="13-trade-off">1.3 Trade-off<a class="headerlink" href="#13-trade-off" title="Permanent link">&para;</a></h3>
+<p>You gain structure but lose flexibility:</p>
+<ul>
+<li>If distribution is wrong → bias</li>
+<li>Must check fit carefully</li>
+</ul>
+<hr />
+<h2 id="2-two-modeling-frameworks-ph-vs-aft">2. Two modeling frameworks: PH vs AFT<a class="headerlink" href="#2-two-modeling-frameworks-ph-vs-aft" title="Permanent link">&para;</a></h2>
+<p>Many parametric models can be expressed as:</p>
+<h3 id="21-proportional-hazards-ph-form">2.1 Proportional Hazards (PH) form<a class="headerlink" href="#21-proportional-hazards-ph-form" title="Permanent link">&para;</a></h3>
+<p>Similar interpretation to Cox:</p>
+<div class="arithmatex">\[
+h(t|X)=h_0(t)\exp(\beta^TX)
+\]</div>
+<p>Hazard ratio is constant over time.</p>
+<p>Common PH parametric models:
+- Exponential PH
+- Weibull PH</p>
+<h3 id="22-accelerated-failure-time-aft-form">2.2 Accelerated Failure Time (AFT) form<a class="headerlink" href="#22-accelerated-failure-time-aft-form" title="Permanent link">&para;</a></h3>
+<p>Models time directly:</p>
+<div class="arithmatex">\[
+\log(T)=\beta^TX+\epsilon
+\]</div>
+<p>Effect is interpreted using <strong>time ratios</strong>:</p>
+<div class="arithmatex">\[
+TR=\exp(\beta)
+\]</div>
+<p>Meaning:
+- TR &gt; 1 → longer survival time
+- TR &lt; 1 → shorter survival time</p>
+<p>Common AFT models:
+- Weibull AFT
+- Log-normal AFT
+- Log-logistic AFT</p>
+<hr />
+<h2 id="3-exponential-model">3. Exponential model<a class="headerlink" href="#3-exponential-model" title="Permanent link">&para;</a></h2>
+<h3 id="31-assumption">3.1 Assumption<a class="headerlink" href="#31-assumption" title="Permanent link">&para;</a></h3>
+<p>Hazard is constant:</p>
+<div class="arithmatex">\[
+h(t)=\lambda
+\]</div>
+<h3 id="32-survival-function">3.2 Survival function<a class="headerlink" href="#32-survival-function" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+S(t)=\exp(-\lambda t)
+\]</div>
+<h3 id="33-interpretation">3.3 Interpretation<a class="headerlink" href="#33-interpretation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>risk does not change over time</li>
+<li>often unrealistic in humans</li>
+</ul>
+<p>Clinical contexts where exponential might be plausible:
+ - device failure with constant rate
+ - short follow-up where hazard seems flat</p>
+<hr />
+<h2 id="4-weibull-model">4. Weibull model<a class="headerlink" href="#4-weibull-model" title="Permanent link">&para;</a></h2>
+<p>Weibull is the survival distribution you will see most often in biostatistics.</p>
+<h3 id="41-weibull-survival">4.1 Weibull survival<a class="headerlink" href="#41-weibull-survival" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+S(t)=\exp\left(-\left(\frac{t}{\lambda}\right)^k\right)
+\]</div>
+<ul>
+<li><span class="arithmatex">\(k\)</span> = shape</li>
+<li><span class="arithmatex">\(\lambda\)</span> = scale</li>
+</ul>
+<h3 id="42-weibull-hazard">4.2 Weibull hazard<a class="headerlink" href="#42-weibull-hazard" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+h(t)=\frac{k}{\lambda}\left(\frac{t}{\lambda}\right)^{k-1}
+\]</div>
+<h3 id="43-why-weibull-is-special">4.3 Why Weibull is special<a class="headerlink" href="#43-why-weibull-is-special" title="Permanent link">&para;</a></h3>
+<p>Weibull can model different hazard shapes:</p>
+<ul>
+<li><span class="arithmatex">\(k=1\)</span> → constant hazard (exponential)</li>
+<li><span class="arithmatex">\(k&gt;1\)</span> → increasing hazard</li>
+<li><span class="arithmatex">\(k&lt;1\)</span> → decreasing hazard</li>
+</ul>
+<p>So Weibull is flexible and extremely useful.</p>
+<hr />
+<h2 id="5-log-normal-model">5. Log-normal model<a class="headerlink" href="#5-log-normal-model" title="Permanent link">&para;</a></h2>
+<h3 id="51-assumption">5.1 Assumption<a class="headerlink" href="#51-assumption" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\log(T)\sim N(\mu,\sigma^2)
+\]</div>
+<h3 id="52-hazard-shape">5.2 Hazard shape<a class="headerlink" href="#52-hazard-shape" title="Permanent link">&para;</a></h3>
+<p>Log-normal hazard is non-monotonic:</p>
+<ul>
+<li>rises early</li>
+<li>peaks</li>
+<li>declines</li>
+</ul>
+<p>Useful when:
+ - early risk is high (post-surgery)
+- later risk declines</p>
+<hr />
+<h2 id="6-log-logistic-model">6. Log-logistic model<a class="headerlink" href="#6-log-logistic-model" title="Permanent link">&para;</a></h2>
+<p>Similar to log-normal but with heavier tails.</p>
+<ul>
+<li>non-monotonic hazard</li>
+<li>sometimes better for very long survivors</li>
+</ul>
+<hr />
+<h2 id="7-choosing-among-parametric-models-practical-approach">7. Choosing among parametric models (practical approach)<a class="headerlink" href="#7-choosing-among-parametric-models-practical-approach" title="Permanent link">&para;</a></h2>
+<h3 id="71-fit-multiple-models-and-compare">7.1 Fit multiple models and compare<a class="headerlink" href="#71-fit-multiple-models-and-compare" title="Permanent link">&para;</a></h3>
+<p>Common criteria:
+ - AIC
+ - BIC
+ - likelihood
+ - visual fit to KM</p>
+<h3 id="72-general-rule-of-thumb">7.2 General rule of thumb<a class="headerlink" href="#72-general-rule-of-thumb" title="Permanent link">&para;</a></h3>
+<ul>
+<li>start with Weibull</li>
+<li>compare with log-normal/log-logistic</li>
+<li>consider exponential only if hazard looks flat</li>
+</ul>
+<hr />
+<h1 id="part-a-python-lifelines">PART A — PYTHON (lifelines)<a class="headerlink" href="#part-a-python-lifelines" title="Permanent link">&para;</a></h1>
+<p>Python parametric survival modeling is commonly done using <code>lifelines</code>.</p>
+<p>We will:
+ 1) simulate survival data<br />
+ 2) fit exponential / Weibull / log-normal<br />
+ 3) compare AIC<br />
+ 4) plot model fits against KM<br />
+ 5) fit AFT regression model  </p>
+<hr />
+<h2 id="8a-simulate-survival-data-python">8A. Simulate survival data (Python)<a class="headerlink" href="#8a-simulate-survival-data-python" title="Permanent link">&para;</a></h2>
+<p>We simulate Weibull survival with covariate effect:</p>
+<ul>
+<li>age increases hazard</li>
+<li>treatment improves survival</li>
+</ul>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">44</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># True AFT-type generation (log-time shift)</span>
+<span class="c1"># We&#39;ll create baseline Weibull event times then accelerate by covariates</span>
+<span class="n">shape_k</span> <span class="o">=</span> <span class="mf">1.7</span>
+<span class="n">scale_lam</span> <span class="o">=</span> <span class="mf">12.0</span>
+
+<span class="c1"># Generate baseline Weibull times</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="n">scale_lam</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">U</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">shape_k</span><span class="p">)</span>
+
+<span class="c1"># Covariate effects on log-time (AFT): treatment increases time, age decreases</span>
+<span class="n">beta_trt</span> <span class="o">=</span> <span class="mf">0.35</span>   <span class="c1"># TR = exp(0.35)=1.42</span>
+<span class="n">beta_age</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.01</span>  <span class="c1"># per year TR = exp(-0.01)=0.99</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">T0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span> <span class="o">+</span> <span class="n">beta_age</span><span class="o">*</span><span class="p">(</span><span class="n">age</span><span class="o">-</span><span class="mi">60</span><span class="p">))</span>
+
+<span class="c1"># Censoring</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="9a-fit-nonparametric-km-reference-curve">9A. Fit nonparametric KM (reference curve)<a class="headerlink" href="#9a-fit-nonparametric-km-reference-curve" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+
+<span class="n">km</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;KM&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ci_show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KM Curve (Reference)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10a-fit-parametric-models-python">10A. Fit parametric models (Python)<a class="headerlink" href="#10a-fit-parametric-models-python" title="Permanent link">&para;</a></h2>
+<h3 id="10a1-exponential-weibull-log-normal">10A.1 Exponential, Weibull, Log-normal<a class="headerlink" href="#10a1-exponential-weibull-log-normal" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExponentialFitter</span><span class="p">,</span> <span class="n">WeibullFitter</span><span class="p">,</span> <span class="n">LogNormalFitter</span>
+
+<span class="n">expf</span> <span class="o">=</span> <span class="n">ExponentialFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">])</span>
+<span class="n">wf</span>   <span class="o">=</span> <span class="n">WeibullFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">])</span>
+<span class="n">lnf</span>  <span class="o">=</span> <span class="n">LogNormalFitter</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AIC comparison (lower is better):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exponential AIC:&quot;</span><span class="p">,</span> <span class="n">expf</span><span class="o">.</span><span class="n">AIC_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weibull AIC    :&quot;</span><span class="p">,</span> <span class="n">wf</span><span class="o">.</span><span class="n">AIC_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LogNormal AIC  :&quot;</span><span class="p">,</span> <span class="n">lnf</span><span class="o">.</span><span class="n">AIC_</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10a2-plot-fitted-curves-vs-km">10A.2 Plot fitted curves vs KM<a class="headerlink" href="#10a2-plot-fitted-curves-vs-km" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ci_show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">expf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ci_show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">wf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ci_show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">lnf</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ci_show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KM vs Parametric Fits&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - Best-fitting model tends to track KM curve more closely.</p>
+<hr />
+<h2 id="11a-regression-weibull-aft-model-python">11A. Regression: Weibull AFT model (Python)<a class="headerlink" href="#11a-regression-weibull-aft-model-python" title="Permanent link">&para;</a></h2>
+<p>Lifelines supports AFT regression models.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">WeibullAFTFitter</span>
+
+<span class="n">aft</span> <span class="o">=</span> <span class="n">WeibullAFTFitter</span><span class="p">()</span>
+<span class="n">aft</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+<span class="n">aft</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h3 id="11a1-interpretation-time-ratios">11A.1 Interpretation: Time Ratios<a class="headerlink" href="#11a1-interpretation-time-ratios" title="Permanent link">&para;</a></h3>
+<p>In AFT models, exponentiated coefficients are time ratios:</p>
+<ul>
+<li>TR &gt; 1 → longer survival time</li>
+<li>TR &lt; 1 → shorter survival time</li>
+</ul>
+<p>Example:
+ - TR = 1.40 for treatment → treated survive 40% longer (on average, depending on model)</p>
+<hr />
+<h2 id="12a-predicted-survival-curves-for-profiles-python">12A. Predicted survival curves for profiles (Python)<a class="headerlink" href="#12a-predicted-survival-curves-for-profiles-python" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">p_control</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;age&quot;</span><span class="p">:[</span><span class="mi">60</span><span class="p">],</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">]})</span>
+<span class="n">p_treated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;age&quot;</span><span class="p">:[</span><span class="mi">60</span><span class="p">],</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:[</span><span class="mi">1</span><span class="p">]})</span>
+
+<span class="n">s0</span> <span class="o">=</span> <span class="n">aft</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">p_control</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">aft</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">p_treated</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Control (age=60)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Treatment (age=60)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Predicted Survival (Weibull AFT)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h1 id="part-b-r-survival-flexsurv">PART B — R (survival + flexsurv)<a class="headerlink" href="#part-b-r-survival-flexsurv" title="Permanent link">&para;</a></h1>
+<p>In R, parametric survival models are commonly fit using:</p>
+<ul>
+<li><code>survreg()</code> (AFT models)</li>
+<li><code>flexsurv</code> package (highly recommended for multiple distributions + AIC comparison)</li>
+</ul>
+<p>We provide both.</p>
+<hr />
+<h2 id="13b-simulate-data-in-r-same-structure">13B. Simulate data in R (same structure)<a class="headerlink" href="#13b-simulate-data-in-r-same-structure" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">44</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">400</span>
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">shape_k</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1.7</span>
+<span class="n">scale_lam</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">12</span>
+
+<span class="n">U</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">T0</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">scale_lam</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="nf">log</span><span class="p">(</span><span class="n">U</span><span class="p">))</span><span class="o">^</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="n">shape_k</span><span class="p">)</span>
+
+<span class="n">beta_trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.35</span>
+<span class="n">beta_age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.01</span>
+
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">T0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_age</span><span class="o">*</span><span class="p">(</span><span class="n">age</span><span class="m">-60</span><span class="p">))</span>
+
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">)</span>
+
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">treatment</span><span class="o">=</span><span class="n">trt</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="14b-km-curve-in-r-reference">14B. KM curve in R (reference)<a class="headerlink" href="#14b-km-curve-in-r-reference" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">km</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">km</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;KM Curve (Reference)&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="15b-aft-regression-models-using-survreg">15B. AFT regression models using survreg()<a class="headerlink" href="#15b-aft-regression-models-using-survreg" title="Permanent link">&para;</a></h2>
+<p><code>survreg()</code> fits AFT models.</p>
+<p>Common distributions:
+- Weibull
+- lognormal
+- loglogistic</p>
+<h3 id="15b1-weibull-aft">15B.1 Weibull AFT<a class="headerlink" href="#15b1-weibull-aft" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_weib</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;weibull&quot;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_weib</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="interpretation-in-survreg">Interpretation in survreg<a class="headerlink" href="#interpretation-in-survreg" title="Permanent link">&para;</a></h3>
+<p><code>survreg()</code> uses a different parameterization:</p>
+<ul>
+<li>coefficients relate to log(time) directly</li>
+<li>sign interpretation can be reversed compared to hazard models</li>
+</ul>
+<p>A simple practical interpretation:
+ - Positive coefficient → increases survival time
+ - Negative coefficient → decreases survival time</p>
+<p>To compute time ratio:
+$$
+TR = \exp(\beta)
+$$</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">exp</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">fit_weib</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="15b2-log-normal-aft">15B.2 Log-normal AFT<a class="headerlink" href="#15b2-log-normal-aft" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_logn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;lognormal&quot;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_logn</span><span class="p">)</span>
+<span class="nf">exp</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">fit_logn</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="15b3-log-logistic-aft">15B.3 Log-logistic AFT<a class="headerlink" href="#15b3-log-logistic-aft" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_loglog</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;loglogistic&quot;</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_loglog</span><span class="p">)</span>
+<span class="nf">exp</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">fit_loglog</span><span class="p">))</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="16b-model-comparison-using-aic-r">16B. Model comparison using AIC (R)<a class="headerlink" href="#16b-model-comparison-using-aic-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">AIC</span><span class="p">(</span><span class="n">fit_weib</span><span class="p">,</span><span class="w"> </span><span class="n">fit_logn</span><span class="p">,</span><span class="w"> </span><span class="n">fit_loglog</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Lower AIC = better tradeoff between fit and complexity.</p>
+<hr />
+<h2 id="17b-using-flexsurv-for-many-distributions">17B. Using flexsurv for many distributions<a class="headerlink" href="#17b-using-flexsurv-for-many-distributions" title="Permanent link">&para;</a></h2>
+<p><code>flexsurvreg()</code> gives access to:
+ - exponential
+ - Weibull
+ - lognormal
+ - loglogistic
+ - Gompertz, etc.</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># install.packages(&quot;flexsurv&quot;) # if needed</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">flexsurv</span><span class="p">)</span>
+
+<span class="n">f_exp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">flexsurvreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;exp&quot;</span><span class="p">)</span>
+<span class="n">f_weib</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">flexsurvreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;weibull&quot;</span><span class="p">)</span>
+<span class="n">f_logn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">flexsurvreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;lognormal&quot;</span><span class="p">)</span>
+<span class="n">f_llog</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">flexsurvreg</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">dist</span><span class="o">=</span><span class="s">&quot;llogis&quot;</span><span class="p">)</span>
+
+<span class="nf">AIC</span><span class="p">(</span><span class="n">f_exp</span><span class="p">,</span><span class="w"> </span><span class="n">f_weib</span><span class="p">,</span><span class="w"> </span><span class="n">f_logn</span><span class="p">,</span><span class="w"> </span><span class="n">f_llog</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="18b-plot-fitted-parametric-curves-vs-km-r">18B. Plot fitted parametric curves vs KM (R)<a class="headerlink" href="#18b-plot-fitted-parametric-curves-vs-km-r" title="Permanent link">&para;</a></h2>
+<p>With <code>flexsurv</code>, easiest is to overlay predicted survival.</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">plot</span><span class="p">(</span><span class="n">km</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;KM vs Parametric Fits&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;black&quot;</span><span class="p">)</span>
+
+<span class="c1"># Overlay parametric fit for &quot;average&quot; covariate profile:</span>
+<span class="n">nd</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="n">treatment</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+
+<span class="nf">lines</span><span class="p">(</span><span class="n">f_exp</span><span class="p">,</span><span class="w"> </span><span class="n">newdata</span><span class="o">=</span><span class="n">nd</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;survival&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">f_weib</span><span class="p">,</span><span class="w"> </span><span class="n">newdata</span><span class="o">=</span><span class="n">nd</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;survival&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">f_logn</span><span class="p">,</span><span class="w"> </span><span class="n">newdata</span><span class="o">=</span><span class="n">nd</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;survival&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">f_llog</span><span class="p">,</span><span class="w"> </span><span class="n">newdata</span><span class="o">=</span><span class="n">nd</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;survival&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;purple&quot;</span><span class="p">)</span>
+
+<span class="nf">legend</span><span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span>
+<span class="w">       </span><span class="n">legend</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;KM&quot;</span><span class="p">,</span><span class="s">&quot;Exp&quot;</span><span class="p">,</span><span class="s">&quot;Weibull&quot;</span><span class="p">,</span><span class="s">&quot;LogNormal&quot;</span><span class="p">,</span><span class="s">&quot;LogLogistic&quot;</span><span class="p">),</span>
+<span class="w">       </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;blue&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="s">&quot;green&quot;</span><span class="p">,</span><span class="s">&quot;purple&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="19-how-to-interpret-outputs">19. How to interpret outputs<a class="headerlink" href="#19-how-to-interpret-outputs" title="Permanent link">&para;</a></h2>
+<h3 id="191-ph-hazard-ratio-interpretation">19.1 PH (hazard ratio) interpretation<a class="headerlink" href="#191-ph-hazard-ratio-interpretation" title="Permanent link">&para;</a></h3>
+<p>If using PH form (e.g., Weibull PH):</p>
+<ul>
+<li>HR &lt; 1 → lower hazard</li>
+<li>HR &gt; 1 → higher hazard</li>
+</ul>
+<h3 id="192-aft-interpretation-time-ratio">19.2 AFT interpretation (time ratio)<a class="headerlink" href="#192-aft-interpretation-time-ratio" title="Permanent link">&para;</a></h3>
+<p>If using AFT form:</p>
+<ul>
+<li>TR = 1.40 → 40% longer survival time</li>
+<li>TR = 0.80 → 20% shorter survival time</li>
+</ul>
+<p>AFT is often easier to interpret for clinicians.</p>
+<hr />
+<h2 id="20-when-to-use-parametric-models">20. When to use parametric models<a class="headerlink" href="#20-when-to-use-parametric-models" title="Permanent link">&para;</a></h2>
+<p>Use parametric models when you need:</p>
+<ul>
+<li>extrapolation beyond follow-up  </li>
+<li>smooth survival curve + clear formula  </li>
+<li>simulation / risk prediction  </li>
+<li>cost-effectiveness modeling  </li>
+</ul>
+<p>Avoid if:
+ - hazard shape unknown and complex
+ - strong non-PH patterns and poor fit</p>
+<hr />
+<h2 id="21-reporting-in-biostat-papers">21. Reporting in biostat papers<a class="headerlink" href="#21-reporting-in-biostat-papers" title="Permanent link">&para;</a></h2>
+<p>Example parametric report:</p>
+<blockquote>
+<p>“A Weibull AFT model adjusting for age showed that treatment prolonged survival (time ratio 1.42, 95% CI …). Model fit was assessed by AIC and visual comparison to Kaplan–Meier curves.”</p>
+</blockquote>
+<p>Or PH form:</p>
+<blockquote>
+<p>“A Weibull proportional hazards model estimated treatment HR 0.68 (95% CI …).”</p>
+</blockquote>
+<p>Always specify:
+ - distribution used
+ - model form (PH or AFT)
+ - interpretation (HR or TR)
+ - fit assessment method (AIC, plots)</p>
+<hr />
+<h2 id="22-common-mistakes">22. Common mistakes<a class="headerlink" href="#22-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-assuming-exponential-without-checking">Mistake 1: assuming exponential without checking<a class="headerlink" href="#mistake-1-assuming-exponential-without-checking" title="Permanent link">&para;</a></h3>
+<p>Exponential assumes constant hazard—often wrong.</p>
+<h3 id="mistake-2-choosing-distribution-only-by-aic">Mistake 2: choosing distribution only by AIC<a class="headerlink" href="#mistake-2-choosing-distribution-only-by-aic" title="Permanent link">&para;</a></h3>
+<p>Also check:
+ - KM overlay fit
+ - clinical plausibility of hazard shape</p>
+<h3 id="mistake-3-interpreting-aft-coefficient-as-hazard-ratio">Mistake 3: interpreting AFT coefficient as hazard ratio<a class="headerlink" href="#mistake-3-interpreting-aft-coefficient-as-hazard-ratio" title="Permanent link">&para;</a></h3>
+<p>AFT outputs time ratios, not HR.</p>
+<h3 id="mistake-4-extrapolating-too-far">Mistake 4: extrapolating too far<a class="headerlink" href="#mistake-4-extrapolating-too-far" title="Permanent link">&para;</a></h3>
+<p>Even parametric extrapolation can be unrealistic.
+ Always justify extrapolation window.</p>
+<hr />
+<h2 id="23-key-takeaways">23. Key takeaways<a class="headerlink" href="#23-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Parametric survival models assume a distribution for <span class="arithmatex">\(T\)</span>.</li>
+<li>Exponential = constant hazard.</li>
+<li>Weibull = flexible hazard (increasing/decreasing).</li>
+<li>Log-normal/log-logistic = non-monotonic hazards.</li>
+<li>Model selection via AIC + visual KM overlay.</li>
+<li>Regression can be PH or AFT; interpret HR vs TR correctly.</li>
+</ul>
+<hr />
+<h2 id="24-exercises">24. Exercises<a class="headerlink" href="#24-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+ 1. Fit exponential and Weibull models and compare AIC. Which fits better?  
+ 2. Overlay fitted curves with KM and discuss which curve matches best.  
+ 3. Fit Weibull AFT regression and interpret treatment as a time ratio.  
+ 4. In R, fit log-normal and log-logistic and compare AIC.  
+ 5. Simulate data with decreasing hazard (\(k<1\)) and see which parametric model fits best.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

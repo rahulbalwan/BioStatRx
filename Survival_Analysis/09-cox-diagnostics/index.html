@@ -1,0 +1,3801 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/09-cox-diagnostics/">
+      
+      
+        <link rel="prev" href="../08-cox-proportional-hazards/">
+      
+      
+        <link rel="next" href="../10-time-dependent-covariates/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Cox Diagnostics - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cox-model-diagnostics-and-assumption-checking" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cox Diagnostics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-assumptions-does-cox-ph-rely-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What assumptions does Cox PH rely on?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What assumptions does Cox PH rely on?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-proportional-hazards-ph-most-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A1) Proportional hazards (PH) most important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-correct-functional-form-for-continuous-predictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A2) Correct functional form for continuous predictors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-independent-observations-or-correctly-handled-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A3) Independent observations (or correctly handled clustering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-no-extreme-outliers-or-overly-influential-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A4) No extreme outliers or overly influential observations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-a-practical-diagnostic-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A practical diagnostic checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-setup-create-a-working-dataset-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Setup: create a working dataset (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Setup: create a working dataset (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-python-simulate-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Python: simulate data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-r-simulate-the-same-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 R: simulate the same idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fit-cox-model-baseline-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fit Cox model (baseline step)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Fit Cox model (baseline step)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-python-fit-cox-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Python: fit Cox (lifelines)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-r-fit-cox-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 R: fit Cox (survival)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ph-assumption-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. PH assumption checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. PH assumption checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-visual-pre-check-km-curves-group-separation-and-crossing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Visual pre-check: KM curves (group separation and crossing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Visual pre-check: KM curves (group separation and crossing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-km-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (KM curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-km-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R (KM curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-schoenfeld-residual-test-formal-ph-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Schoenfeld residual test (formal PH test)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Schoenfeld residual test (formal PH test)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-coxzph-gold-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: cox.zph() (gold standard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-lifelines-check_assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: lifelines check_assumptions()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-log-log-survival-plots-classic-ph-visual-check-for-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Log(-log) survival plots (classic PH visual check for groups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Log(-log) survival plots (classic PH visual check for groups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-log-log-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: log(-log) plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-to-do-if-ph-is-violated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What to do if PH is violated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What to do if PH is violated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-add-time-interaction-time-varying-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Add time interaction (time-varying effect)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 1: Add time interaction (time-varying effect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-example-time-interaction-with-tt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R example: time interaction with tt()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-stratified-cox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Stratified Cox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2: Stratified Cox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-stratification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: stratification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-use-alternative-summaries-rmst-or-parametric-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Use alternative summaries (RMST) or parametric models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-checking-functional-form-linearity-for-continuous-predictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Checking functional form (linearity) for continuous predictors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Checking functional form (linearity) for continuous predictors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-martingale-residual-plots-classic-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Martingale residual plots (classic approach)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Martingale residual plots (classic approach)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-martingale-residual-vs-age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: martingale residual vs age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-lifelines-martingale-residuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (lifelines): martingale residuals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-fixing-nonlinearity-splines-or-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Fixing nonlinearity: splines or categories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Fixing nonlinearity: splines or categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-natural-spline-with-splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: natural spline with splines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-transform-age-using-piecewise-terms-or-spline-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: transform age using piecewise terms or spline libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-outliers-and-influential-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Outliers and influential observations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Outliers and influential observations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-deviance-residuals-outlier-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Deviance residuals (outlier detection)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Deviance residuals (outlier detection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-influence-dfbeta-how-much-each-subject-changes-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Influence: dfbeta (how much each subject changes coefficients)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Influence: dfbeta (how much each subject changes coefficients)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-dfbeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: dfbeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-influence-is-less-standardized-in-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: influence is less standardized in lifelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-overall-model-fit-and-predictive-ability-c-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Overall model fit and predictive ability (C-index)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Overall model fit and predictive ability (C-index)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concordance-index-c-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concordance index (C-index)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concordance index (C-index)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-robust-standard-errors-and-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Robust standard errors and clustering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Robust standard errors and clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-robust-se-sandwich-quick-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Robust SE (sandwich) — quick fix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Robust SE (sandwich) — quick fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-practical-ph-violation-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Practical “PH violation” simulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Practical “PH violation” simulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-r-simulate-crossing-hazards-and-test-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 R: simulate crossing hazards and test PH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-python-simulate-similar-idea-and-run-check_assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Python: simulate similar idea and run check_assumptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-reporting-diagnostics-in-a-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Reporting diagnostics in a paper
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Reporting diagnostics in a paper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-ph-holds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If PH holds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-ph-violated-and-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If PH violated and fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-stratified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If stratified
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Common mistakes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Common mistakes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mistake-1-interpret-hr-without-checking-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 1: Interpret HR without checking PH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-2-assume-linear-age-effect-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 2: Assume linear age effect automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-3-ignore-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 3: Ignore clustering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-4-trust-extreme-late-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 4: Trust extreme late follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-key-takeaway-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Key takeaway summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-exercises-high-value-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Exercises (high-value practice)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-assumptions-does-cox-ph-rely-on" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What assumptions does Cox PH rely on?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What assumptions does Cox PH rely on?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-proportional-hazards-ph-most-important" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A1) Proportional hazards (PH) most important
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-correct-functional-form-for-continuous-predictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A2) Correct functional form for continuous predictors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-independent-observations-or-correctly-handled-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A3) Independent observations (or correctly handled clustering)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-no-extreme-outliers-or-overly-influential-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A4) No extreme outliers or overly influential observations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-a-practical-diagnostic-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. A practical diagnostic checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-setup-create-a-working-dataset-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Setup: create a working dataset (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Setup: create a working dataset (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-python-simulate-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Python: simulate data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-r-simulate-the-same-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 R: simulate the same idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fit-cox-model-baseline-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fit Cox model (baseline step)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Fit Cox model (baseline step)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-python-fit-cox-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Python: fit Cox (lifelines)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-r-fit-cox-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 R: fit Cox (survival)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ph-assumption-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. PH assumption checks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. PH assumption checks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-visual-pre-check-km-curves-group-separation-and-crossing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Visual pre-check: KM curves (group separation and crossing)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 Visual pre-check: KM curves (group separation and crossing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-km-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (KM curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r-km-curves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R (KM curves)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-schoenfeld-residual-test-formal-ph-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Schoenfeld residual test (formal PH test)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Schoenfeld residual test (formal PH test)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-coxzph-gold-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: cox.zph() (gold standard)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-lifelines-check_assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: lifelines check_assumptions()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-log-log-survival-plots-classic-ph-visual-check-for-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Log(-log) survival plots (classic PH visual check for groups)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Log(-log) survival plots (classic PH visual check for groups)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-log-log-plot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: log(-log) plot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-to-do-if-ph-is-violated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What to do if PH is violated
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What to do if PH is violated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-add-time-interaction-time-varying-effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: Add time interaction (time-varying effect)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 1: Add time interaction (time-varying effect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-example-time-interaction-with-tt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R example: time interaction with tt()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python approach
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-stratified-cox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: Stratified Cox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2: Stratified Cox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-stratification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: stratification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-use-alternative-summaries-rmst-or-parametric-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 3: Use alternative summaries (RMST) or parametric models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-checking-functional-form-linearity-for-continuous-predictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Checking functional form (linearity) for continuous predictors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Checking functional form (linearity) for continuous predictors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-martingale-residual-plots-classic-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Martingale residual plots (classic approach)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Martingale residual plots (classic approach)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-martingale-residual-vs-age" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: martingale residual vs age
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-lifelines-martingale-residuals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (lifelines): martingale residuals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-fixing-nonlinearity-splines-or-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Fixing nonlinearity: splines or categories
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Fixing nonlinearity: splines or categories">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-natural-spline-with-splines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: natural spline with splines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-transform-age-using-piecewise-terms-or-spline-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: transform age using piecewise terms or spline libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-outliers-and-influential-observations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Outliers and influential observations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Outliers and influential observations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-deviance-residuals-outlier-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Deviance residuals (outlier detection)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 Deviance residuals (outlier detection)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-influence-dfbeta-how-much-each-subject-changes-coefficients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Influence: dfbeta (how much each subject changes coefficients)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Influence: dfbeta (how much each subject changes coefficients)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-dfbeta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R: dfbeta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python-influence-is-less-standardized-in-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python: influence is less standardized in lifelines
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-overall-model-fit-and-predictive-ability-c-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Overall model fit and predictive ability (C-index)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Overall model fit and predictive ability (C-index)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#concordance-index-c-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concordance index (C-index)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Concordance index (C-index)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-robust-standard-errors-and-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Robust standard errors and clustering
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Robust standard errors and clustering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-robust-se-sandwich-quick-fix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Robust SE (sandwich) — quick fix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10.1 Robust SE (sandwich) — quick fix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#python_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-practical-ph-violation-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Practical “PH violation” simulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Practical “PH violation” simulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-r-simulate-crossing-hazards-and-test-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.1 R: simulate crossing hazards and test PH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-python-simulate-similar-idea-and-run-check_assumptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11.2 Python: simulate similar idea and run check_assumptions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-reporting-diagnostics-in-a-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Reporting diagnostics in a paper
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Reporting diagnostics in a paper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-ph-holds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If PH holds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-ph-violated-and-fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If PH violated and fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-stratified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If stratified
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Common mistakes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Common mistakes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mistake-1-interpret-hr-without-checking-ph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 1: Interpret HR without checking PH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-2-assume-linear-age-effect-automatically" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 2: Assume linear age effect automatically
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-3-ignore-clustering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 3: Ignore clustering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-4-trust-extreme-late-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 4: Trust extreme late follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-key-takeaway-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Key takeaway summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-exercises-high-value-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Exercises (high-value practice)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cox-model-diagnostics-and-assumption-checking">Cox Model Diagnostics and Assumption Checking<a class="headerlink" href="#cox-model-diagnostics-and-assumption-checking" title="Permanent link">&para;</a></h1>
+<p>A Cox model is <strong>not complete</strong> when you fit it.</p>
+<p>In real biostatistical work, the correct workflow is:</p>
+<p><strong>Fit Cox</strong> → <strong>Check assumptions</strong> → <strong>Fix violations</strong> → <strong>Interpret HRs</strong></p>
+<p>If you skip diagnostics, your hazard ratios (HRs) may be:
+ - biased
+ - uninterpretable
+ - misleading (especially under non-proportional hazards)</p>
+<p>This chapter is a <strong>complete diagnostic toolkit</strong> for Cox regression in biostatistics, with <strong>both Python and R</strong>.</p>
+<hr />
+<h2 id="1-what-assumptions-does-cox-ph-rely-on">1. What assumptions does Cox PH rely on?<a class="headerlink" href="#1-what-assumptions-does-cox-ph-rely-on" title="Permanent link">&para;</a></h2>
+<p>The Cox proportional hazards model is:</p>
+<div class="arithmatex">\[
+h(t|X)=h_0(t)\exp(\beta^TX)
+\]</div>
+<p>Main assumptions you must check:</p>
+<h3 id="a1-proportional-hazards-ph-most-important">A1) Proportional hazards (PH) most important<a class="headerlink" href="#a1-proportional-hazards-ph-most-important" title="Permanent link">&para;</a></h3>
+<p>Hazard ratios are constant over time:</p>
+<div class="arithmatex">\[
+\frac{h(t \mid X_a)}{h(t \mid X_b)} = \exp\!\left(\beta^{\mathsf T}(X_a - X_b)\right)
+\quad \text{does not depend on } t
+\]</div>
+<h3 id="a2-correct-functional-form-for-continuous-predictors">A2) Correct functional form for continuous predictors<a class="headerlink" href="#a2-correct-functional-form-for-continuous-predictors" title="Permanent link">&para;</a></h3>
+<p>Cox assumes a linear relationship in the <strong>log-hazard</strong>:
+$$
+\log h(t \mid X) = \log h_0(t) + \beta_1 X_1 + \cdots
+$$</p>
+<p>So a continuous predictor effect is assumed <strong>linear on log-hazard scale</strong> unless you model nonlinearity.</p>
+<h3 id="a3-independent-observations-or-correctly-handled-clustering">A3) Independent observations (or correctly handled clustering)<a class="headerlink" href="#a3-independent-observations-or-correctly-handled-clustering" title="Permanent link">&para;</a></h3>
+<p>Patients in same hospital/site/family may be correlated.</p>
+<h3 id="a4-no-extreme-outliers-or-overly-influential-observations">A4) No extreme outliers or overly influential observations<a class="headerlink" href="#a4-no-extreme-outliers-or-overly-influential-observations" title="Permanent link">&para;</a></h3>
+<p>One or two subjects shouldn’t dominate your HR estimates.</p>
+<hr />
+<h2 id="2-a-practical-diagnostic-checklist">2. A practical diagnostic checklist<a class="headerlink" href="#2-a-practical-diagnostic-checklist" title="Permanent link">&para;</a></h2>
+<p>After fitting Cox:</p>
+<p>1) <strong>KM curves / visual check</strong>
+ 2) <strong>PH test + Schoenfeld residual plots</strong>
+ 3) <strong>Log(-log) survival plots (group PH check)</strong>
+ 4) <strong>Functional form check for continuous predictors</strong>
+ 5) <strong>Influential observations (dfbeta, deviance residuals)</strong>
+ 6) <strong>Overall fit (concordance / C-index)</strong>
+ 7) <strong>Robust SE / clustering check</strong>
+ 8) <strong>Sensitivity analyses</strong> (alternative models if needed)</p>
+<hr />
+<h2 id="3-setup-create-a-working-dataset-python-r">3. Setup: create a working dataset (Python + R)<a class="headerlink" href="#3-setup-create-a-working-dataset-python-r" title="Permanent link">&para;</a></h2>
+<p>We will simulate data with:
+- age (continuous)
+- treatment (binary)
+- optional PH violation example later</p>
+<h3 id="31-python-simulate-data">3.1 Python: simulate data<a class="headerlink" href="#31-python-simulate-data" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2026</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">beta_age</span> <span class="o">=</span> <span class="mf">0.03</span>
+<span class="n">beta_trt</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.50</span>
+<span class="n">base</span> <span class="o">=</span> <span class="mf">0.04</span>
+
+<span class="n">hazard</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span> <span class="o">+</span> <span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hazard</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h3 id="32-r-simulate-the-same-idea">3.2 R: simulate the same idea<a class="headerlink" href="#32-r-simulate-the-same-idea" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">2026</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">500</span>
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="o">=</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">beta_age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.03</span>
+<span class="n">beta_trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.50</span>
+<span class="n">base</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.04</span>
+
+<span class="n">hazard</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">)</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hazard</span><span class="p">)</span>
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="o">=</span><span class="m">25</span><span class="p">)</span>
+
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">treatment</span><span class="o">=</span><span class="n">trt</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="4-fit-cox-model-baseline-step">4. Fit Cox model (baseline step)<a class="headerlink" href="#4-fit-cox-model-baseline-step" title="Permanent link">&para;</a></h2>
+<h3 id="41-python-fit-cox-lifelines">4.1 Python: fit Cox (lifelines)<a class="headerlink" href="#41-python-fit-cox-lifelines" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h3 id="42-r-fit-cox-survival">4.2 R: fit Cox (survival)<a class="headerlink" href="#42-r-fit-cox-survival" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="5-ph-assumption-checks">5. PH assumption checks<a class="headerlink" href="#5-ph-assumption-checks" title="Permanent link">&para;</a></h2>
+<h3 id="51-visual-pre-check-km-curves-group-separation-and-crossing">5.1 Visual pre-check: KM curves (group separation and crossing)<a class="headerlink" href="#51-visual-pre-check-km-curves-group-separation-and-crossing" title="Permanent link">&para;</a></h3>
+<p>If curves strongly cross → PH likely violated.</p>
+<h4 id="python-km-curves">Python (KM curves)<a class="headerlink" href="#python-km-curves" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+
+<span class="n">km0</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">km1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">km0</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">treatment</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">treatment</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Control&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">km1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">treatment</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">treatment</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Treatment&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KM Curves by Treatment (quick PH visual)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h4 id="r-km-curves">R (KM curves)<a class="headerlink" href="#r-km-curves" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_km</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">treatment</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">fit_km</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;KM Curves by Treatment&quot;</span><span class="p">)</span>
+<span class="nf">legend</span><span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Control&quot;</span><span class="p">,</span><span class="s">&quot;Treatment&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<ul>
+<li>If curves are roughly separated without major crossing, PH is plausible.  </li>
+<li>If curves cross substantially, investigate PH violation formally.</li>
+</ul>
+<hr />
+<h3 id="52-schoenfeld-residual-test-formal-ph-test">5.2 Schoenfeld residual test (formal PH test)<a class="headerlink" href="#52-schoenfeld-residual-test-formal-ph-test" title="Permanent link">&para;</a></h3>
+<h4 id="r-coxzph-gold-standard">R: <code>cox.zph()</code> (gold standard)<a class="headerlink" href="#r-coxzph-gold-standard" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">cox.zph</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+<span class="n">z</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Each covariate gets a test.
+- Global test also reported.
+- <strong>Small p-value (&lt;0.05)</strong> → evidence PH violation.</p>
+<p>The plot shows residual trend over time:
+- Flat trend around 0 → good
+- Clear slope / curve → violation</p>
+<h4 id="python-lifelines-check_assumptions">Python: lifelines <code>check_assumptions()</code><a class="headerlink" href="#python-lifelines-check_assumptions" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">cph</span><span class="o">.</span><span class="n">check_assumptions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">show_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - lifelines prints warnings when PH is violated
+ - shows plots (Schoenfeld-type diagnostics)</p>
+<hr />
+<h3 id="53-log-log-survival-plots-classic-ph-visual-check-for-groups">5.3 Log(-log) survival plots (classic PH visual check for groups)<a class="headerlink" href="#53-log-log-survival-plots-classic-ph-visual-check-for-groups" title="Permanent link">&para;</a></h3>
+<p>If PH holds, log(-log(S(t))) curves for groups should be <strong>roughly parallel</strong>.</p>
+<h4 id="r-log-log-plot">R: log(-log) plot<a class="headerlink" href="#r-log-log-plot" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit_km</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">treatment</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+
+<span class="c1"># Extract survival curves</span>
+<span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="n">fit_km</span><span class="p">)</span>
+
+<span class="c1"># Compute log(-log(S))</span>
+<span class="n">lls</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="o">-</span><span class="nf">log</span><span class="p">(</span><span class="n">s</span><span class="o">$</span><span class="n">surv</span><span class="p">))</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">s</span><span class="o">$</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">lls</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;log(-log(S(t)))&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Log(-log) Survival Plot (PH visual check)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Two groups are stored sequentially; split by strata</span>
+<span class="n">strata_lengths</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">s</span><span class="o">$</span><span class="n">strata</span>
+<span class="c1"># A simpler approach: use survminer if available:</span>
+</code></pre></div>
+</div>
+<p>If you have <code>survminer</code>, this is easier:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survminer</span><span class="p">)</span>
+
+<span class="nf">ggsurvplot</span><span class="p">(</span><span class="n">fit_km</span><span class="p">,</span><span class="w"> </span><span class="n">fun</span><span class="o">=</span><span class="s">&quot;cloglog&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">conf.int</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span>
+<span class="w">           </span><span class="n">ggtheme</span><span class="o">=</span><span class="nf">theme_minimal</span><span class="p">(),</span>
+<span class="w">           </span><span class="n">title</span><span class="o">=</span><span class="s">&quot;Cloglog plot: log(-log(S(t)))&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - Parallel lines → PH plausible
+ - Non-parallel / crossing → PH questionable</p>
+<p>Python doesn’t have a one-liner in lifelines for cloglog plots, but you can approximate by extracting survival estimates and plotting <code>np.log(-np.log(S))</code>.</p>
+<hr />
+<h2 id="6-what-to-do-if-ph-is-violated">6. What to do if PH is violated<a class="headerlink" href="#6-what-to-do-if-ph-is-violated" title="Permanent link">&para;</a></h2>
+<p>PH violation is common. You have multiple solutions depending on the situation.</p>
+<h3 id="option-1-add-time-interaction-time-varying-effect">Option 1: Add <strong>time interaction</strong> (time-varying effect)<a class="headerlink" href="#option-1-add-time-interaction-time-varying-effect" title="Permanent link">&para;</a></h3>
+<p>If treatment effect changes over time:</p>
+<div class="arithmatex">\[
+h(t)=h_0(t)\exp(\beta_1X + \beta_2 X\cdot g(t))
+\]</div>
+<p>A simple choice: <span class="arithmatex">\(g(t)=\log(t)\)</span>.</p>
+<h4 id="r-example-time-interaction-with-tt">R example: time interaction with <code>tt()</code><a class="headerlink" href="#r-example-time-interaction-with-tt" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_tv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span>
+<span class="w">  </span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">tt</span><span class="p">(</span><span class="n">treatment</span><span class="p">),</span>
+<span class="w">  </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+<span class="w">  </span><span class="n">tt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kc">...</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_tv</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Now treatment effect depends on time.
+- You don’t report “one HR”; you interpret HR as a function of time.</p>
+<h4 id="python-approach">Python approach<a class="headerlink" href="#python-approach" title="Permanent link">&para;</a></h4>
+<p>lifelines can do time-varying covariates using <strong>start–stop format</strong> (covered in the time-dependent chapter). For PH violation, you can create an interaction variable such as <code>treatment * log(time)</code> and refit, but that is less principled unless properly formatted.</p>
+<hr />
+<h3 id="option-2-stratified-cox">Option 2: Stratified Cox<a class="headerlink" href="#option-2-stratified-cox" title="Permanent link">&para;</a></h3>
+<p>If a variable violates PH but you do NOT need its HR, stratify by it.</p>
+<div class="arithmatex">\[
+h(t|X)=h_{0,stratum}(t)\exp(\beta X)
+\]</div>
+<p>This allows different baseline hazards per stratum.</p>
+<h4 id="r-stratification">R: stratification<a class="headerlink" href="#r-stratification" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example: stratify by treatment if you don&#39;t need HR for it</span>
+<span class="n">fit_strat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">strata</span><span class="p">(</span><span class="n">treatment</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_strat</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>You lose HR estimate for the stratified variable, but PH becomes less problematic.</p>
+<hr />
+<h3 id="option-3-use-alternative-summaries-rmst-or-parametric-models">Option 3: Use alternative summaries (RMST) or parametric models<a class="headerlink" href="#option-3-use-alternative-summaries-rmst-or-parametric-models" title="Permanent link">&para;</a></h3>
+<p>If PH is badly violated:
+ - Consider <strong>restricted mean survival time (RMST)</strong> (time-based effect)
+ - Consider parametric models that allow more flexible hazards</p>
+<hr />
+<h2 id="7-checking-functional-form-linearity-for-continuous-predictors">7. Checking functional form (linearity) for continuous predictors<a class="headerlink" href="#7-checking-functional-form-linearity-for-continuous-predictors" title="Permanent link">&para;</a></h2>
+<p>Cox assumes:
+$$
+\log h(t \mid X) \text{ is linear in } X
+$$</p>
+<p>If age effect is nonlinear (common!), a linear age term is wrong.</p>
+<h3 id="71-martingale-residual-plots-classic-approach">7.1 Martingale residual plots (classic approach)<a class="headerlink" href="#71-martingale-residual-plots-classic-approach" title="Permanent link">&para;</a></h3>
+<h4 id="r-martingale-residual-vs-age">R: martingale residual vs age<a class="headerlink" href="#r-martingale-residual-vs-age" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">mart</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">residuals</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;martingale&quot;</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">mart</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Age&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;Martingale residual&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Martingale Residuals vs Age&quot;</span><span class="p">)</span>
+<span class="nf">lines</span><span class="p">(</span><span class="nf">lowess</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">mart</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- random scatter around 0 → linear okay
+- curved LOWESS trend → nonlinearity</p>
+<h4 id="python-lifelines-martingale-residuals">Python (lifelines): martingale residuals<a class="headerlink" href="#python-lifelines-martingale-residuals" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">mart</span> <span class="o">=</span> <span class="n">cph</span><span class="o">.</span><span class="n">compute_residuals</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;martingale&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;age&quot;</span><span class="p">],</span> <span class="n">mart</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Age&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Martingale residual&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Martingale Residuals vs Age&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p><em>(If your lifelines version returns a DataFrame, you may need <code>mart.values</code>.)</em></p>
+<h3 id="72-fixing-nonlinearity-splines-or-categories">7.2 Fixing nonlinearity: splines or categories<a class="headerlink" href="#72-fixing-nonlinearity-splines-or-categories" title="Permanent link">&para;</a></h3>
+<h4 id="r-natural-spline-with-splines">R: natural spline with <code>splines</code><a class="headerlink" href="#r-natural-spline-with-splines" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">splines</span><span class="p">)</span>
+
+<span class="n">fit_spline</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nf">ns</span><span class="p">(</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">=</span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_spline</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="python-transform-age-using-piecewise-terms-or-spline-libraries">Python: transform age using piecewise terms or spline libraries<a class="headerlink" href="#python-transform-age-using-piecewise-terms-or-spline-libraries" title="Permanent link">&para;</a></h4>
+<p>In pure lifelines, easiest is to:
+- create polynomial terms (<code>age</code>, <code>age^2</code>)
+- or bin age categories
+For full spline modeling, many analysts use <code>patsy</code> or <code>statsmodels</code> to build spline basis and then feed columns to lifelines.</p>
+<hr />
+<h2 id="8-outliers-and-influential-observations">8. Outliers and influential observations<a class="headerlink" href="#8-outliers-and-influential-observations" title="Permanent link">&para;</a></h2>
+<p>Even if PH holds, a few subjects can dominate the model.</p>
+<h3 id="81-deviance-residuals-outlier-detection">8.1 Deviance residuals (outlier detection)<a class="headerlink" href="#81-deviance-residuals-outlier-detection" title="Permanent link">&para;</a></h3>
+<h4 id="r">R<a class="headerlink" href="#r" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">dev</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">residuals</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;deviance&quot;</span><span class="p">)</span>
+
+<span class="nf">hist</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Deviance residuals&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Deviance residual&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Large absolute values indicate potential outliers.</p>
+<h4 id="python">Python<a class="headerlink" href="#python" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">dev</span> <span class="o">=</span> <span class="n">cph</span><span class="o">.</span><span class="n">compute_residuals</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;deviance&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">dev</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Deviance residuals&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Deviance residual&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h3 id="82-influence-dfbeta-how-much-each-subject-changes-coefficients">8.2 Influence: dfbeta (how much each subject changes coefficients)<a class="headerlink" href="#82-influence-dfbeta-how-much-each-subject-changes-coefficients" title="Permanent link">&para;</a></h3>
+<h4 id="r-dfbeta">R: dfbeta<a class="headerlink" href="#r-dfbeta" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">dfb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">residuals</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;dfbeta&quot;</span><span class="p">)</span>
+
+<span class="c1"># dfbeta is a matrix with one column per covariate</span>
+<span class="nf">matplot</span><span class="p">(</span><span class="n">dfb</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.6</span><span class="p">,</span>
+<span class="w">        </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;DFBETA by covariate&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;DFBETA&quot;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&quot;grey&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Subjects with extreme DFBETA values may have high influence.</p>
+<h4 id="python-influence-is-less-standardized-in-lifelines">Python: influence is less standardized in lifelines<a class="headerlink" href="#python-influence-is-less-standardized-in-lifelines" title="Permanent link">&para;</a></h4>
+<p>lifelines doesn’t offer a perfect <code>dfbeta</code> equivalent in all versions. A practical approach:
+- fit model
+- refit leaving-one-out for suspected points (expensive but possible)
+- or inspect deviance residual extremes and investigate those IDs</p>
+<hr />
+<h2 id="9-overall-model-fit-and-predictive-ability-c-index">9. Overall model fit and predictive ability (C-index)<a class="headerlink" href="#9-overall-model-fit-and-predictive-ability-c-index" title="Permanent link">&para;</a></h2>
+<p>Cox does not have an R² like linear regression.
+Instead, common measure is:</p>
+<h3 id="concordance-index-c-index">Concordance index (C-index)<a class="headerlink" href="#concordance-index-c-index" title="Permanent link">&para;</a></h3>
+<ul>
+<li>0.5 = random prediction</li>
+<li>1.0 = perfect discrimination</li>
+</ul>
+<h4 id="python_1">Python<a class="headerlink" href="#python_1" title="Permanent link">&para;</a></h4>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">cph</span><span class="o">.</span><span class="n">concordance_index_</span>
+</code></pre></div>
+</div>
+<h4 id="r_1">R<a class="headerlink" href="#r_1" title="Permanent link">&para;</a></h4>
+<p><code>summary(fit)</code> reports concordance.
+Or extract:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span><span class="o">$</span><span class="n">concordance</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Higher is better, but values around 0.60–0.75 are common in medical data.</p>
+<hr />
+<h2 id="10-robust-standard-errors-and-clustering">10. Robust standard errors and clustering<a class="headerlink" href="#10-robust-standard-errors-and-clustering" title="Permanent link">&para;</a></h2>
+<p>If you have clustering (hospital/site/family), independence fails.</p>
+<h3 id="101-robust-se-sandwich-quick-fix">10.1 Robust SE (sandwich) — quick fix<a class="headerlink" href="#101-robust-se-sandwich-quick-fix" title="Permanent link">&para;</a></h3>
+<h4 id="r_2">R<a class="headerlink" href="#r_2" title="Permanent link">&para;</a></h4>
+<p>Use <code>cluster()</code> to get robust SE for clustered IDs.</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Suppose we have a cluster variable (e.g., hospital)</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+<span class="n">df</span><span class="o">$</span><span class="n">hospital</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="nf">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">),</span><span class="w"> </span><span class="n">replace</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+
+<span class="n">fit_cluster</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">cluster</span><span class="p">(</span><span class="n">hospital</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_cluster</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h4 id="python_2">Python<a class="headerlink" href="#python_2" title="Permanent link">&para;</a></h4>
+<p>lifelines supports <code>robust=True</code>:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">cph_robust</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph_robust</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">,</span> <span class="n">robust</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">cph_robust</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Robust SE corrects inference (SE, CI), but does not model heterogeneity explicitly (frailty models do).</p>
+<hr />
+<h2 id="11-practical-ph-violation-simulation">11. Practical “PH violation” simulation<a class="headerlink" href="#11-practical-ph-violation-simulation" title="Permanent link">&para;</a></h2>
+<p>To understand PH diagnostics, it helps to simulate data where treatment effect changes over time.</p>
+<h3 id="111-r-simulate-crossing-hazards-and-test-ph">11.1 R: simulate crossing hazards and test PH<a class="headerlink" href="#111-r-simulate-crossing-hazards-and-test-ph" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">99</span><span class="p">)</span>
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">400</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="c1"># Create time-varying effect: treatment helps early, harms late</span>
+<span class="c1"># We&#39;ll simulate piecewise hazards:</span>
+<span class="c1"># early hazard: treatment reduces</span>
+<span class="c1"># late hazard: treatment increases</span>
+<span class="n">t_change</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">8</span>
+
+<span class="n">base1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.06</span>
+<span class="n">base2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.03</span>
+
+<span class="c1"># generate event time using simple rejection / piecewise approx</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rep</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">)</span>
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1"># simulate early time</span>
+<span class="w">  </span><span class="n">h1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.6</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">)</span>
+<span class="w">  </span><span class="n">t1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="n">h1</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">t1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">t_change</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="bp">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t1</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># survive past change point</span>
+<span class="w">    </span><span class="n">h2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1.6</span><span class="p">,</span><span class="w"> </span><span class="m">1.0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">t2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="n">h2</span><span class="p">)</span>
+<span class="w">    </span><span class="bp">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t_change</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t2</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">20</span><span class="p">)</span>
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">trt</span><span class="o">=</span><span class="n">trt</span><span class="p">)</span>
+
+<span class="n">fit_np</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_np</span><span class="p">)</span>
+
+<span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">cox.zph</span><span class="p">(</span><span class="n">fit_np</span><span class="p">)</span>
+<span class="n">z</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>You should often see PH violation for <code>trt</code>.</p>
+<h3 id="112-python-simulate-similar-idea-and-run-check_assumptions">11.2 Python: simulate similar idea and run check_assumptions<a class="headerlink" href="#112-python-simulate-similar-idea-and-run-check_assumptions" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">t_change</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="n">base1</span> <span class="o">=</span> <span class="mf">0.06</span>
+<span class="n">base2</span> <span class="o">=</span> <span class="mf">0.03</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">base1</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.6</span> <span class="k">if</span> <span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">h1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">t1</span> <span class="o">&lt;</span> <span class="n">t_change</span><span class="p">:</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">h2</span> <span class="o">=</span> <span class="n">base2</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.6</span> <span class="k">if</span> <span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">h2</span><span class="p">)</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_change</span> <span class="o">+</span> <span class="n">t2</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">,</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">})</span>
+
+<span class="n">cph_bad</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph_bad</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+<span class="n">cph_bad</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+
+<span class="n">cph_bad</span><span class="o">.</span><span class="n">check_assumptions</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">show_plots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>You should observe warnings/plots indicating PH violation.</p>
+<hr />
+<h2 id="12-reporting-diagnostics-in-a-paper">12. Reporting diagnostics in a paper<a class="headerlink" href="#12-reporting-diagnostics-in-a-paper" title="Permanent link">&para;</a></h2>
+<p>Examples of correct writing:</p>
+<h3 id="if-ph-holds">If PH holds<a class="headerlink" href="#if-ph-holds" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Proportional hazards assumption was assessed using Schoenfeld residuals and was not violated.”</p>
+</blockquote>
+<h3 id="if-ph-violated-and-fixed">If PH violated and fixed<a class="headerlink" href="#if-ph-violated-and-fixed" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“The proportional hazards assumption was violated for treatment (Schoenfeld p &lt; 0.05). A time-varying treatment effect was modeled using an interaction with log(time).”</p>
+</blockquote>
+<h3 id="if-stratified">If stratified<a class="headerlink" href="#if-stratified" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>“Due to PH violation for sex, models were stratified by sex.”</p>
+</blockquote>
+<hr />
+<h2 id="13-common-mistakes">13. Common mistakes<a class="headerlink" href="#13-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-interpret-hr-without-checking-ph">Mistake 1: Interpret HR without checking PH<a class="headerlink" href="#mistake-1-interpret-hr-without-checking-ph" title="Permanent link">&para;</a></h3>
+<p>Fix: Always run <code>cox.zph()</code> (R) or <code>check_assumptions()</code> (Python).</p>
+<h3 id="mistake-2-assume-linear-age-effect-automatically">Mistake 2: Assume linear age effect automatically<a class="headerlink" href="#mistake-2-assume-linear-age-effect-automatically" title="Permanent link">&para;</a></h3>
+<p>Fix: martingale residual check, use splines if needed.</p>
+<h3 id="mistake-3-ignore-clustering">Mistake 3: Ignore clustering<a class="headerlink" href="#mistake-3-ignore-clustering" title="Permanent link">&para;</a></h3>
+<p>Fix: robust SE or frailty.</p>
+<h3 id="mistake-4-trust-extreme-late-follow-up">Mistake 4: Trust extreme late follow-up<a class="headerlink" href="#mistake-4-trust-extreme-late-follow-up" title="Permanent link">&para;</a></h3>
+<p>Fix: check number at risk and consider truncating analysis window.</p>
+<hr />
+<h2 id="14-key-takeaway-summary">14. Key takeaway summary<a class="headerlink" href="#14-key-takeaway-summary" title="Permanent link">&para;</a></h2>
+<p>Cox diagnostics ensure:</p>
+<ul>
+<li>HRs are interpretable (PH)</li>
+<li>continuous covariates are modeled correctly (linearity)</li>
+<li>inference is valid (robust SE/clustering)</li>
+<li>results are not dominated by a few subjects (influence)</li>
+<li>model has acceptable predictive performance (C-index)</li>
+</ul>
+<p>If you remember only one thing:</p>
+<p># Fit Cox → always check PH → then interpret.</p>
+<hr />
+<h2 id="15-exercises-high-value-practice">15. Exercises (high-value practice)<a class="headerlink" href="#15-exercises-high-value-practice" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+ 1. Fit Cox model in R and run `cox.zph()`. Which variables violate PH (if any)?  
+ 2. Make a dataset where treatment effect changes over time and confirm PH violation.  
+ 3. Use martingale residual plot to detect nonlinearity in age. Then refit with spline.  
+ 4. Create clustering (hospital variable) and compare standard SE vs robust SE.  
+ 5. Identify influential points via deviance residuals/dfbeta and refit after removing a few. Compare HR changes.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

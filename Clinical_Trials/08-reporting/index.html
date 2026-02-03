@@ -1,0 +1,2180 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Clinical_Trials/08-reporting/">
+      
+      
+        <link rel="prev" href="../07-safety-analysis-adverse-events/">
+      
+      
+        <link rel="next" href="../../Bayesian_Statistics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Reporting & Interpretation - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#reporting-interpretation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Reporting & Interpretation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Survival_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Clinical Trials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-clinical-trials-foundations-%26-phases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations & Phases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-randomization-%26-allocation-concealment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Randomization & Allocation Concealment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-trial-designs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trial Designs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-outcomes-endpoints-%26-estimands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outcomes, Endpoints & Estimands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sample-size-%26-power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Size & Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-analysis-population-%26-missing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Population & Missing Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-safety-analysis-adverse-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety Analysis & Adverse Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting & Interpretation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting & Interpretation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-consort-the-standard-reporting-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. CONSORT: the standard reporting framework
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-participant-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Participant flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-baseline-characteristics-table-table-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Baseline characteristics table (“Table 1”)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-primary-endpoint-reporting-focus-on-effect-size-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Primary endpoint reporting: focus on effect size + CI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-interpreting-confidence-intervals-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Interpreting confidence intervals correctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-subgroup-analyses-benefit-and-danger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Subgroup analyses: benefit and danger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Subgroup analyses: benefit and danger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-why-subgroups-can-mislead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Why subgroups can mislead
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-correct-approach-interaction-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Correct approach: interaction tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-recommended-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Recommended reporting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-key-plots-for-clinical-trial-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Key plots for clinical trial reporting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Key plots for clinical trial reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-continuous-endpoint-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Continuous endpoint plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-binary-endpoint-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Binary endpoint plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-time-to-event-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Time-to-event plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-forest-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Forest plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-reproducibility-minimal-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Reproducibility: minimal standards
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-consort-the-standard-reporting-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. CONSORT: the standard reporting framework
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-participant-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Participant flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-baseline-characteristics-table-table-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Baseline characteristics table (“Table 1”)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-primary-endpoint-reporting-focus-on-effect-size-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Primary endpoint reporting: focus on effect size + CI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-interpreting-confidence-intervals-correctly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Interpreting confidence intervals correctly
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-subgroup-analyses-benefit-and-danger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Subgroup analyses: benefit and danger
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Subgroup analyses: benefit and danger">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-why-subgroups-can-mislead" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Why subgroups can mislead
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-correct-approach-interaction-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Correct approach: interaction tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-recommended-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Recommended reporting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-key-plots-for-clinical-trial-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Key plots for clinical trial reporting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Key plots for clinical trial reporting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-continuous-endpoint-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Continuous endpoint plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-binary-endpoint-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Binary endpoint plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-time-to-event-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Time-to-event plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-forest-plots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Forest plots
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-reproducibility-minimal-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Reproducibility: minimal standards
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="reporting-interpretation">Reporting &amp; Interpretation<a class="headerlink" href="#reporting-interpretation" title="Permanent link">&para;</a></h1>
+<p>A clinical trial result is only useful if it is reported clearly and reproducibly.</p>
+<p>Good reporting is not just “writing well” — it is about:
+- transparency in design and analysis
+- correct interpretation of effect sizes and uncertainty
+- communicating results so they can be trusted and reused</p>
+<p>In this chapter, we cover:
+- CONSORT reporting essentials
+- effect sizes + confidence intervals (what to emphasize)
+- common plots (Kaplan–Meier, forest plot, effect plots)
+- subgroup analyses (and how to avoid misleading conclusions)
+- reproducible tables/figures in R and Python</p>
+<hr />
+<h2 id="1-consort-the-standard-reporting-framework">1. CONSORT: the standard reporting framework<a class="headerlink" href="#1-consort-the-standard-reporting-framework" title="Permanent link">&para;</a></h2>
+<p>CONSORT (Consolidated Standards of Reporting Trials) provides guidance for reporting randomized trials.</p>
+<p>Key components include:
+- trial design and allocation ratio
+- eligibility criteria and settings
+- interventions and follow-up
+- outcomes and sample size calculation
+- randomization method + concealment + blinding
+- participant flow (flow diagram)
+- baseline characteristics table
+- results for primary and secondary endpoints
+- harms (safety)
+- interpretation and generalizability
+- protocol registration and funding/conflicts</p>
+<p>Even if you don’t memorize the checklist, your trial reporting should naturally answer:
+- Who was included?
+- What was compared?
+- How was bias controlled?
+- What was found, with uncertainty?
+- How robust are the results?</p>
+<hr />
+<h2 id="2-participant-flow">2. Participant flow<a class="headerlink" href="#2-participant-flow" title="Permanent link">&para;</a></h2>
+<p>A typical flow includes:
+- assessed for eligibility
+- excluded (with reasons)
+- randomized
+- allocated to each group
+- follow-up completed and lost
+- analyzed (ITT, PP, safety)</p>
+<p>Even if the diagram is produced in a word processor, you should compute these counts from data.</p>
+<hr />
+<h2 id="3-baseline-characteristics-table-table-1">3. Baseline characteristics table (“Table 1”)<a class="headerlink" href="#3-baseline-characteristics-table-table-1" title="Permanent link">&para;</a></h2>
+<p>Baseline table is descriptive.</p>
+<p>Recommended content:
+- N randomized by arm
+- demographics: age, sex, race/ethnicity (context-dependent)
+- disease characteristics: baseline severity, stage, risk factors
+- key prognostic factors and stratification variables</p>
+<p>Important:
+- do not use p-values to “test baseline balance”
+- report summaries and (optionally) standardized differences</p>
+<hr />
+<h2 id="4-primary-endpoint-reporting-focus-on-effect-size-ci">4. Primary endpoint reporting: focus on effect size + CI<a class="headerlink" href="#4-primary-endpoint-reporting-focus-on-effect-size-ci" title="Permanent link">&para;</a></h2>
+<p>The most important reporting elements are:
+- estimate of treatment effect
+- 95% confidence interval
+- p-value (secondary, not primary)</p>
+<p>Examples:
+- continuous: difference in means (adjusted or unadjusted) with CI
+- binary: risk difference / risk ratio / odds ratio with CI
+- time-to-event: hazard ratio with CI + KM curves</p>
+<p>Interpretation should answer:
+- Is the effect clinically meaningful?
+- How precise is the estimate?
+- Are conclusions robust to assumptions?</p>
+<hr />
+<h2 id="5-interpreting-confidence-intervals-correctly">5. Interpreting confidence intervals correctly<a class="headerlink" href="#5-interpreting-confidence-intervals-correctly" title="Permanent link">&para;</a></h2>
+<p>A 95% CI is not:
+- “there is a 95% probability the true effect is inside” (frequentist CI interpretation is different)</p>
+<p>A practical interpretation:</p>
+<blockquote>
+<p>If we repeated this trial many times, 95% of such CIs would contain the true effect.</p>
+</blockquote>
+<p>For readers, CI gives:
+- direction and magnitude
+- plausible range of effects
+- whether results include “no effect” (0 for differences, 1 for ratios)</p>
+<hr />
+<h2 id="6-subgroup-analyses-benefit-and-danger">6. Subgroup analyses: benefit and danger<a class="headerlink" href="#6-subgroup-analyses-benefit-and-danger" title="Permanent link">&para;</a></h2>
+<p>Subgroups are tempting but risky.</p>
+<h3 id="61-why-subgroups-can-mislead">6.1 Why subgroups can mislead<a class="headerlink" href="#61-why-subgroups-can-mislead" title="Permanent link">&para;</a></h3>
+<ul>
+<li>many subgroups → many false positives</li>
+<li>subgroups reduce sample size → unstable estimates</li>
+<li>“significant in subgroup A but not in subgroup B” does not prove a difference</li>
+</ul>
+<h3 id="62-correct-approach-interaction-tests">6.2 Correct approach: interaction tests<a class="headerlink" href="#62-correct-approach-interaction-tests" title="Permanent link">&para;</a></h3>
+<p>To test whether treatment differs by subgroup:</p>
+<p>Model:
+[
+Y = \beta_0 + \beta_1 T + \beta_2 S + \beta_3(T \times S) + \epsilon
+]</p>
+<ul>
+<li><span class="arithmatex">\(\beta_3\)</span> is the interaction term</li>
+<li>interpret interaction CI and p-value, not separate subgroup p-values</li>
+</ul>
+<h3 id="63-recommended-reporting">6.3 Recommended reporting<a class="headerlink" href="#63-recommended-reporting" title="Permanent link">&para;</a></h3>
+<ul>
+<li>pre-specify subgroups</li>
+<li>show forest plot with estimates and CI</li>
+<li>interpret cautiously, emphasize exploratory unless strongly powered</li>
+</ul>
+<hr />
+<h2 id="7-key-plots-for-clinical-trial-reporting">7. Key plots for clinical trial reporting<a class="headerlink" href="#7-key-plots-for-clinical-trial-reporting" title="Permanent link">&para;</a></h2>
+<h3 id="71-continuous-endpoint-plots">7.1 Continuous endpoint plots<a class="headerlink" href="#71-continuous-endpoint-plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li>mean change over time by arm (with CI bands)</li>
+<li>distribution plots (box/violin) if appropriate</li>
+</ul>
+<h3 id="72-binary-endpoint-plots">7.2 Binary endpoint plots<a class="headerlink" href="#72-binary-endpoint-plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li>bar plots of proportions with CI</li>
+<li>risk difference plot</li>
+</ul>
+<h3 id="73-time-to-event-plots">7.3 Time-to-event plots<a class="headerlink" href="#73-time-to-event-plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Kaplan–Meier curves with number at risk</li>
+<li>cumulative incidence curves for competing risks</li>
+</ul>
+<h3 id="74-forest-plots">7.4 Forest plots<a class="headerlink" href="#74-forest-plots" title="Permanent link">&para;</a></h3>
+<ul>
+<li>subgroup effect estimates with CI</li>
+<li>helpful visual summary, but not proof of heterogeneity without interaction testing</li>
+</ul>
+<hr />
+<h2 id="8-reproducibility-minimal-standards">8. Reproducibility: minimal standards<a class="headerlink" href="#8-reproducibility-minimal-standards" title="Permanent link">&para;</a></h2>
+<p>A reproducible trial analysis should:
+- fix package versions when possible
+- keep raw data separate from derived datasets
+- use scripted pipelines for tables/figures
+- include a clear “analysis dataset” construction step
+- log all outputs used in reporting</p>
+<p>Even for an educational site, teaching reproducibility builds professional habits.</p>
+<hr />
+<h1 id="part-a-practical-reporting-workflow-in-python">Part A — Practical reporting workflow in Python<a class="headerlink" href="#part-a-practical-reporting-workflow-in-python" title="Permanent link">&para;</a></h1>
+<p>We generate a toy parallel-group trial dataset and produce:
+- Table 1 baseline summary
+- primary endpoint estimate + CI
+- subgroup forest plot (illustration)
+- CONSORT-like counts summary</p>
+<hr />
+<h2 id="9a-python-create-toy-trial-dataset">9A. Python: Create toy trial dataset<a class="headerlink" href="#9a-python-create-toy-trial-dataset" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">55</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">sex</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># 1=male</span>
+<span class="n">baseline</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># baseline SBP</span>
+
+<span class="c1"># primary endpoint: SBP at week 12 (lower is better)</span>
+<span class="n">true_delta</span> <span class="o">=</span> <span class="o">-</span><span class="mf">6.0</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">baseline</span> <span class="o">+</span> <span class="n">true_delta</span><span class="o">*</span><span class="n">trt</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># dropout indicator (for reporting)</span>
+<span class="n">dropout</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># 8% missing</span>
+<span class="n">y_obs</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y_obs</span><span class="p">[</span><span class="n">dropout</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;trt&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">,</span>
+    <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span>
+    <span class="s2">&quot;sex&quot;</span><span class="p">:</span> <span class="n">sex</span><span class="p">,</span>
+    <span class="s2">&quot;baseline_sbp&quot;</span><span class="p">:</span> <span class="n">baseline</span><span class="p">,</span>
+    <span class="s2">&quot;sbp12&quot;</span><span class="p">:</span> <span class="n">y_obs</span><span class="p">,</span>
+    <span class="s2">&quot;dropout&quot;</span><span class="p">:</span> <span class="n">dropout</span>
+<span class="p">})</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10a-python-baseline-table-table-1">10A. Python: Baseline table (“Table 1”)<a class="headerlink" href="#10a-python-baseline-table-table-1" title="Permanent link">&para;</a></h2>
+<p>We compute descriptive summaries by group.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">summarize_cont</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s2">&quot;sd&quot;</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">()})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">summarize_bin</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s2">&quot;pct&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()})</span>
+
+<span class="n">table1_age</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[</span><span class="s2">&quot;age&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">summarize_cont</span><span class="p">)</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<span class="n">table1_base</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[</span><span class="s2">&quot;baseline_sbp&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">summarize_cont</span><span class="p">)</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+<span class="n">table1_sex</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">summarize_bin</span><span class="p">)</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+
+<span class="n">table1_age</span><span class="p">,</span> <span class="n">table1_base</span><span class="p">,</span> <span class="n">table1_sex</span>
+</code></pre></div>
+</div>
+<p>You can format these for display in the site as markdown tables if desired.</p>
+<hr />
+<h2 id="11a-python-primary-endpoint-effect-estimate-with-ci-ancova">11A. Python: Primary endpoint effect estimate with CI (ANCOVA)<a class="headerlink" href="#11a-python-primary-endpoint-effect-estimate-with-ci-ancova" title="Permanent link">&para;</a></h2>
+<p>ANCOVA often improves precision:
+[
+\text{SBP}_{12} = \beta_0 + \beta_1 T + \beta_2 \text{baseline} + \epsilon
+]</p>
+<p>Here <span class="arithmatex">\(\beta_1\)</span> estimates adjusted mean difference.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
+
+<span class="n">dfa</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sbp12&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">fit</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;sbp12 ~ trt + baseline_sbp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dfa</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">fit</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>Extract estimate + 95% CI:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">est</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">]</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">fit</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">est</span><span class="p">,</span> <span class="n">ci</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- if estimate is negative, treatment lowers SBP relative to control</p>
+<hr />
+<h2 id="12a-python-consort-style-counts">12A. Python: CONSORT-style counts<a class="headerlink" href="#12a-python-consort-style-counts" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">consort</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;randomized&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">(),</span>
+    <span class="s2">&quot;missing_primary&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[</span><span class="s2">&quot;sbp12&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+    <span class="s2">&quot;analyzed_primary&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[</span><span class="s2">&quot;sbp12&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="p">})</span>
+<span class="n">consort</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="13a-python-forest-plot-for-subgroup-effects-illustration">13A. Python: Forest plot for subgroup effects (illustration)<a class="headerlink" href="#13a-python-forest-plot-for-subgroup-effects-illustration" title="Permanent link">&para;</a></h2>
+<p>Subgroup: sex (male vs female)</p>
+<p>We estimate treatment effect within subgroup (descriptive) and show forest plot.
+The correct formal test is interaction (shown after).</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">effects</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cis</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Female&quot;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Male&quot;</span><span class="p">)]:</span>
+    <span class="n">sub</span> <span class="o">=</span> <span class="n">dfa</span><span class="p">[</span><span class="n">dfa</span><span class="o">.</span><span class="n">sex</span><span class="o">==</span><span class="n">s</span><span class="p">]</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;sbp12 ~ trt + baseline_sbp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sub</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="n">est</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">]</span>
+    <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">conf_int</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">]</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">effects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">est</span><span class="p">)</span>
+    <span class="n">cis</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+
+<span class="n">effects</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">effects</span><span class="p">)</span>
+<span class="n">lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cis</span><span class="p">])</span>
+<span class="n">hi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cis</span><span class="p">])</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">effects</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Treatment effect (adjusted mean difference)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Subgroup effects (illustration)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="14a-python-interaction-test-correct-subgroup-inference">14A. Python: Interaction test (correct subgroup inference)<a class="headerlink" href="#14a-python-interaction-test-correct-subgroup-inference" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_int</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;sbp12 ~ trt * sex + baseline_sbp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">dfa</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">fit_int</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- the <code>trt:sex</code> term is the interaction
+- if it is near 0 with wide CI, evidence for heterogeneity is weak</p>
+<hr />
+<h1 id="part-b-practical-reporting-workflow-in-r">Part B — Practical reporting workflow in R<a class="headerlink" href="#part-b-practical-reporting-workflow-in-r" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="15b-r-create-toy-trial-dataset">15B. R: Create toy trial dataset<a class="headerlink" href="#15b-r-create-toy-trial-dataset" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">400</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">55</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span>
+<span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.48</span><span class="p">)</span>
+<span class="n">baseline</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="m">18</span><span class="p">)</span>
+
+<span class="n">true_delta</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-6</span>
+<span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">baseline</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">true_delta</span><span class="o">*</span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span>
+
+<span class="n">dropout</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.08</span><span class="p">)</span>
+<span class="n">y_obs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">y</span>
+<span class="n">y_obs</span><span class="p">[</span><span class="n">dropout</span><span class="o">==</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">trt</span><span class="o">=</span><span class="n">trt</span><span class="p">,</span>
+<span class="w">  </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">,</span>
+<span class="w">  </span><span class="n">sex</span><span class="o">=</span><span class="n">sex</span><span class="p">,</span>
+<span class="w">  </span><span class="n">baseline_sbp</span><span class="o">=</span><span class="n">baseline</span><span class="p">,</span>
+<span class="w">  </span><span class="n">sbp12</span><span class="o">=</span><span class="n">y_obs</span><span class="p">,</span>
+<span class="w">  </span><span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span>
+<span class="p">)</span>
+
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="16b-r-baseline-table-table-1">16B. R: Baseline table (“Table 1”)<a class="headerlink" href="#16b-r-baseline-table-table-1" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># continuous summaries</span>
+<span class="nf">tapply</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<span class="nf">tapply</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">baseline_sbp</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="o">=</span><span class="nf">sd</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="c1"># binary summary: sex=1</span>
+<span class="nf">tapply</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">pct</span><span class="o">=</span><span class="m">100</span><span class="o">*</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="17b-r-primary-endpoint-analysis-with-ancova">17B. R: Primary endpoint analysis with ANCOVA<a class="headerlink" href="#17b-r-primary-endpoint-analysis-with-ancova" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">dfa</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">sbp12</span><span class="p">),</span><span class="w"> </span><span class="p">]</span>
+
+<span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">sbp12</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">baseline_sbp</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">dfa</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+
+<span class="c1"># treatment effect estimate and CI</span>
+<span class="n">est</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coef</span><span class="p">(</span><span class="n">fit</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">]</span>
+<span class="n">ci</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">confint</span><span class="p">(</span><span class="n">fit</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="n">est</span>
+<span class="n">ci</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="18b-r-consort-style-counts">18B. R: CONSORT-style counts<a class="headerlink" href="#18b-r-consort-style-counts" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">randomized</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">table</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">)</span>
+<span class="n">missing_primary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">sbp12</span><span class="p">),</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<span class="n">analyzed_primary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tapply</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">sbp12</span><span class="p">),</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+
+<span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">trt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">randomized</span><span class="p">),</span>
+<span class="w">  </span><span class="n">randomized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">randomized</span><span class="p">),</span>
+<span class="w">  </span><span class="n">missing_primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">missing_primary</span><span class="p">),</span>
+<span class="w">  </span><span class="n">analyzed_primary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">analyzed_primary</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="19b-r-forest-plot-for-subgroup-effects-illustration">19B. R: Forest plot for subgroup effects (illustration)<a class="headerlink" href="#19b-r-forest-plot-for-subgroup-effects-illustration" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># subgroup by sex</span>
+<span class="n">effects</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span>
+<span class="n">lo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span>
+<span class="n">hi</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">()</span>
+<span class="n">labels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Female&quot;</span><span class="p">,</span><span class="s">&quot;Male&quot;</span><span class="p">)</span>
+
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dfa</span><span class="p">[</span><span class="n">dfa</span><span class="o">$</span><span class="n">sex</span><span class="o">==</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="n">f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">sbp12</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">baseline_sbp</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">sub</span><span class="p">)</span>
+<span class="w">  </span><span class="n">est</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coef</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="n">ci</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">confint</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="n">effects</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">effects</span><span class="p">,</span><span class="w"> </span><span class="n">est</span><span class="p">)</span>
+<span class="w">  </span><span class="n">lo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="p">[</span><span class="m">1</span><span class="p">])</span>
+<span class="w">  </span><span class="n">hi</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">hi</span><span class="p">,</span><span class="w"> </span><span class="n">ci</span><span class="p">[</span><span class="m">2</span><span class="p">])</span>
+<span class="p">}</span>
+
+<span class="c1"># simple base R forest-like plot</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">effects</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">range</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span><span class="n">hi</span><span class="p">)),</span><span class="w"> </span><span class="n">yaxt</span><span class="o">=</span><span class="s">&quot;n&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Treatment effect (adjusted mean difference)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">pch</span><span class="o">=</span><span class="m">19</span><span class="p">)</span>
+<span class="nf">axis</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">at</span><span class="o">=</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="nf">segments</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">hi</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">title</span><span class="p">(</span><span class="s">&quot;Subgroup effects (illustration)&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="20b-r-interaction-test-correct-subgroup-inference">20B. R: Interaction test (correct subgroup inference)<a class="headerlink" href="#20b-r-interaction-test-correct-subgroup-inference" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_int</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">sbp12</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="o">*</span><span class="n">sex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">baseline_sbp</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">dfa</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_int</span><span class="p">)</span>
+<span class="nf">confint</span><span class="p">(</span><span class="n">fit_int</span><span class="p">)[</span><span class="s">&quot;trt:sex&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="21-how-to-write-results">21. How to write results<a class="headerlink" href="#21-how-to-write-results" title="Permanent link">&para;</a></h2>
+<p>A high-quality results paragraph usually includes:
+- point estimate
+- CI
+- clear directionality
+- clinical meaning</p>
+<p>Example (continuous endpoint):</p>
+<blockquote>
+<p>At week 12, the adjusted mean SBP was lower in the treatment group compared with control, with an adjusted mean difference of -5.8 mmHg (95% CI -8.1 to -3.5).  </p>
+</blockquote>
+<p>Do not over-focus on p-values; include them if required, but interpret the CI primarily.</p>
+<hr />
+<h2 id="22-common-interpretation-mistakes">22. Common interpretation mistakes<a class="headerlink" href="#22-common-interpretation-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>“No significant difference” does not mean “no difference”</li>
+<li>check CI width and clinically relevant effects</li>
+<li>Subgroup results should not be claimed based on within-subgroup p-values</li>
+<li>interaction test matters</li>
+<li>Avoid interpreting secondary endpoints as confirmatory unless multiplicity controlled</li>
+<li>Avoid causal language outside what the design supports (e.g., for post-hoc analyses)</li>
+</ul>
+<hr />
+<h2 id="23-reproducible-reporting-workflow">23. Reproducible reporting workflow<a class="headerlink" href="#23-reproducible-reporting-workflow" title="Permanent link">&para;</a></h2>
+<p>A simple, robust structure:</p>
+<ul>
+<li><code>docs/</code> for narrative content and code examples</li>
+<li><code>analysis/</code> for scripts/notebooks that generate figures/tables</li>
+<li><code>data/</code> for toy or public datasets (avoid sensitive real trial data)</li>
+<li><code>outputs/</code> for generated tables/figures used in docs</li>
+</ul>
+<p>Even if your site is educational, this mirrors real-world trial reporting pipelines.</p>
+<hr />
+<h2 id="24-exercises">24. Exercises<a class="headerlink" href="#24-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Modify the toy dataset so the treatment effect is -3 instead of -6 and compare CI width and conclusions.  
+2. Increase dropout from 8% to 25% and recompute the primary analysis (complete-case). Discuss how missingness might bias conclusions.  
+3. Create an additional subgroup (age < 60 vs ≥ 60) and make a forest plot. Then test interaction.  
+4. For a binary endpoint, compute risk difference and 95% CI.  
+5. Write a short CONSORT-style summary of participant flow using the computed counts.
+
+</details>
+
+<hr />
+<h2 id="25-summary">25. Summary<a class="headerlink" href="#25-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>CONSORT provides a structured approach to transparent trial reporting.</li>
+<li>Report effect sizes and confidence intervals prominently.</li>
+<li>Baseline tables are descriptive; baseline p-values are discouraged.</li>
+<li>Subgroup claims require interaction testing and cautious interpretation.</li>
+<li>Reproducible scripts for tables/figures improve trust and reduce errors.</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

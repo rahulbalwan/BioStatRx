@@ -1,0 +1,2310 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Clinical_Trials/07-safety-analysis-adverse-events/">
+      
+      
+        <link rel="prev" href="../06-analysis-population-%26-missing-data/">
+      
+      
+        <link rel="next" href="../08-reporting/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Safety Analysis & Adverse Events - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#safety-analysis-and-adverse-events-aesae-practical-reporting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Safety Analysis & Adverse Events
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Survival_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Clinical Trials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-clinical-trials-foundations-%26-phases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations & Phases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-randomization-%26-allocation-concealment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Randomization & Allocation Concealment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-trial-designs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trial Designs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-outcomes-endpoints-%26-estimands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outcomes, Endpoints & Estimands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sample-size-%26-power/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Size & Power
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-analysis-population-%26-missing-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis Population & Missing Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety Analysis & Adverse Events
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Safety Analysis & Adverse Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-key-safety-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Key safety terminology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Key safety terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-adverse-event-ae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Adverse event (AE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-serious-adverse-event-sae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Serious adverse event (SAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-adverse-event-of-special-interest-aesi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Adverse event of special interest (AESI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-treatment-emergent-adverse-event-teae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Treatment-emergent adverse event (TEAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-safety-analysis-populations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Safety analysis populations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Safety analysis populations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-safety-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Safety set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-not-always-itt-for-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why not always ITT for safety?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-to-summarize-in-safety-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. What to summarize in safety analysis?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-incidence-proportion-vs-exposure-adjusted-incidence-rate-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-incidence-proportion-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Incidence proportion (risk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-exposure-adjusted-incidence-rate-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Exposure-adjusted incidence rate (EAIR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-which-numerator-to-use-for-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Which numerator to use for EAIR?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-comparing-safety-between-groups-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Comparing safety between groups (methods)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Comparing safety between groups (methods)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-risk-difference-risk-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Risk difference / risk ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-poisson-negative-binomial-models-for-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Poisson / negative binomial models for rates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-time-to-event-for-first-ae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Time-to-event for first AE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-reporting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reporting & Interpretation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-key-safety-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Key safety terminology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Key safety terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-adverse-event-ae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Adverse event (AE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-serious-adverse-event-sae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Serious adverse event (SAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-adverse-event-of-special-interest-aesi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Adverse event of special interest (AESI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-treatment-emergent-adverse-event-teae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Treatment-emergent adverse event (TEAE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-safety-analysis-populations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Safety analysis populations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Safety analysis populations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-safety-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Safety set
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-why-not-always-itt-for-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Why not always ITT for safety?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-to-summarize-in-safety-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. What to summarize in safety analysis?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-incidence-proportion-vs-exposure-adjusted-incidence-rate-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-incidence-proportion-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Incidence proportion (risk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-exposure-adjusted-incidence-rate-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Exposure-adjusted incidence rate (EAIR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-which-numerator-to-use-for-eair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Which numerator to use for EAIR?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-comparing-safety-between-groups-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Comparing safety between groups (methods)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Comparing safety between groups (methods)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-risk-difference-risk-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Risk difference / risk ratio
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-poisson-negative-binomial-models-for-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Poisson / negative binomial models for rates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-time-to-event-for-first-ae" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Time-to-event for first AE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="safety-analysis-and-adverse-events-aesae-practical-reporting">Safety Analysis and Adverse Events (AE/SAE) + Practical Reporting<a class="headerlink" href="#safety-analysis-and-adverse-events-aesae-practical-reporting" title="Permanent link">&para;</a></h1>
+<p>Efficacy is only half the story. In clinical trials, safety evaluation is equally important.</p>
+<p>Safety analysis answers questions like:
+- Is the new treatment associated with more adverse events?
+- Are there specific event types that occur more often?
+- Is the safety profile acceptable relative to benefits?
+- Do adverse events depend on exposure time?</p>
+<p>This chapter gives a practical, biostatistics-focused framework for analyzing and reporting safety data:
+- AE vs SAE vs AESI definitions
+- safety analysis populations
+- incidence proportions vs exposure-adjusted incidence rates (EAIR)
+- summary tables by event category (SOC/PT style)
+- lab abnormalities and shift tables
+- reproducible reporting in R and Python with toy data</p>
+<hr />
+<h2 id="1-key-safety-terminology">1. Key safety terminology<a class="headerlink" href="#1-key-safety-terminology" title="Permanent link">&para;</a></h2>
+<p>Different trials have slightly different definitions, but the concepts are consistent.</p>
+<h3 id="11-adverse-event-ae">1.1 Adverse event (AE)<a class="headerlink" href="#11-adverse-event-ae" title="Permanent link">&para;</a></h3>
+<p>Any untoward medical occurrence after treatment starts, whether or not related to treatment.</p>
+<p>Important:
+- “AE” does not require causality.
+- If it happens after exposure, it can be recorded as an AE.</p>
+<h3 id="12-serious-adverse-event-sae">1.2 Serious adverse event (SAE)<a class="headerlink" href="#12-serious-adverse-event-sae" title="Permanent link">&para;</a></h3>
+<p>Typically includes events such as:
+- death
+- life-threatening event
+- hospitalization or prolonged hospitalization
+- persistent disability or incapacity
+- congenital anomaly
+- other medically important event</p>
+<p>These are high-priority events for monitoring and reporting.</p>
+<h3 id="13-adverse-event-of-special-interest-aesi">1.3 Adverse event of special interest (AESI)<a class="headerlink" href="#13-adverse-event-of-special-interest-aesi" title="Permanent link">&para;</a></h3>
+<p>Events pre-specified as important due to:
+- known drug class risks
+- biological plausibility
+- earlier trial signals</p>
+<p>Example:
+- thrombosis with certain therapies
+- liver injury markers for hepatotoxic drugs</p>
+<h3 id="14-treatment-emergent-adverse-event-teae">1.4 Treatment-emergent adverse event (TEAE)<a class="headerlink" href="#14-treatment-emergent-adverse-event-teae" title="Permanent link">&para;</a></h3>
+<p>A TEAE is an AE that begins (or worsens) after treatment initiation within a defined risk window.</p>
+<p>Safety reporting often focuses on TEAEs because they align with exposure.</p>
+<hr />
+<h2 id="2-safety-analysis-populations">2. Safety analysis populations<a class="headerlink" href="#2-safety-analysis-populations" title="Permanent link">&para;</a></h2>
+<p>Safety analysis is usually based on an “as-treated” or “safety set” population.</p>
+<h3 id="21-safety-set">2.1 Safety set<a class="headerlink" href="#21-safety-set" title="Permanent link">&para;</a></h3>
+<p>All participants who received at least one dose of study treatment, analyzed according to treatment actually received.</p>
+<p>This differs from ITT because:
+- safety is linked to exposure, not assignment.</p>
+<h3 id="22-why-not-always-itt-for-safety">2.2 Why not always ITT for safety?<a class="headerlink" href="#22-why-not-always-itt-for-safety" title="Permanent link">&para;</a></h3>
+<p>If someone is randomized but never takes treatment, counting them in safety summaries can dilute or distort safety risk.</p>
+<p>Safety analyses often use:
+- actual exposure time
+- risk windows
+- on-treatment vs intended treatment definitions</p>
+<hr />
+<h2 id="3-what-to-summarize-in-safety-analysis">3. What to summarize in safety analysis?<a class="headerlink" href="#3-what-to-summarize-in-safety-analysis" title="Permanent link">&para;</a></h2>
+<p>Safety summaries usually include:</p>
+<p>1) Overall AE burden
+- number (%) with at least one AE
+- number (%) with at least one SAE
+- number (%) with discontinuation due to AE
+- number (%) with death</p>
+<p>2) Most common AEs
+- by system organ class (SOC)
+- by preferred term (PT)
+- often sorted by frequency</p>
+<p>3) Exposure-adjusted rates
+- events per person-year (often per 100 person-years)
+- important if follow-up differs between arms</p>
+<p>4) Severity and relatedness
+- mild/moderate/severe
+- related vs unrelated to treatment (reported, but interpret cautiously)</p>
+<p>5) Labs and vitals
+- shifts from baseline category to worst post-baseline category
+- threshold-based abnormality rates (e.g., ALT &gt; 3× ULN)</p>
+<hr />
+<h2 id="4-incidence-proportion-vs-exposure-adjusted-incidence-rate-eair">4. Incidence proportion vs exposure-adjusted incidence rate (EAIR)<a class="headerlink" href="#4-incidence-proportion-vs-exposure-adjusted-incidence-rate-eair" title="Permanent link">&para;</a></h2>
+<h3 id="41-incidence-proportion-risk">4.1 Incidence proportion (risk)<a class="headerlink" href="#41-incidence-proportion-risk" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{Risk} = \frac{\#\text{participants with at least one event}}{\#\text{participants at risk}}
+\]</div>
+<p>This answers:</p>
+<blockquote>
+<p>What proportion of participants experienced at least one event?</p>
+</blockquote>
+<p>Use when:
+- follow-up time is similar
+- you want a participant-level interpretation</p>
+<h3 id="42-exposure-adjusted-incidence-rate-eair">4.2 Exposure-adjusted incidence rate (EAIR)<a class="headerlink" href="#42-exposure-adjusted-incidence-rate-eair" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{EAIR} = \frac{\#\text{events}}{\text{total person-time}}
+\]</div>
+<p>Often expressed per 100 person-years:</p>
+<div class="arithmatex">\[
+\text{EAIR}_{100} = 100 \times \frac{\#\text{events}}{\text{total person-years}}
+\]</div>
+<p>This answers:</p>
+<blockquote>
+<p>How frequently do events occur, accounting for time under observation?</p>
+</blockquote>
+<p>Use when:
+- follow-up differs between groups
+- events can repeat (multiple infections, multiple hospitalizations)
+- exposure time is clinically important</p>
+<h3 id="43-which-numerator-to-use-for-eair">4.3 Which numerator to use for EAIR?<a class="headerlink" href="#43-which-numerator-to-use-for-eair" title="Permanent link">&para;</a></h3>
+<p>Two common choices:
+- number of participants with at least one event (first-event rate)
+- number of events (recurrent-event rate)</p>
+<p>You must clearly specify which.</p>
+<hr />
+<h2 id="5-comparing-safety-between-groups-methods">5. Comparing safety between groups (methods)<a class="headerlink" href="#5-comparing-safety-between-groups-methods" title="Permanent link">&para;</a></h2>
+<p>Safety comparisons are often descriptive, but inferential methods exist.</p>
+<h3 id="51-risk-difference-risk-ratio">5.1 Risk difference / risk ratio<a class="headerlink" href="#51-risk-difference-risk-ratio" title="Permanent link">&para;</a></h3>
+<p>For “any AE yes/no”:
+- compare proportions
+- compute confidence intervals for risk difference or risk ratio</p>
+<h3 id="52-poisson-negative-binomial-models-for-rates">5.2 Poisson / negative binomial models for rates<a class="headerlink" href="#52-poisson-negative-binomial-models-for-rates" title="Permanent link">&para;</a></h3>
+<p>For count outcomes (multiple events), with an offset:</p>
+<div class="arithmatex">\[
+\log\bigl(E[Y]\bigr) = \beta_0 + \beta_1 \,\mathrm{Trt} + \log(\text{person-time})
+\]</div>
+<p>Then:
+- <span class="arithmatex">\(\exp(\beta_1)\)</span> is the rate ratio (treatment vs control)</p>
+<p>If overdispersion exists, use negative binomial.</p>
+<h3 id="53-time-to-event-for-first-ae">5.3 Time-to-event for first AE<a class="headerlink" href="#53-time-to-event-for-first-ae" title="Permanent link">&para;</a></h3>
+<p>You can use survival methods to analyze time to first AE.</p>
+<p>Important nuance:
+- time to first AE can be influenced by follow-up duration and competing risks (e.g., death).</p>
+<hr />
+<h1 id="part-a-practice-in-python">Part A — Practice in Python<a class="headerlink" href="#part-a-practice-in-python" title="Permanent link">&para;</a></h1>
+<p>We generate toy AE data with:
+- participant-level exposure time
+- SOC and PT categories
+- recurrent event counts</p>
+<hr />
+<h2 id="6a-python-simulate-a-trial-safety-dataset">6A. Python: Simulate a trial safety dataset<a class="headerlink" href="#6a-python-simulate-a-trial-safety-dataset" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2026</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># 1=treatment, 0=control</span>
+
+<span class="c1"># exposure time in days (treatment group slightly shorter, e.g., discontinuations)</span>
+<span class="n">exposure_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+    <span class="n">trt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>  <span class="c1"># mean ~90</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>   <span class="c1"># mean ~100</span>
+<span class="p">)</span>
+
+<span class="n">exposure_py</span> <span class="o">=</span> <span class="n">exposure_days</span> <span class="o">/</span> <span class="mf">365.25</span>
+
+<span class="c1"># AE event generation: Poisson rate depends on treatment</span>
+<span class="n">base_rate</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># events per person-year in control</span>
+<span class="n">rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">trt</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">base_rate</span> <span class="o">*</span> <span class="mf">1.25</span><span class="p">,</span> <span class="n">base_rate</span><span class="p">)</span>  <span class="c1"># higher AE rate on treatment</span>
+<span class="n">ae_count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">rate</span> <span class="o">*</span> <span class="n">exposure_py</span><span class="p">)</span>
+
+<span class="c1"># create SOC/PT categories for each AE event (event-level dataset)</span>
+<span class="n">socs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Gastrointestinal disorders&quot;</span><span class="p">,</span> <span class="s2">&quot;Nervous system disorders&quot;</span><span class="p">,</span> <span class="s2">&quot;Infections&quot;</span><span class="p">,</span> <span class="s2">&quot;Skin disorders&quot;</span><span class="p">]</span>
+<span class="n">pts_by_soc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Gastrointestinal disorders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Nausea&quot;</span><span class="p">,</span> <span class="s2">&quot;Diarrhoea&quot;</span><span class="p">,</span> <span class="s2">&quot;Abdominal pain&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Nervous system disorders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Headache&quot;</span><span class="p">,</span> <span class="s2">&quot;Dizziness&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Infections&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Upper respiratory infection&quot;</span><span class="p">,</span> <span class="s2">&quot;Urinary tract infection&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;Skin disorders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Rash&quot;</span><span class="p">,</span> <span class="s2">&quot;Pruritus&quot;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">ae_count</span><span class="p">[</span><span class="n">pid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+        <span class="n">soc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">socs</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">])</span>
+        <span class="n">pt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pts_by_soc</span><span class="p">[</span><span class="n">soc</span><span class="p">])</span>
+        <span class="n">severity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;Mild&quot;</span><span class="p">,</span> <span class="s2">&quot;Moderate&quot;</span><span class="p">,</span> <span class="s2">&quot;Severe&quot;</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">])</span>
+        <span class="n">sae</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span>  <span class="c1"># rare SAEs</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">pid</span><span class="p">,</span> <span class="n">trt</span><span class="p">[</span><span class="n">pid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">soc</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">severity</span><span class="p">,</span> <span class="n">sae</span><span class="p">])</span>
+
+<span class="n">ae</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;participant_id&quot;</span><span class="p">,</span> <span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;SOC&quot;</span><span class="p">,</span> <span class="s2">&quot;PT&quot;</span><span class="p">,</span> <span class="s2">&quot;severity&quot;</span><span class="p">,</span> <span class="s2">&quot;SAE&quot;</span><span class="p">])</span>
+
+<span class="c1"># participant-level frame</span>
+<span class="n">subj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;participant_id&quot;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="s2">&quot;trt&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">,</span>
+    <span class="s2">&quot;exposure_days&quot;</span><span class="p">:</span> <span class="n">exposure_days</span><span class="p">,</span>
+    <span class="s2">&quot;exposure_py&quot;</span><span class="p">:</span> <span class="n">exposure_py</span><span class="p">,</span>
+    <span class="s2">&quot;ae_count&quot;</span><span class="p">:</span> <span class="n">ae_count</span>
+<span class="p">})</span>
+
+<span class="n">subj</span><span class="o">.</span><span class="n">head</span><span class="p">(),</span> <span class="n">ae</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7a-python-participant-level-safety-summary-at-least-one-ae-at-least-one-sae">7A. Python: Participant-level safety summary (at least one AE, at least one SAE)<a class="headerlink" href="#7a-python-participant-level-safety-summary-at-least-one-ae-at-least-one-sae" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># indicator: at least one AE</span>
+<span class="n">subj</span><span class="p">[</span><span class="s2">&quot;any_AE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">subj</span><span class="p">[</span><span class="s2">&quot;ae_count&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># indicator: any SAE (participant-level)</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">any_sae</span> <span class="o">=</span> <span class="n">ae</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;participant_id&quot;</span><span class="p">)[</span><span class="s2">&quot;SAE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">subj</span> <span class="o">=</span> <span class="n">subj</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">any_sae</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;any_SAE&quot;</span><span class="p">),</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;participant_id&quot;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">subj</span><span class="p">[</span><span class="s2">&quot;any_SAE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subj</span><span class="p">[</span><span class="s2">&quot;any_SAE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">subj</span><span class="p">[</span><span class="s2">&quot;any_SAE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># proportions by arm</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">subj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)[[</span><span class="s2">&quot;any_AE&quot;</span><span class="p">,</span> <span class="s2">&quot;any_SAE&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">summary</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- values are proportions (risk of any AE/SAE)</p>
+<hr />
+<h2 id="8a-python-exposure-adjusted-incidence-rate-eair">8A. Python: Exposure-adjusted incidence rate (EAIR)<a class="headerlink" href="#8a-python-exposure-adjusted-incidence-rate-eair" title="Permanent link">&para;</a></h2>
+<p>We compute:
+- total events / total person-years</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">eair</span> <span class="o">=</span> <span class="n">subj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;ae_count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;exposure_py&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">eair</span>
+</code></pre></div>
+</div>
+<p>Convert to events per 100 person-years:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">eair</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;events_per_100_person_years&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="9a-python-soc-and-pt-frequency-tables">9A. Python: SOC and PT frequency tables<a class="headerlink" href="#9a-python-soc-and-pt-frequency-tables" title="Permanent link">&para;</a></h2>
+<p>Often safety tables report:
+- number (%) of participants with at least one event in a category</p>
+<p>We compute participant-level incidence by SOC and PT.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># participant-level SOC incidence: unique participants within each SOC</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">soc_inc</span> <span class="o">=</span> <span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;SOC&quot;</span><span class="p">,</span> <span class="s2">&quot;participant_id&quot;</span><span class="p">])</span>
+                 <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                 <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+                 <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;SOC&quot;</span><span class="p">])</span>
+                 <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                 <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;n_participants&quot;</span><span class="p">))</span>
+
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">subj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">soc_inc</span> <span class="o">=</span> <span class="n">soc_inc</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">denom</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span>
+    <span class="n">soc_inc</span><span class="p">[</span><span class="s2">&quot;pct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">soc_inc</span><span class="p">[</span><span class="s2">&quot;n_participants&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">soc_inc</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span>
+
+    <span class="n">soc_inc</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;n_participants&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Similarly for PT:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">pt_inc</span> <span class="o">=</span> <span class="p">(</span><span class="n">ae</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;PT&quot;</span><span class="p">,</span> <span class="s2">&quot;participant_id&quot;</span><span class="p">])</span>
+                <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;PT&quot;</span><span class="p">])</span>
+                <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;n_participants&quot;</span><span class="p">))</span>
+
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">subj</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">pt_inc</span> <span class="o">=</span> <span class="n">pt_inc</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">denom</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;trt&quot;</span><span class="p">)</span>
+    <span class="n">pt_inc</span><span class="p">[</span><span class="s2">&quot;pct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">pt_inc</span><span class="p">[</span><span class="s2">&quot;n_participants&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">pt_inc</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span>
+
+    <span class="n">pt_inc</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s2">&quot;trt&quot;</span><span class="p">,</span> <span class="s2">&quot;n_participants&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10a-python-modeling-ae-counts-with-poisson-regression-rate-ratio">10A. Python: Modeling AE counts with Poisson regression (rate ratio)<a class="headerlink" href="#10a-python-modeling-ae-counts-with-poisson-regression-rate-ratio" title="Permanent link">&para;</a></h2>
+<p>We fit:</p>
+<div class="arithmatex">\[
+\log\bigl(E[Y]\bigr) = \beta_0 + \beta_1 \,\mathrm{trt} + \log(\text{person-years})
+\]</div>
+<p>so <span class="arithmatex">\(\exp(\beta_1)\)</span> is the AE rate ratio.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">subj</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">])</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span>
+    <span class="n">subj</span><span class="p">[</span><span class="s2">&quot;ae_count&quot;</span><span class="p">],</span>
+    <span class="n">X</span><span class="p">,</span>
+    <span class="n">family</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">families</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(),</span>
+    <span class="n">offset</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">subj</span><span class="p">[</span><span class="s2">&quot;exposure_py&quot;</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">fit</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>Rate ratio estimate:</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">rr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">fit</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;trt&quot;</span><span class="p">]))</span>
+<span class="n">rr</span>
+</code></pre></div>
+</div>
+<p>Overdispersion check (quick heuristic):
+- compare deviance to df_resid</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit</span><span class="o">.</span><span class="n">deviance</span> <span class="o">/</span> <span class="n">fit</span><span class="o">.</span><span class="n">df_resid</span>
+</code></pre></div>
+</div>
+<p>If this is much larger than ~1, consider negative binomial.</p>
+<hr />
+<h1 id="part-b-practice-in-r">Part B — Practice in R<a class="headerlink" href="#part-b-practice-in-r" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="11b-r-simulate-safety-dataset">11B. R: Simulate safety dataset<a class="headerlink" href="#11b-r-simulate-safety-dataset" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">2026</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">300</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">exposure_days</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span>
+<span class="w">  </span><span class="n">trt</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nf">rgamma</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="m">18</span><span class="p">),</span>
+<span class="w">  </span><span class="nf">rgamma</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">exposure_py</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">exposure_days</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">365.25</span>
+
+<span class="n">base_rate</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.0</span>
+<span class="n">rate</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">ifelse</span><span class="p">(</span><span class="n">trt</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">base_rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1.25</span><span class="p">,</span><span class="w"> </span><span class="n">base_rate</span><span class="p">)</span>
+<span class="n">ae_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rpois</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">exposure_py</span><span class="p">)</span>
+
+<span class="n">subj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">participant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">,</span>
+<span class="w">  </span><span class="n">trt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trt</span><span class="p">,</span>
+<span class="w">  </span><span class="n">exposure_days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exposure_days</span><span class="p">,</span>
+<span class="w">  </span><span class="n">exposure_py</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">exposure_py</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ae_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ae_count</span>
+<span class="p">)</span>
+
+<span class="nf">head</span><span class="p">(</span><span class="n">subj</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Create event-level AE data with SOC/PT:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">socs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Gastrointestinal disorders&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Nervous system disorders&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Infections&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Skin disorders&quot;</span><span class="p">)</span>
+
+<span class="n">pts_by_soc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
+<span class="w">  </span><span class="s">&quot;Gastrointestinal disorders&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Nausea&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Diarrhoea&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Abdominal pain&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="s">&quot;Nervous system disorders&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Headache&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Dizziness&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="s">&quot;Infections&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Upper respiratory infection&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Urinary tract infection&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="s">&quot;Skin disorders&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Rash&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Pruritus&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">ae</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">()</span>
+
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ae_count</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="kr">next</span>
+
+<span class="w">  </span><span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">soc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="n">socs</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">prob</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.28</span><span class="p">,</span><span class="w"> </span><span class="m">0.26</span><span class="p">,</span><span class="w"> </span><span class="m">0.26</span><span class="p">,</span><span class="w"> </span><span class="m">0.20</span><span class="p">))</span>
+<span class="w">    </span><span class="n">pt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="n">pts_by_soc</span><span class="p">[[</span><span class="n">soc</span><span class="p">]],</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">    </span><span class="n">severity</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Mild&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Moderate&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Severe&quot;</span><span class="p">),</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">prob</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.65</span><span class="p">,</span><span class="w"> </span><span class="m">0.30</span><span class="p">,</span><span class="w"> </span><span class="m">0.05</span><span class="p">))</span>
+<span class="w">    </span><span class="n">sae</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.04</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">ae</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbind</span><span class="p">(</span><span class="n">ae</span><span class="p">,</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">      </span><span class="n">participant_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span>
+<span class="w">      </span><span class="n">trt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">trt</span><span class="p">[</span><span class="n">pid</span><span class="p">],</span>
+<span class="w">      </span><span class="n">SOC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soc</span><span class="p">,</span>
+<span class="w">      </span><span class="n">PT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pt</span><span class="p">,</span>
+<span class="w">      </span><span class="n">severity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">severity</span><span class="p">,</span>
+<span class="w">      </span><span class="n">SAE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sae</span>
+<span class="w">    </span><span class="p">))</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">head</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="12b-r-participant-level-safety-summary">12B. R: Participant-level safety summary<a class="headerlink" href="#12b-r-participant-level-safety-summary" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">subj</span><span class="o">$</span><span class="n">any_AE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">subj</span><span class="o">$</span><span class="n">ae_count</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+
+<span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">any_sae</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="n">SAE</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">participant_id</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">ae</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">max</span><span class="p">)</span>
+<span class="w">  </span><span class="n">subj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">subj</span><span class="p">,</span><span class="w"> </span><span class="n">any_sae</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&quot;participant_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">all.x</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="w">  </span><span class="n">subj</span><span class="o">$</span><span class="n">SAE</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">subj</span><span class="o">$</span><span class="n">SAE</span><span class="p">)]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="nf">names</span><span class="p">(</span><span class="n">subj</span><span class="p">)[</span><span class="nf">names</span><span class="p">(</span><span class="n">subj</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;SAE&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;any_SAE&quot;</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">subj</span><span class="o">$</span><span class="n">any_SAE</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="p">}</span>
+
+<span class="nf">aggregate</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="n">any_AE</span><span class="p">,</span><span class="w"> </span><span class="n">any_SAE</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">subj</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">mean</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="13b-r-exposure-adjusted-incidence-rate-eair">13B. R: Exposure-adjusted incidence rate (EAIR)<a class="headerlink" href="#13b-r-exposure-adjusted-incidence-rate-eair" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">eair</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">aggregate</span><span class="p">(</span><span class="nf">cbind</span><span class="p">(</span><span class="n">ae_count</span><span class="p">,</span><span class="w"> </span><span class="n">exposure_py</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">subj</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="o">=</span><span class="n">sum</span><span class="p">)</span>
+<span class="n">eair</span><span class="o">$</span><span class="n">rate</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">eair</span><span class="o">$</span><span class="n">ae_count</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">eair</span><span class="o">$</span><span class="n">exposure_py</span>
+<span class="n">eair</span><span class="o">$</span><span class="n">rate_per_100py</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">eair</span><span class="o">$</span><span class="n">rate</span>
+<span class="n">eair</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="14b-r-soc-and-pt-incidence-participants-with-at-least-one-event">14B. R: SOC and PT incidence (participants with at least one event)<a class="headerlink" href="#14b-r-soc-and-pt-incidence-participants-with-at-least-one-event" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">denom</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">table</span><span class="p">(</span><span class="n">subj</span><span class="o">$</span><span class="n">trt</span><span class="p">)</span>
+
+<span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">soc_inc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">ae</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SOC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;participant_id&quot;</span><span class="p">)])</span>
+<span class="w">  </span><span class="n">soc_tab</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">soc_inc</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">soc_inc</span><span class="o">$</span><span class="n">SOC</span><span class="p">))</span>
+<span class="w">  </span><span class="nf">names</span><span class="p">(</span><span class="n">soc_tab</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;SOC&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;n_participants&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="n">soc_tab</span><span class="o">$</span><span class="n">N</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">denom</span><span class="p">[</span><span class="nf">as.character</span><span class="p">(</span><span class="n">soc_tab</span><span class="o">$</span><span class="n">trt</span><span class="p">)])</span>
+<span class="w">  </span><span class="n">soc_tab</span><span class="o">$</span><span class="n">pct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">soc_tab</span><span class="o">$</span><span class="n">n_participants</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">soc_tab</span><span class="o">$</span><span class="n">N</span>
+
+<span class="w">  </span><span class="n">soc_tab</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">soc_tab</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">soc_tab</span><span class="o">$</span><span class="n">n_participants</span><span class="p">),</span><span class="w"> </span><span class="p">][</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<p>PT incidence:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">ae</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pt_inc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">ae</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;participant_id&quot;</span><span class="p">)])</span>
+<span class="w">  </span><span class="n">pt_tab</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">pt_inc</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="n">pt_inc</span><span class="o">$</span><span class="n">PT</span><span class="p">))</span>
+<span class="w">  </span><span class="nf">names</span><span class="p">(</span><span class="n">pt_tab</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;trt&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PT&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;n_participants&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="n">pt_tab</span><span class="o">$</span><span class="n">N</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">denom</span><span class="p">[</span><span class="nf">as.character</span><span class="p">(</span><span class="n">pt_tab</span><span class="o">$</span><span class="n">trt</span><span class="p">)])</span>
+<span class="w">  </span><span class="n">pt_tab</span><span class="o">$</span><span class="n">pct</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pt_tab</span><span class="o">$</span><span class="n">n_participants</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">pt_tab</span><span class="o">$</span><span class="n">N</span>
+
+<span class="w">  </span><span class="n">pt_tab</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">pt_tab</span><span class="o">$</span><span class="n">trt</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">pt_tab</span><span class="o">$</span><span class="n">n_participants</span><span class="p">),</span><span class="w"> </span><span class="p">][</span><span class="m">1</span><span class="o">:</span><span class="m">12</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="15b-r-poisson-regression-for-ae-rate-ratio-with-offset">15B. R: Poisson regression for AE rate ratio (with offset)<a class="headerlink" href="#15b-r-poisson-regression-for-ae-rate-ratio-with-offset" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">glm</span><span class="p">(</span><span class="n">ae_count</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">offset</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">exposure_py</span><span class="p">)),</span><span class="w"> </span><span class="n">family</span><span class="o">=</span><span class="nf">poisson</span><span class="p">(),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">subj</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+
+<span class="n">rr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">fit</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">])</span>
+<span class="n">rr</span>
+</code></pre></div>
+</div>
+<p>Overdispersion check:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">deviance</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">df.residual</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>If much larger than 1, consider negative binomial:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># install.packages(&quot;MASS&quot;) if needed</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">MASS</span><span class="p">)</span>
+
+<span class="n">fit_nb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">glm.nb</span><span class="p">(</span><span class="n">ae_count</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">offset</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">exposure_py</span><span class="p">)),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">subj</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_nb</span><span class="p">)</span>
+
+<span class="n">rr_nb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="nf">coef</span><span class="p">(</span><span class="n">fit_nb</span><span class="p">)[</span><span class="s">&quot;trt&quot;</span><span class="p">])</span>
+<span class="n">rr_nb</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="16-lab-safety-and-shift-tables">16. Lab safety and shift tables<a class="headerlink" href="#16-lab-safety-and-shift-tables" title="Permanent link">&para;</a></h2>
+<p>Many trials monitor labs such as ALT/AST, creatinine, and neutrophils.</p>
+<p>A common reporting tool is a shift table:
+- baseline category (e.g., normal / high)
+- worst post-baseline category</p>
+<p>Example categories:
+- Normal
+- Grade 1
+- Grade 2+</p>
+<p>based on clinical thresholds.</p>
+<p>Shift tables are descriptive but very informative for safety evaluation.</p>
+<hr />
+<h2 id="17-practical-reporting-guidance">17. Practical reporting guidance<a class="headerlink" href="#17-practical-reporting-guidance" title="Permanent link">&para;</a></h2>
+<p>Safety reporting typically includes:
+- overall AE/SAE/discontinuation/death summary
+- most common AEs (SOC/PT)
+- exposure-adjusted rates if follow-up differs
+- severity breakdown
+- relationship to treatment (reported but interpret cautiously)
+- lab abnormality summaries</p>
+<p>Important reporting principle:
+- always provide denominators (N per arm)
+- clearly define the risk window (what counts as treatment-emergent)</p>
+<hr />
+<h2 id="18-exercises">18. Exercises<a class="headerlink" href="#18-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Change `base_rate` from 2.0 to 1.0 and treatment multiplier from 1.25 to 1.10. Recompute EAIR and Poisson RR.  
+2. Make exposure time identical in both arms and compare incidence proportions vs EAIR. Do conclusions change?  
+3. Simulate a scenario with strong overdispersion (e.g., add subject-level frailty) and compare Poisson vs negative binomial.  
+4. Create a table of the top 5 PTs by incidence for each arm.  
+5. Define an AESI category (e.g., infections) and compute incidence proportion and rate ratio for that subset.
+
+</details>
+
+<hr />
+<h2 id="19-summary">19. Summary<a class="headerlink" href="#19-summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Safety analysis focuses on AEs/SAEs/AESIs, often in the safety set (exposed participants).</li>
+<li>Incidence proportions describe how many participants experience events.</li>
+<li>Exposure-adjusted rates account for different follow-up and recurrent events.</li>
+<li>Poisson/negative binomial models allow rate ratio estimation with person-time offsets.</li>
+<li>Clear, denominator-aware reporting is essential for interpretable safety results.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

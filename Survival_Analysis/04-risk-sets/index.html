@@ -1,0 +1,1821 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/04-risk-sets/">
+      
+      
+        <link rel="prev" href="../03-survival-hazard/">
+      
+      
+        <link rel="next" href="../05-kaplan-meier/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Risk Sets & Event Times - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#risk-sets-and-event-times-the-engine-behind-km-log-rank-and-cox" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Risk Sets & Event Times
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="risk-sets-and-event-times-the-engine-behind-km-log-rank-and-cox">Risk Sets and Event Times (The Engine Behind KM, Log-rank, and Cox)<a class="headerlink" href="#risk-sets-and-event-times-the-engine-behind-km-log-rank-and-cox" title="Permanent link">&para;</a></h1>
+<p>If survival analysis had one “engine” that powers everything, it would be:</p>
+<h1 id="risk-sets">Risk Sets<a class="headerlink" href="#risk-sets" title="Permanent link">&para;</a></h1>
+<p>Kaplan–Meier, log-rank tests, and Cox regression all work by repeatedly asking:</p>
+<blockquote>
+<p>“Among the people still at risk right now, who experienced the event?”</p>
+</blockquote>
+<p>This chapter makes that idea crystal clear and shows how risk sets are computed in both Python and R.</p>
+<hr />
+<h2 id="1-what-is-a-risk-set">1. What is a risk set?<a class="headerlink" href="#1-what-is-a-risk-set" title="Permanent link">&para;</a></h2>
+<h3 id="11-definition">1.1 Definition<a class="headerlink" href="#11-definition" title="Permanent link">&para;</a></h3>
+<p>At an event time <span class="arithmatex">\(t\)</span>, the <strong>risk set</strong> <span class="arithmatex">\(R(t)\)</span> is the set of individuals who:</p>
+<ul>
+<li>have not had the event before time <span class="arithmatex">\(t\)</span>, AND</li>
+<li>are still under observation just before <span class="arithmatex">\(t\)</span> (not censored earlier)</li>
+</ul>
+<p>So:</p>
+<div class="arithmatex">\[
+R(t) = \{ i : Y_i \ge t \}
+\]</div>
+<p>(where <span class="arithmatex">\(Y_i\)</span> is observed follow-up time)</p>
+<h3 id="12-plain-language">1.2 Plain language<a class="headerlink" href="#12-plain-language" title="Permanent link">&para;</a></h3>
+<p>At time <span class="arithmatex">\(t\)</span>:</p>
+<blockquote>
+<p>“Who could possibly experience the event at time <span class="arithmatex">\(t\)</span>?”</p>
+</blockquote>
+<p>Those people are the risk set.</p>
+<hr />
+<h2 id="2-events-vs-censoring-how-they-affect-risk-sets">2. Events vs censoring: how they affect risk sets<a class="headerlink" href="#2-events-vs-censoring-how-they-affect-risk-sets" title="Permanent link">&para;</a></h2>
+<h3 id="21-event-at-time-t">2.1 Event at time <span class="arithmatex">\(t\)</span><a class="headerlink" href="#21-event-at-time-t" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Counted as event</li>
+<li>Removed from risk set after that time</li>
+</ul>
+<h3 id="22-censoring-at-time-t">2.2 Censoring at time <span class="arithmatex">\(t\)</span><a class="headerlink" href="#22-censoring-at-time-t" title="Permanent link">&para;</a></h3>
+<ul>
+<li>NOT counted as event</li>
+<li>Removed from risk set after that time</li>
+</ul>
+<p>Key point:</p>
+<p>Censoring does not cause a drop in survival probability,<br />
+but it does shrink the risk set, which affects future estimates.</p>
+<hr />
+<h2 id="3-a-fully-worked-example">3. A fully worked example<a class="headerlink" href="#3-a-fully-worked-example" title="Permanent link">&para;</a></h2>
+<p>Consider 5 patients:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Patient</th>
+<th style="text-align: right;">Time</th>
+<th style="text-align: right;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">A</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">Event</td>
+</tr>
+<tr>
+<td style="text-align: right;">B</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">Event</td>
+</tr>
+<tr>
+<td style="text-align: right;">C</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+<tr>
+<td style="text-align: right;">D</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">Event</td>
+</tr>
+<tr>
+<td style="text-align: right;">E</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">Censored</td>
+</tr>
+</tbody>
+</table>
+<p>Let’s compute the risk sets at each unique time.</p>
+<hr />
+<h3 id="31-timeline-view">3.1 Timeline view<a class="headerlink" href="#31-timeline-view" title="Permanent link">&para;</a></h3>
+<p>Legend:
+- <strong>X</strong> = event
+- <strong>|</strong> = censoring</p>
+<div class="highlight"><pre><span></span><code>A: 0 -- X
+B: 0 ---- X
+C: 0 ----- |
+D: 0 ------- X
+E: 0 -------- |
+</code></pre></div>
+<hr />
+<h3 id="32-risk-sets-step-by-step">3.2 Risk sets step-by-step<a class="headerlink" href="#32-risk-sets-step-by-step" title="Permanent link">&para;</a></h3>
+<h4 id="just-before-time-2">Just before time 2<a class="headerlink" href="#just-before-time-2" title="Permanent link">&para;</a></h4>
+<p>Everyone is at risk:</p>
+<div class="arithmatex">\[
+R(2) = \{A,B,C,D,E\}, \quad n_1 = 5
+\]</div>
+<p>Event occurs (A), so after time 2:</p>
+<div class="arithmatex">\[
+R(2^+) = \{B,C,D,E\}
+\]</div>
+<h4 id="just-before-time-4">Just before time 4<a class="headerlink" href="#just-before-time-4" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+R(4) = \{B,C,D,E\}, \quad n_2 = 4
+\]</div>
+<p>Event occurs (B), so after time 4:</p>
+<div class="arithmatex">\[
+R(4^+) = \{C,D,E\}
+\]</div>
+<h4 id="just-before-time-5">Just before time 5<a class="headerlink" href="#just-before-time-5" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+R(5) = \{C,D,E\}, \quad n_3 = 3
+\]</div>
+<p>C is censored at 5, so after time 5:</p>
+<div class="arithmatex">\[
+R(5^+) = \{D,E\}
+\]</div>
+<h4 id="just-before-time-7">Just before time 7<a class="headerlink" href="#just-before-time-7" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+R(7) = \{D,E\}, \quad n_4 = 2
+\]</div>
+<p>Event occurs (D), so after time 7:</p>
+<div class="arithmatex">\[
+R(7^+) = \{E\}
+\]</div>
+<h4 id="just-before-time-8">Just before time 8<a class="headerlink" href="#just-before-time-8" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+R(8) = \{E\}, \quad n_5 = 1
+\]</div>
+<p>E is censored, then risk set becomes empty.</p>
+<hr />
+<h2 id="4-why-risk-sets-matter-big-picture">4. Why risk sets matter (big picture)<a class="headerlink" href="#4-why-risk-sets-matter-big-picture" title="Permanent link">&para;</a></h2>
+<h3 id="41-kaplanmeier-uses-risk-sets">4.1 Kaplan–Meier uses risk sets<a class="headerlink" href="#41-kaplanmeier-uses-risk-sets" title="Permanent link">&para;</a></h3>
+<p>Kaplan–Meier estimator:</p>
+<div class="arithmatex">\[
+\hat S(t)=\prod_{t_j\le t}\left(1-\frac{d_j}{n_j}\right)
+\]</div>
+<p>Where:
+ - <span class="arithmatex">\(n_j\)</span> = size of risk set at event time <span class="arithmatex">\(t_j\)</span>
+ - <span class="arithmatex">\(d_j\)</span> = number of events at that time</p>
+<p>So the denominator in KM is always:
+ - the risk set at that time, NOT the original sample size.</p>
+<hr />
+<h3 id="42-log-rank-test-uses-risk-sets">4.2 Log-rank test uses risk sets<a class="headerlink" href="#42-log-rank-test-uses-risk-sets" title="Permanent link">&para;</a></h3>
+<p>At each event time, log-rank compares:</p>
+<ul>
+<li>observed events vs expected events</li>
+<li>expected is computed based on risk set proportions</li>
+</ul>
+<hr />
+<h3 id="43-cox-regression-uses-risk-sets">4.3 Cox regression uses risk sets<a class="headerlink" href="#43-cox-regression-uses-risk-sets" title="Permanent link">&para;</a></h3>
+<p>The Cox partial likelihood at each event time uses:</p>
+<div class="arithmatex">\[
+\sum_{k \in R(t_j)}\exp(\beta X_k)
+\]</div>
+<p>It literally sums over the risk set.</p>
+<p>So Cox cannot exist without risk sets.</p>
+<hr />
+<h2 id="5-ties-at-event-times">5. Ties at event times<a class="headerlink" href="#5-ties-at-event-times" title="Permanent link">&para;</a></h2>
+<p>Sometimes multiple events occur at exactly the same recorded time:</p>
+<ul>
+<li>3 patients die on day 10</li>
+</ul>
+<p>This is called <strong>ties</strong>.</p>
+<p>Different tie-handling methods:
+- Breslow
+- Efron (common default)
+- Exact</p>
+<p>Software handles this automatically, but it’s good to know why output may differ slightly between packages.</p>
+<hr />
+<h2 id="6-interactive-calculation-of-risk-sets-python-r">6. Interactive calculation of risk sets (Python + R)<a class="headerlink" href="#6-interactive-calculation-of-risk-sets-python-r" title="Permanent link">&para;</a></h2>
+<p>We’ll compute:</p>
+<ul>
+<li>number at risk at each unique time</li>
+<li>number of events</li>
+<li>number censored</li>
+</ul>
+<p>using code.</p>
+<hr />
+<h3 id="61-python-risk-set-table">6.1 Python: risk set table<a class="headerlink" href="#61-python-risk-set-table" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">,</span><span class="s2">&quot;D&quot;</span><span class="p">,</span><span class="s2">&quot;E&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">],</span>
+    <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+
+<span class="n">unique_times</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;time | at_risk | events | censored&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-----------------------------------&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">unique_times</span><span class="p">:</span>
+    <span class="n">at_risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">cens</span>   <span class="o">=</span> <span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">&gt;4</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">at_risk</span><span class="si">:</span><span class="s2">&gt;7</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">events</span><span class="si">:</span><span class="s2">&gt;6</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="n">cens</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p><strong>Interpretation</strong>
+- <code>at_risk</code> is the size of the risk set just before time <code>t</code>
+- <code>events</code> is number of events at time <code>t</code>
+- <code>censored</code> is number censored at time <code>t</code></p>
+<hr />
+<h3 id="62-r-risk-set-table">6.2 R: risk set table<a class="headerlink" href="#62-r-risk-set-table" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="s">&quot;B&quot;</span><span class="p">,</span><span class="s">&quot;C&quot;</span><span class="p">,</span><span class="s">&quot;D&quot;</span><span class="p">,</span><span class="s">&quot;E&quot;</span><span class="p">),</span>
+<span class="w">  </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">),</span>
+<span class="w">  </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="p">),</span><span class="w"> </span><span class="p">]</span>
+
+<span class="n">unique_times</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="p">)</span>
+
+<span class="nf">cat</span><span class="p">(</span><span class="s">&quot;time | at_risk | events | censored\n&quot;</span><span class="p">)</span>
+<span class="nf">cat</span><span class="p">(</span><span class="s">&quot;-----------------------------------\n&quot;</span><span class="p">)</span>
+
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">unique_times</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">at_risk</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">t</span><span class="p">)</span>
+<span class="w">  </span><span class="n">events</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">event</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">cens</span><span class="w">    </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">event</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">cat</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&quot;%4d | %7d | %6d | %8d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">at_risk</span><span class="p">,</span><span class="w"> </span><span class="n">events</span><span class="p">,</span><span class="w"> </span><span class="n">cens</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7-visualizing-risk-set-size-over-time-python-r">7. Visualizing risk set size over time (Python + R)<a class="headerlink" href="#7-visualizing-risk-set-size-over-time-python-r" title="Permanent link">&para;</a></h2>
+<p>Risk sets shrink over time; this helps build intuition.</p>
+<h3 id="71-python-step-plot-of-risk-set-size">7.1 Python: step plot of risk set size<a class="headerlink" href="#71-python-step-plot-of-risk-set-size" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">times</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">risk_sizes</span> <span class="o">=</span> <span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">times</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">risk_sizes</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Risk Set Size Over Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;number at risk&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="72-r-step-plot-of-risk-set-size">7.2 R: step plot of risk set size<a class="headerlink" href="#72-r-step-plot-of-risk-set-size" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">times</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">time</span>
+<span class="n">risk_sizes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sapply</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">t</span><span class="p">))</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span><span class="w"> </span><span class="n">risk_sizes</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&quot;s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Risk Set Size Over Time&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;number at risk&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="8-clinical-intuition">8. Clinical intuition<a class="headerlink" href="#8-clinical-intuition" title="Permanent link">&para;</a></h2>
+<p>At each event time, survival analysis compares:</p>
+<blockquote>
+<p>“The person who failed” vs “everyone who could have failed at that time.”</p>
+</blockquote>
+<p>That comparison group is the risk set.</p>
+<p>This is why:
+ - censoring affects denominators
+ - late estimates are less precise (risk sets small)
+ - Kaplan–Meier and Cox are fundamentally conditional methods</p>
+<hr />
+<h2 id="9-common-mistakes">9. Common mistakes<a class="headerlink" href="#9-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-using-original-n-in-denominator">Mistake 1: using original N in denominator<a class="headerlink" href="#mistake-1-using-original-n-in-denominator" title="Permanent link">&para;</a></h3>
+<p>Fix: always use risk set size.</p>
+<h3 id="mistake-2-leaving-censored-people-in-the-risk-set">Mistake 2: leaving censored people in the risk set<a class="headerlink" href="#mistake-2-leaving-censored-people-in-the-risk-set" title="Permanent link">&para;</a></h3>
+<p>Fix: remove them after censoring time.</p>
+<h3 id="mistake-3-mis-ordering-events-and-censoring-at-same-time">Mistake 3: mis-ordering events and censoring at same time<a class="headerlink" href="#mistake-3-mis-ordering-events-and-censoring-at-same-time" title="Permanent link">&para;</a></h3>
+<p>Fix: software uses a convention; usually events are counted before censoring at the same time.</p>
+<hr />
+<h2 id="10-key-takeaways">10. Key takeaways<a class="headerlink" href="#10-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Risk set <span class="arithmatex">\(R(t)\)</span> = those still event-free and observed at time <span class="arithmatex">\(t\)</span>.</li>
+<li>KM, log-rank, and Cox all depend on risk sets.</li>
+<li>Censoring does not count as event, but removes people from future risk sets.</li>
+<li>As risk sets shrink, estimates become less stable.</li>
+</ul>
+<hr />
+<h2 id="11-exercises">11. Exercises<a class="headerlink" href="#11-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. For the sample data, write out \(R(4)\) explicitly.  
+2. Explain why censoring affects future KM steps even though it doesn’t cause survival drops.  
+3. Create a dataset where two events happen at the same time. How do risk sets work then?  
+4. Simulate 20 subjects with random censoring and compute risk sets at each event time.  
+5. Explain in plain language why Cox regression is built on risk sets.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

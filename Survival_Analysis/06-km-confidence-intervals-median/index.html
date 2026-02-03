@@ -1,0 +1,2912 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/06-km-confidence-intervals-median/">
+      
+      
+        <link rel="prev" href="../05-kaplan-meier/">
+      
+      
+        <link rel="next" href="../07-logrank-test/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>KM Confidence Intervals & Median - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kaplanmeier-confidence-intervals-and-median-survival" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KM Confidence Intervals & Median
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-we-need-confidence-intervals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why we need confidence intervals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-standard-error-and-greenwoods-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Standard error and Greenwood’s formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Standard error and Greenwood’s formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-km-estimator-reminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 KM estimator reminder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-greenwood-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Greenwood variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-naive-ci-can-be-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why naive CI can be wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-loglog-confidence-intervals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Log–log confidence intervals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Log–log confidence intervals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-median-survival-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Median survival time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Median survival time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-why-median-is-preferred-over-mean-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Why median is preferred over mean survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-median-not-reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 “Median not reached”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-visual-intuition-ci-and-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Visual intuition: CI and median
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-compute-km-ci-median-in-python-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Compute KM + CI + median in Python (lifelines)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Compute KM + CI + median in Python (lifelines)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-simulate-survival-data-same-dataset-used-in-later-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Simulate survival data (same dataset used in later sections)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-fit-kaplanmeier-and-plot-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Fit Kaplan–Meier and plot CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-extract-survival-at-specific-times-1-5-10-units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Extract survival at specific times (1, 5, 10 units)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-median-survival-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Median survival time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-a-publication-style-summary-table-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 A “publication-style” summary table in Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-compute-km-ci-median-in-r-survival-survminer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Compute KM + CI + median in R (survival + survminer)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Compute KM + CI + median in R (survival + survminer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-simulate-data-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Simulate data in R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-fit-kaplanmeier-and-plot-with-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Fit Kaplan–Meier and plot with CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-extract-survival-estimates-at-specific-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Extract survival estimates at specific times
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-median-survival-and-its-ci-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Median survival and its CI in R
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-group-specific-median-survival-and-ci-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Group-specific median survival and CI (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Group-specific median survival and CI (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-python-treatment-vs-control-km-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Python: treatment vs control KM + median
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-r-treatment-vs-control-km-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 R: treatment vs control KM + median
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-how-to-report-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. How to report results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. How to report results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-survival-probability-at-fixed-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Survival probability at fixed time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-median-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Median survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-median-not-reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Median not reached
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-mistakes-and-how-to-avoid-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common mistakes and how to avoid them
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Common mistakes and how to avoid them">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mistake-1-ci-outside-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 1: CI outside [0,1]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-2-interpreting-ci-overlap-as-hypothesis-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 2: interpreting CI overlap as hypothesis test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-3-reporting-mean-survival-without-justification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 3: reporting mean survival without justification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-4-reporting-late-survival-estimates-with-tiny-risk-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 4: reporting late survival estimates with tiny risk set
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Key takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-why-we-need-confidence-intervals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Why we need confidence intervals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-standard-error-and-greenwoods-formula" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Standard error and Greenwood’s formula
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Standard error and Greenwood’s formula">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-km-estimator-reminder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 KM estimator reminder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-greenwood-variance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Greenwood variance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Intuition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-why-naive-ci-can-be-wrong" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Why naive CI can be wrong
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-loglog-confidence-intervals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Log–log confidence intervals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Log–log confidence intervals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-idea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Idea
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-median-survival-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Median survival time
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Median survival time">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-why-median-is-preferred-over-mean-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Why median is preferred over mean survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-median-not-reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 “Median not reached”
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-visual-intuition-ci-and-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Visual intuition: CI and median
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-compute-km-ci-median-in-python-lifelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Compute KM + CI + median in Python (lifelines)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Compute KM + CI + median in Python (lifelines)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-simulate-survival-data-same-dataset-used-in-later-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Simulate survival data (same dataset used in later sections)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-fit-kaplanmeier-and-plot-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Fit Kaplan–Meier and plot CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-extract-survival-at-specific-times-1-5-10-units" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Extract survival at specific times (1, 5, 10 units)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-median-survival-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 Median survival time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-a-publication-style-summary-table-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 A “publication-style” summary table in Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-compute-km-ci-median-in-r-survival-survminer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Compute KM + CI + median in R (survival + survminer)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Compute KM + CI + median in R (survival + survminer)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-simulate-data-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Simulate data in R
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-fit-kaplanmeier-and-plot-with-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Fit Kaplan–Meier and plot with CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-extract-survival-estimates-at-specific-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.3 Extract survival estimates at specific times
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-median-survival-and-its-ci-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.4 Median survival and its CI in R
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-group-specific-median-survival-and-ci-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Group-specific median survival and CI (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Group-specific median survival and CI (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-python-treatment-vs-control-km-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Python: treatment vs control KM + median
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-r-treatment-vs-control-km-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 R: treatment vs control KM + median
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-how-to-report-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. How to report results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. How to report results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-survival-probability-at-fixed-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Survival probability at fixed time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-median-survival" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Median survival
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-median-not-reached" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Median not reached
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-common-mistakes-and-how-to-avoid-them" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Common mistakes and how to avoid them
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Common mistakes and how to avoid them">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mistake-1-ci-outside-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 1: CI outside [0,1]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-2-interpreting-ci-overlap-as-hypothesis-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 2: interpreting CI overlap as hypothesis test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-3-reporting-mean-survival-without-justification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 3: reporting mean survival without justification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mistake-4-reporting-late-survival-estimates-with-tiny-risk-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mistake 4: reporting late survival estimates with tiny risk set
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-key-takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Key takeaways
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="kaplanmeier-confidence-intervals-and-median-survival">Kaplan–Meier Confidence Intervals and Median Survival<a class="headerlink" href="#kaplanmeier-confidence-intervals-and-median-survival" title="Permanent link">&para;</a></h1>
+<p>Kaplan–Meier gives an estimate of survival:</p>
+<div class="arithmatex">\[
+\hat S(t)
+\]</div>
+<p>But in biostatistics, <strong>we never report an estimate without uncertainty</strong>.</p>
+<p>So in real papers you will see results like:</p>
+<ul>
+<li>“5-year survival = 0.72 (95% CI: 0.64–0.80)”</li>
+<li>“Median survival = 18.3 months (95% CI: 15.1–22.7)”</li>
+<li>“Median not reached”</li>
+</ul>
+<p>This chapter teaches you how to compute and interpret with <strong>both Python and R</strong>.:</p>
+<ul>
+<li>standard errors  </li>
+<li>Greenwood variance  </li>
+<li>confidence intervals (with proper transformation)  </li>
+<li>median survival and its CI  </li>
+<li>reporting standards in clinical papers  </li>
+</ul>
+<hr />
+<h2 id="1-why-we-need-confidence-intervals">1. Why we need confidence intervals<a class="headerlink" href="#1-why-we-need-confidence-intervals" title="Permanent link">&para;</a></h2>
+<p>Suppose your KM estimate at 5 years is:</p>
+<div class="arithmatex">\[
+\hat S(5)=0.72
+\]</div>
+<p>This is a sample estimate. If you repeated the study, you would not get exactly 0.72 again.</p>
+<p>Confidence intervals quantify uncertainty:</p>
+<div class="arithmatex">\[
+\hat S(5)=0.72,\quad 95\%\,CI=(0.64,0.80)
+\]</div>
+<p>Clinical interpretation:</p>
+<blockquote>
+<p>Based on the observed data, the true 5-year survival is plausibly between 64% and 80%.</p>
+</blockquote>
+<hr />
+<h2 id="2-standard-error-and-greenwoods-formula">2. Standard error and Greenwood’s formula<a class="headerlink" href="#2-standard-error-and-greenwoods-formula" title="Permanent link">&para;</a></h2>
+<h3 id="21-km-estimator-reminder">2.1 KM estimator reminder<a class="headerlink" href="#21-km-estimator-reminder" title="Permanent link">&para;</a></h3>
+<p>At event times <span class="arithmatex">\(t_1, t_2, \dots\)</span>:</p>
+<div class="arithmatex">\[
+\hat S(t)=\prod_{t_j \le t}\left(1-\frac{d_j}{n_j}\right)
+\]</div>
+<p>where:
+- <span class="arithmatex">\(n_j\)</span> = number at risk just before <span class="arithmatex">\(t_j\)</span>
+- <span class="arithmatex">\(d_j\)</span> = number of events at <span class="arithmatex">\(t_j\)</span></p>
+<hr />
+<h3 id="22-greenwood-variance">2.2 Greenwood variance<a class="headerlink" href="#22-greenwood-variance" title="Permanent link">&para;</a></h3>
+<p>The classic large-sample variance estimator for KM is:</p>
+<div class="arithmatex">\[
+\mathrm{Var}(\hat S(t)) = \hat S(t)^2 \sum_{t_j \le t}\frac{d_j}{n_j(n_j-d_j)}
+\]</div>
+<p>Standard error:</p>
+<div class="arithmatex">\[
+SE(\hat S(t))=\sqrt{\mathrm{Var}(\hat S(t))}
+\]</div>
+<hr />
+<h3 id="23-intuition">2.3 Intuition<a class="headerlink" href="#23-intuition" title="Permanent link">&para;</a></h3>
+<p>Greenwood shows why uncertainty increases late in follow-up:</p>
+<ul>
+<li>As time increases, fewer people remain at risk → <span class="arithmatex">\(n_j\)</span> becomes small  </li>
+<li>Small <span class="arithmatex">\(n_j\)</span> makes <span class="arithmatex">\(\frac{1}{n_j(n_j-d_j)}\)</span> large  </li>
+<li>So variance accumulates faster</li>
+</ul>
+<p>Therefore:
+ - early CI is narrow<br />
+ - late CI is wide (often very wide)</p>
+<hr />
+<h2 id="3-why-naive-ci-can-be-wrong">3. Why naive CI can be wrong<a class="headerlink" href="#3-why-naive-ci-can-be-wrong" title="Permanent link">&para;</a></h2>
+<p>A naive CI might be:</p>
+<div class="arithmatex">\[
+\hat S(t) \pm 1.96\,SE(\hat S(t))
+\]</div>
+<p>Problem:
+- It can go below 0 or above 1<br />
+- Survival probabilities must stay in <span class="arithmatex">\([0,1]\)</span></p>
+<p>So we typically use a transformation that keeps CI within [0,1].</p>
+<hr />
+<h2 id="4-loglog-confidence-intervals">4. Log–log confidence intervals<a class="headerlink" href="#4-loglog-confidence-intervals" title="Permanent link">&para;</a></h2>
+<p>A widely used approach is <strong>log–log transformed CI</strong> (often default in software).</p>
+<h3 id="41-idea">4.1 Idea<a class="headerlink" href="#41-idea" title="Permanent link">&para;</a></h3>
+<p>Transform KM to a scale where normal approximation works better, compute CI, then transform back.</p>
+<p>A common form:</p>
+<div class="arithmatex">\[
+CI_{\text{lower}}(t)=\left[\hat S(t)\right]^{\exp\!\left(z\,SE^{*}(t)\right)}
+\]</div>
+<div class="arithmatex">\[
+CI_{\text{upper}}(t)=\left[\hat S(t)\right]^{\exp\!\left(-z\,SE^{*}(t)\right)}
+\]</div>
+<p>where <span class="arithmatex">\(z=1.96\)</span> for 95% CI and <span class="arithmatex">\(SE^*(t)\)</span> is a standard error on the transformed scale.</p>
+<p>You do NOT need to memorize the exact formula—<strong>know why we transform</strong>:
+- to keep CI within [0,1]
+- to improve coverage when survival is near 0 or 1</p>
+<p>Software handles it.</p>
+<hr />
+<h2 id="5-median-survival-time">5. Median survival time<a class="headerlink" href="#5-median-survival-time" title="Permanent link">&para;</a></h2>
+<h3 id="51-definition">5.1 Definition<a class="headerlink" href="#51-definition" title="Permanent link">&para;</a></h3>
+<p>Median survival is the time when survival drops to 0.5:</p>
+<div class="arithmatex">\[
+t_{0.5}=\inf\{t: \hat S(t)\le 0.5\}
+\]</div>
+<p>Interpretation:</p>
+<blockquote>
+<p>The time by which 50% of subjects have experienced the event.</p>
+</blockquote>
+<p>This is a standard clinical summary because it’s robust and meaningful.</p>
+<hr />
+<h3 id="52-why-median-is-preferred-over-mean-survival">5.2 Why median is preferred over mean survival<a class="headerlink" href="#52-why-median-is-preferred-over-mean-survival" title="Permanent link">&para;</a></h3>
+<p>Mean survival is hard because:
+- censoring may prevent observing long tail<br />
+- mean may not exist / may be unstable<br />
+- with heavy censoring, mean is biased without strong assumptions</p>
+<p>Median is robust and is the standard in oncology/clinical trials.</p>
+<hr />
+<h3 id="53-median-not-reached">5.3 “Median not reached”<a class="headerlink" href="#53-median-not-reached" title="Permanent link">&para;</a></h3>
+<p>If <span class="arithmatex">\(\hat S(t)\)</span> never drops below 0.5 during follow-up, then median survival is not estimable.</p>
+<p>In papers:</p>
+<blockquote>
+<p>“Median survival not reached.”</p>
+</blockquote>
+<p>This often happens when:
+- follow-up is short<br />
+- event rate is low<br />
+- treatment is highly effective  </p>
+<hr />
+<h2 id="6-visual-intuition-ci-and-median">6. Visual intuition: CI and median<a class="headerlink" href="#6-visual-intuition-ci-and-median" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>S(t)
+1.0 |---------
+    |   \    (CI narrow early)
+0.5 |----\-----------------  ← median where curve crosses 0.5
+    |      \__ (CI widens late)
+0.0 +------------------------- time
+</code></pre></div>
+<hr />
+<h2 id="7-compute-km-ci-median-in-python-lifelines">7. Compute KM + CI + median in Python (lifelines)<a class="headerlink" href="#7-compute-km-ci-median-in-python-lifelines" title="Permanent link">&para;</a></h2>
+<h3 id="71-simulate-survival-data-same-dataset-used-in-later-sections">7.1 Simulate survival data (same dataset used in later sections)<a class="headerlink" href="#71-simulate-survival-data-same-dataset-used-in-later-sections" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">250</span>
+
+<span class="c1"># True event times</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Censoring times</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="72-fit-kaplanmeier-and-plot-ci">7.2 Fit Kaplan–Meier and plot CI<a class="headerlink" href="#72-fit-kaplanmeier-and-plot-ci" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+
+<span class="n">km</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">km</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;KM&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">plot_survival_function</span><span class="p">(</span><span class="n">ci_show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Kaplan–Meier Survival with 95% CI&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="73-extract-survival-at-specific-times-1-5-10-units">7.3 Extract survival at specific times (1, 5, 10 units)<a class="headerlink" href="#73-extract-survival-at-specific-times-1-5-10-units" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">times_of_interest</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+<span class="c1"># lifelines provides survival function values at times</span>
+<span class="n">surv</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">survival_function_at_times</span><span class="p">(</span><span class="n">times_of_interest</span><span class="p">)</span>
+
+<span class="c1"># confidence intervals at those times</span>
+<span class="n">ci</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">confidence_interval_at_times</span><span class="p">(</span><span class="n">times_of_interest</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Survival estimates:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">surv</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">95% CI:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="74-median-survival-time">7.4 Median survival time<a class="headerlink" href="#74-median-survival-time" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">km</span><span class="o">.</span><span class="n">median_survival_time_</span>
+</code></pre></div>
+</div>
+<p>If this returns <code>inf</code> or <code>None</code>, that often indicates median was not reached.</p>
+<hr />
+<h3 id="75-a-publication-style-summary-table-in-python">7.5 A “publication-style” summary table in Python<a class="headerlink" href="#75-a-publication-style-summary-table-in-python" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">times_of_interest</span><span class="p">,</span>
+    <span class="s2">&quot;S(t)&quot;</span><span class="p">:</span> <span class="n">km</span><span class="o">.</span><span class="n">survival_function_at_times</span><span class="p">(</span><span class="n">times_of_interest</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+<span class="p">})</span>
+
+<span class="n">ci</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">confidence_interval_at_times</span><span class="p">(</span><span class="n">times_of_interest</span><span class="p">)</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">&quot;CI_lower&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">&quot;CI_upper&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">summary</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="8-compute-km-ci-median-in-r-survival-survminer">8. Compute KM + CI + median in R (survival + survminer)<a class="headerlink" href="#8-compute-km-ci-median-in-r-survival-survminer" title="Permanent link">&para;</a></h2>
+<h3 id="81-simulate-data-in-r">8.1 Simulate data in R<a class="headerlink" href="#81-simulate-data-in-r" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">250</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">10</span><span class="p">)</span><span class="w">      </span><span class="c1"># mean 10</span>
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">18</span><span class="p">)</span>
+
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="82-fit-kaplanmeier-and-plot-with-ci">8.2 Fit Kaplan–Meier and plot with CI<a class="headerlink" href="#82-fit-kaplanmeier-and-plot-with-ci" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">conf.int</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Kaplan–Meier Survival with 95% CI&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="83-extract-survival-estimates-at-specific-times">8.3 Extract survival estimates at specific times<a class="headerlink" href="#83-extract-survival-estimates-at-specific-times" title="Permanent link">&para;</a></h3>
+<p>In base <code>survival</code>, use <code>summary(fit, times=...)</code>.</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">times_of_interest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+
+<span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">times</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">times_of_interest</span><span class="p">)</span>
+
+<span class="n">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">$</span><span class="n">time</span><span class="p">,</span>
+<span class="w">  </span><span class="n">surv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">$</span><span class="n">surv</span><span class="p">,</span>
+<span class="w">  </span><span class="n">lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">$</span><span class="n">lower</span><span class="p">,</span>
+<span class="w">  </span><span class="n">upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="o">$</span><span class="n">upper</span>
+<span class="p">)</span>
+
+<span class="n">out</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="84-median-survival-and-its-ci-in-r">8.4 Median survival and its CI in R<a class="headerlink" href="#84-median-survival-and-its-ci-in-r" title="Permanent link">&para;</a></h3>
+<p><code>survfit</code> stores median in the printed output. A standard way is:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Median survival time:</span>
+<span class="n">fit</span>
+
+<span class="c1"># A direct extraction (often works):</span>
+<span class="n">fit</span><span class="o">$</span><span class="n">table</span><span class="p">[</span><span class="s">&quot;median&quot;</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<p>For median CI, many users rely on <code>survminer::surv_median()</code>:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># install.packages(&quot;survminer&quot;)  # if needed</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">survminer</span><span class="p">)</span>
+
+<span class="nf">surv_median</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>If median not reached, it will show NA or similar outputs.</p>
+<hr />
+<h2 id="9-group-specific-median-survival-and-ci-python-r">9. Group-specific median survival and CI (Python + R)<a class="headerlink" href="#9-group-specific-median-survival-and-ci-python-r" title="Permanent link">&para;</a></h2>
+<p>Many clinical studies compare groups.</p>
+<h3 id="91-python-treatment-vs-control-km-median">9.1 Python: treatment vs control KM + median<a class="headerlink" href="#91-python-treatment-vs-control-km-median" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">KaplanMeierFitter</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">300</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># 0=control,1=treatment</span>
+
+<span class="c1"># Treatment has longer mean survival</span>
+<span class="n">T0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="p">(</span><span class="n">group</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">T1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="p">(</span><span class="n">group</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">T0</span><span class="p">,</span> <span class="n">T1</span><span class="p">])</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="n">group</span><span class="p">})</span>
+
+<span class="n">km0</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+<span class="n">km1</span> <span class="o">=</span> <span class="n">KaplanMeierFitter</span><span class="p">()</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">km0</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">group</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">group</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Control&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ci_show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">km1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">group</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="o">.</span><span class="n">group</span><span class="o">==</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Treatment&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">ci_show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;KM Curves with 95% CI by Group&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median (Control):&quot;</span><span class="p">,</span> <span class="n">km0</span><span class="o">.</span><span class="n">median_survival_time_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Median (Treatment):&quot;</span><span class="p">,</span> <span class="n">km1</span><span class="o">.</span><span class="n">median_survival_time_</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h3 id="92-r-treatment-vs-control-km-median">9.2 R: treatment vs control KM + median<a class="headerlink" href="#92-r-treatment-vs-control-km-median" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">7</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">300</span>
+<span class="n">group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">T0</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">group</span><span class="o">==</span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">9</span><span class="p">)</span>
+<span class="n">T1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">group</span><span class="o">==</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">13</span><span class="p">)</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">T0</span><span class="p">,</span><span class="w"> </span><span class="n">T1</span><span class="p">)</span>
+
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">16</span><span class="p">)</span>
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="nf">factor</span><span class="p">(</span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Control&quot;</span><span class="p">,</span><span class="s">&quot;Treatment&quot;</span><span class="p">)))</span>
+
+<span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit_g</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df2</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">fit_g</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">conf.int</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;KM Curves with 95% CI by Group&quot;</span><span class="p">)</span>
+<span class="nf">legend</span><span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="o">=</span><span class="nf">levels</span><span class="p">(</span><span class="n">df2</span><span class="o">$</span><span class="n">group</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+
+<span class="c1"># Median by group</span>
+<span class="n">fit_g</span><span class="o">$</span><span class="n">table</span><span class="p">[,</span><span class="s">&quot;median&quot;</span><span class="p">]</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10-how-to-report-results">10. How to report results<a class="headerlink" href="#10-how-to-report-results" title="Permanent link">&para;</a></h2>
+<h3 id="101-survival-probability-at-fixed-time">10.1 Survival probability at fixed time<a class="headerlink" href="#101-survival-probability-at-fixed-time" title="Permanent link">&para;</a></h3>
+<p>Example:</p>
+<blockquote>
+<p>“Five-year survival was 0.72 (95% CI: 0.64–0.80).”</p>
+</blockquote>
+<h3 id="102-median-survival">10.2 Median survival<a class="headerlink" href="#102-median-survival" title="Permanent link">&para;</a></h3>
+<p>Example:</p>
+<blockquote>
+<p>“Median survival was 18.3 months (95% CI: 15.1–22.7).”</p>
+</blockquote>
+<h3 id="103-median-not-reached">10.3 Median not reached<a class="headerlink" href="#103-median-not-reached" title="Permanent link">&para;</a></h3>
+<p>Example:</p>
+<blockquote>
+<p>“Median survival was not reached during follow-up.”</p>
+</blockquote>
+<p>Always specify:
+ - time unit (months/years)
+ - method (Kaplan–Meier)
+ - CI level (usually 95%)</p>
+<hr />
+<h2 id="11-common-mistakes-and-how-to-avoid-them">11. Common mistakes and how to avoid them<a class="headerlink" href="#11-common-mistakes-and-how-to-avoid-them" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-ci-outside-01">Mistake 1: CI outside [0,1]<a class="headerlink" href="#mistake-1-ci-outside-01" title="Permanent link">&para;</a></h3>
+<p>Fix: use log–log CI (software default).</p>
+<h3 id="mistake-2-interpreting-ci-overlap-as-hypothesis-test">Mistake 2: interpreting CI overlap as hypothesis test<a class="headerlink" href="#mistake-2-interpreting-ci-overlap-as-hypothesis-test" title="Permanent link">&para;</a></h3>
+<p>CI overlap is not a formal test for group differences.
+ Use log-rank or Cox for testing.</p>
+<h3 id="mistake-3-reporting-mean-survival-without-justification">Mistake 3: reporting mean survival without justification<a class="headerlink" href="#mistake-3-reporting-mean-survival-without-justification" title="Permanent link">&para;</a></h3>
+<p>Mean requires strong assumptions; median is standard.</p>
+<h3 id="mistake-4-reporting-late-survival-estimates-with-tiny-risk-set">Mistake 4: reporting late survival estimates with tiny risk set<a class="headerlink" href="#mistake-4-reporting-late-survival-estimates-with-tiny-risk-set" title="Permanent link">&para;</a></h3>
+<p>Late tail can be unstable; always check number at risk.</p>
+<hr />
+<h2 id="12-key-takeaways">12. Key takeaways<a class="headerlink" href="#12-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Greenwood’s formula gives variance/SE for KM.</li>
+<li>CI should be constructed on a transformed scale (log–log) to stay within [0,1].</li>
+<li>Median survival is time where <span class="arithmatex">\(\hat S(t)\le 0.5\)</span>.</li>
+<li>If <span class="arithmatex">\(\hat S(t)\)</span> never drops below 0.5, median is “not reached.”</li>
+<li>Always report survival estimates with CI in medical research.</li>
+</ul>
+<hr />
+<h2 id="13-exercises">13. Exercises<a class="headerlink" href="#13-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Simulate a dataset with very heavy censoring and plot KM with CI. How does CI width change?  
+2. Compute \(\hat S(5)\) and its CI in Python and in R. Confirm results are similar.  
+3. Create data where median is not reached and explain how you would report it.  
+4. Why does Greenwood variance increase late in follow-up?  
+5. In group comparison, why can’t CI overlap be used as a test?
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

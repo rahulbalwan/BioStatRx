@@ -1,0 +1,1943 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/08-cox-proportional-hazards/">
+      
+      
+        <link rel="prev" href="../07-logrank-test/">
+      
+      
+        <link rel="next" href="../09-cox-diagnostics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Cox Proportional Hazards - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cox-proportional-hazards-model-cox-ph" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cox Proportional Hazards
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cox-proportional-hazards-model-cox-ph">Cox Proportional Hazards Model (Cox PH)<a class="headerlink" href="#cox-proportional-hazards-model-cox-ph" title="Permanent link">&para;</a></h1>
+<p>Kaplan–Meier and log-rank help you <strong>describe</strong> and <strong>compare</strong> survival curves.</p>
+<p>But in real biostatistics, we almost always need to answer:</p>
+<ul>
+<li>How does <strong>treatment</strong> affect survival <strong>after adjusting</strong> for age/sex/stage?</li>
+<li>What is the effect size (hazard ratio) with confidence intervals?</li>
+<li>How do multiple predictors jointly influence risk?</li>
+</ul>
+<p>That is exactly what the <strong>Cox proportional hazards model</strong> does.</p>
+<h1 id="cox-ph-is-the-workhorse-model-of-survival-analysis">Cox PH is the workhorse model of survival analysis.<a class="headerlink" href="#cox-ph-is-the-workhorse-model-of-survival-analysis" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="1-what-cox-regression-models-the-hazard">1. What Cox regression models (the hazard)<a class="headerlink" href="#1-what-cox-regression-models-the-hazard" title="Permanent link">&para;</a></h2>
+<p>Cox models the <strong>hazard function</strong>:</p>
+<div class="arithmatex">\[
+h(t \mid X) = h_0(t)\exp(\beta_1X_1+\cdots+\beta_pX_p)
+\]</div>
+<p>Where:</p>
+<ul>
+<li><span class="arithmatex">\(h(t \mid X)\)</span>: hazard at time <span class="arithmatex">\(t\)</span> for covariate vector <span class="arithmatex">\(X\)</span></li>
+<li><span class="arithmatex">\(h_0(t)\)</span>: baseline hazard (unknown function of time)</li>
+<li><span class="arithmatex">\(\exp(\beta^TX)\)</span>: multiplicative effect of covariates</li>
+</ul>
+<h3 id="11-key-idea-multiplicative-risk">1.1 Key idea: multiplicative risk<a class="headerlink" href="#11-key-idea-multiplicative-risk" title="Permanent link">&para;</a></h3>
+<p>Covariates scale risk <em>multiplicatively</em>:</p>
+<ul>
+<li>If <span class="arithmatex">\(\exp(\beta)=1.5\)</span>, hazard is 1.5× higher (50% higher risk rate).</li>
+<li>If <span class="arithmatex">\(\exp(\beta)=0.7\)</span>, hazard is 0.7× (30% lower risk rate).</li>
+</ul>
+<hr />
+<h2 id="2-why-cox-is-called-semi-parametric">2. Why Cox is called “semi-parametric”<a class="headerlink" href="#2-why-cox-is-called-semi-parametric" title="Permanent link">&para;</a></h2>
+<p>Cox does <strong>not</strong> assume a parametric form for survival times (like exponential or Weibull).</p>
+<ul>
+<li>It leaves <span class="arithmatex">\(h_0(t)\)</span> unspecified.</li>
+<li>It estimates <span class="arithmatex">\(\beta\)</span> without needing to specify <span class="arithmatex">\(h_0(t)\)</span>.</li>
+</ul>
+<p>So it’s:
+- <strong>parametric in covariates</strong> (linear predictor <span class="arithmatex">\(\beta^TX\)</span>)
+- <strong>nonparametric in baseline hazard</strong> (<span class="arithmatex">\(h_0(t)\)</span>)</p>
+<p>This is why Cox is flexible and widely used.</p>
+<hr />
+<h2 id="3-the-hazard-ratio-hr-the-main-output">3. The hazard ratio (HR) — the main output<a class="headerlink" href="#3-the-hazard-ratio-hr-the-main-output" title="Permanent link">&para;</a></h2>
+<p>For a 1-unit increase in predictor <span class="arithmatex">\(X_j\)</span>:</p>
+<div class="arithmatex">\[
+HR = \exp(\beta_j)
+\]</div>
+<h3 id="31-clinical-interpretation">3.1 Clinical interpretation<a class="headerlink" href="#31-clinical-interpretation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="arithmatex">\(HR = 1\)</span>: no difference in hazard</li>
+<li><span class="arithmatex">\(HR &gt; 1\)</span>: higher hazard → worse survival (typically)</li>
+<li><span class="arithmatex">\(HR &lt; 1\)</span>: lower hazard → better survival (typically)</li>
+</ul>
+<p>Examples:
+- <strong>HR = 1.20</strong>: 20% higher instantaneous risk
+- <strong>HR = 0.65</strong>: 35% lower instantaneous risk</p>
+<h3 id="32-continuous-predictors-age">3.2 Continuous predictors (age)<a class="headerlink" href="#32-continuous-predictors-age" title="Permanent link">&para;</a></h3>
+<p>If HR for age is 1.04:</p>
+<blockquote>
+<p>Each extra year of age increases hazard by ~4% (assuming linear effect).</p>
+</blockquote>
+<p>For a 10-year increase:
+[
+HR_{10} = 1.04^{10}\approx 1.48
+]
+So ~48% higher hazard.</p>
+<hr />
+<h2 id="4-the-proportional-hazards-ph-assumption-critical">4. The proportional hazards (PH) assumption (critical)<a class="headerlink" href="#4-the-proportional-hazards-ph-assumption-critical" title="Permanent link">&para;</a></h2>
+<p>Cox assumes hazard ratios are constant over time:</p>
+<div class="arithmatex">\[
+\frac{h(t\mid X_a)}{h(t\mid X_b)} = \exp(\beta(X_a-X_b))
+\]</div>
+<p>No <span class="arithmatex">\(t\)</span> in the ratio ⇒ constant over time.</p>
+<h3 id="41-what-ph-means-in-plain-language">4.1 What PH means in plain language<a class="headerlink" href="#41-what-ph-means-in-plain-language" title="Permanent link">&para;</a></h3>
+<p>If treatment HR = 0.70, then:</p>
+<blockquote>
+<p>Treatment reduces hazard by 30% at all times (early, middle, late).</p>
+</blockquote>
+<h3 id="42-what-ph-does-not-allow">4.2 What PH does NOT allow<a class="headerlink" href="#42-what-ph-does-not-allow" title="Permanent link">&para;</a></h3>
+<p>If treatment helps early but harms later (curves cross):</p>
+<ul>
+<li>PH is violated</li>
+<li>Cox HR becomes difficult to interpret</li>
+</ul>
+<p>We handle this later using:
+- time interactions
+- stratified Cox
+- time-varying effects</p>
+<hr />
+<h2 id="5-where-cox-comes-from-partial-likelihood-intuition">5. Where Cox comes from: partial likelihood (intuition)<a class="headerlink" href="#5-where-cox-comes-from-partial-likelihood-intuition" title="Permanent link">&para;</a></h2>
+<p>At each event time <span class="arithmatex">\(t_j\)</span>, Cox compares:</p>
+<ul>
+<li>the subject who had the event at <span class="arithmatex">\(t_j\)</span></li>
+<li>to everyone in the risk set <span class="arithmatex">\(R(t_j)\)</span> (those who could have had the event at that time)</li>
+</ul>
+<p>The probability that subject <span class="arithmatex">\(i\)</span> fails at <span class="arithmatex">\(t_j\)</span> given one event occurs then:</p>
+<div class="arithmatex">\[
+\frac{\exp(\beta^TX_i)}{\sum_{k\in R(t_j)}\exp(\beta^TX_k)}
+\]</div>
+<p>Multiply over event times:</p>
+<div class="arithmatex">\[
+L(\beta)=\prod_j \frac{\exp(\beta^TX_{(j)})}{\sum_{k\in R(t_j)}\exp(\beta^TX_k)}
+\]</div>
+<p>This is the <strong>partial likelihood</strong>.</p>
+<p>Key insight:</p>
+<p>We estimate <span class="arithmatex">\(\beta\)</span> without ever specifying <span class="arithmatex">\(h_0(t)\)</span>.</p>
+<hr />
+<h2 id="6-data-structure-for-cox">6. Data structure for Cox<a class="headerlink" href="#6-data-structure-for-cox" title="Permanent link">&para;</a></h2>
+<p>Minimum variables:</p>
+<ul>
+<li><code>time</code>: observed follow-up time (event or censor)</li>
+<li><code>event</code>: 1 if event, 0 if censored</li>
+<li>predictors: age, sex, treatment, stage, etc.</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">event</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">trt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="7-a-complete-simulation-with-known-truth-python-r">7. A complete simulation with known truth (Python + R)<a class="headerlink" href="#7-a-complete-simulation-with-known-truth-python-r" title="Permanent link">&para;</a></h2>
+<p>We simulate a study where:
+- age increases hazard
+- treatment reduces hazard
+- censoring occurs</p>
+<p>Then we fit Cox and see if we recover the true effects.</p>
+<hr />
+<h1 id="7a-python-lifelines-cox-ph-in-practice">7A. Python (lifelines) — Cox PH in practice<a class="headerlink" href="#7a-python-lifelines-cox-ph-in-practice" title="Permanent link">&para;</a></h1>
+<h2 id="7a1-simulate-survival-data">7A.1 Simulate survival data<a class="headerlink" href="#7a1-simulate-survival-data" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2026</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">400</span>
+
+<span class="c1"># Covariates</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>          <span class="c1"># continuous predictor</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>        <span class="c1"># 0=control, 1=treatment</span>
+
+<span class="c1"># True coefficients (we will try to recover these)</span>
+<span class="n">beta_age</span> <span class="o">=</span> <span class="mf">0.03</span>        <span class="c1"># HR per year ~ exp(0.03)=1.030</span>
+<span class="n">beta_trt</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.50</span>       <span class="c1"># HR treatment vs control ~ exp(-0.50)=0.607</span>
+
+<span class="c1"># Baseline hazard scale (controls overall event rate)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="mf">0.04</span>
+
+<span class="c1"># Individual hazard rates (proportional hazards)</span>
+<span class="n">hazard</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span> <span class="o">+</span> <span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">)</span>
+
+<span class="c1"># True event times from exponential with individual hazards</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">hazard</span><span class="p">)</span>
+
+<span class="c1"># Random censoring times</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Observed data</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span> <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span><span class="p">,</span> <span class="s2">&quot;age&quot;</span><span class="p">:</span> <span class="n">age</span><span class="p">,</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:</span> <span class="n">trt</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7a2-fit-cox-ph-model">7A.2 Fit Cox PH model<a class="headerlink" href="#7a2-fit-cox-ph-model" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxPHFitter</span>
+
+<span class="n">cph</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+
+<span class="n">cph</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<h3 id="what-to-look-for">What to look for<a class="headerlink" href="#what-to-look-for" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>coef</code> ≈ true beta</li>
+<li><code>exp(coef)</code> ≈ true hazard ratio</li>
+<li>p-values often significant if effect is strong and sample size decent</li>
+</ul>
+<hr />
+<h2 id="7a3-interpret-output-common-columns">7A.3 Interpret output (common columns)<a class="headerlink" href="#7a3-interpret-output-common-columns" title="Permanent link">&para;</a></h2>
+<p>Typical Cox output includes:</p>
+<ul>
+<li><code>coef</code> = <span class="arithmatex">\(\beta\)</span></li>
+<li><code>exp(coef)</code> = hazard ratio</li>
+<li><code>se(coef)</code> = standard error</li>
+<li><code>p</code> = p-value testing <span class="arithmatex">\(\beta=0\)</span></li>
+<li>CI for HR</li>
+</ul>
+<p>Interpretation example:
+- exp(coef) = 0.61 for treatment → ~39% hazard reduction</p>
+<hr />
+<h2 id="7a4-predict-survival-curves-for-profiles">7A.4 Predict survival curves for profiles<a class="headerlink" href="#7a4-predict-survival-curves-for-profiles" title="Permanent link">&para;</a></h2>
+<p>Cox can produce predicted survival curves using estimated baseline + covariates.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">profile_control</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;age&quot;</span><span class="p">:[</span><span class="mi">60</span><span class="p">],</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">]})</span>
+<span class="n">profile_treated</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;age&quot;</span><span class="p">:[</span><span class="mi">60</span><span class="p">],</span> <span class="s2">&quot;treatment&quot;</span><span class="p">:[</span><span class="mi">1</span><span class="p">]})</span>
+
+<span class="n">s0</span> <span class="o">=</span> <span class="n">cph</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">profile_control</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">cph</span><span class="o">.</span><span class="n">predict_survival_function</span><span class="p">(</span><span class="n">profile_treated</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Control (age=60)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Treatment (age=60)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Predicted Survival Curves from Cox PH&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;S(t)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7a5-multivariable-cox-example-add-more-covariates">7A.5 Multivariable Cox example (add more covariates)<a class="headerlink" href="#7a5-multivariable-cox-example-add-more-covariates" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df2</span><span class="p">[</span><span class="s2">&quot;sex&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">))</span>  <span class="c1"># 0=female,1=male</span>
+<span class="n">df2</span><span class="p">[</span><span class="s2">&quot;bmi&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df2</span><span class="p">))</span>
+
+<span class="n">cph2</span> <span class="o">=</span> <span class="n">CoxPHFitter</span><span class="p">()</span>
+<span class="n">cph2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">duration_col</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+
+<span class="n">cph2</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Each coefficient is adjusted for the others.</p>
+<hr />
+<h1 id="7b-r-survival-cox-ph-in-practice">7B. R (survival) — Cox PH in practice<a class="headerlink" href="#7b-r-survival-cox-ph-in-practice" title="Permanent link">&para;</a></h1>
+<h2 id="7b1-simulate-survival-data-in-r">7B.1 Simulate survival data in R<a class="headerlink" href="#7b1-simulate-survival-data-in-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">2026</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">400</span>
+
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="o">=</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="n">beta_age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.03</span>
+<span class="n">beta_trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.50</span>
+<span class="n">base</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.04</span>
+
+<span class="n">hazard</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_age</span><span class="o">*</span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">)</span>
+
+<span class="c1"># event times</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hazard</span><span class="p">)</span>
+
+<span class="c1"># censoring times</span>
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="o">=</span><span class="m">25</span><span class="p">)</span>
+
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">=</span><span class="n">event</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">,</span><span class="w"> </span><span class="n">treatment</span><span class="o">=</span><span class="n">trt</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7b2-fit-cox-model-in-r">7B.2 Fit Cox model in R<a class="headerlink" href="#7b2-fit-cox-model-in-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="what-to-look-for-in-summaryfit">What to look for in <code>summary(fit)</code><a class="headerlink" href="#what-to-look-for-in-summaryfit" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>coef</code> = <span class="arithmatex">\(\beta\)</span></li>
+<li><code>exp(coef)</code> = hazard ratio</li>
+<li><code>se(coef)</code> = standard error</li>
+<li>Wald test p-values</li>
+<li>95% CI for HR</li>
+</ul>
+<hr />
+<h2 id="7b3-predicted-survival-curves-in-r-for-profiles">7B.3 Predicted survival curves in R (for profiles)<a class="headerlink" href="#7b3-predicted-survival-curves-in-r-for-profiles" title="Permanent link">&para;</a></h2>
+<p>In R, prediction is typically done using <code>survfit()</code> on a Cox model:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">newdata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">60</span><span class="p">,</span><span class="m">60</span><span class="p">),</span><span class="w"> </span><span class="n">treatment</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+
+<span class="n">sf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">survfit</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">newdata</span><span class="o">=</span><span class="n">newdata</span><span class="p">)</span>
+
+<span class="nf">plot</span><span class="p">(</span><span class="n">sf</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">,</span>
+<span class="w">     </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;S(t)&quot;</span><span class="p">,</span>
+<span class="w">     </span><span class="n">main</span><span class="o">=</span><span class="s">&quot;Predicted Survival Curves from Cox PH&quot;</span><span class="p">)</span>
+<span class="nf">legend</span><span class="p">(</span><span class="s">&quot;topright&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Control age=60&quot;</span><span class="p">,</span><span class="s">&quot;Treatment age=60&quot;</span><span class="p">),</span>
+<span class="w">       </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;black&quot;</span><span class="p">,</span><span class="s">&quot;red&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">lty</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="7b4-multivariable-cox-example-in-r">7B.4 Multivariable Cox example in R<a class="headerlink" href="#7b4-multivariable-cox-example-in-r" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">7</span><span class="p">)</span>
+<span class="n">df</span><span class="o">$</span><span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">),</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">df</span><span class="o">$</span><span class="n">bmi</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="nf">nrow</span><span class="p">(</span><span class="n">df</span><span class="p">),</span><span class="w"> </span><span class="m">27</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span>
+
+<span class="n">fit2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">treatment</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bmi</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit2</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="8-model-interpretation-what-cox-answers-and-what-it-doesnt">8. Model interpretation: what Cox answers (and what it doesn’t)<a class="headerlink" href="#8-model-interpretation-what-cox-answers-and-what-it-doesnt" title="Permanent link">&para;</a></h2>
+<h3 id="cox-does-answer">Cox DOES answer:<a class="headerlink" href="#cox-does-answer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>association between covariates and hazard  </li>
+<li>adjusted hazard ratios  </li>
+<li>hypothesis tests for covariates  </li>
+<li>predicted survival curves for profiles (with baseline estimation)</li>
+</ul>
+<h3 id="cox-does-not-automatically-answer">Cox DOES NOT automatically answer:<a class="headerlink" href="#cox-does-not-automatically-answer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>causal effect unless design/assumptions justify causality  </li>
+<li>what happens when hazards are non-proportional  </li>
+<li>competing risks probabilities (need CIF)  </li>
+<li>repeated events without special modeling</li>
+</ul>
+<hr />
+<h2 id="9-checking-proportional-hazards-preview">9. Checking proportional hazards (preview)<a class="headerlink" href="#9-checking-proportional-hazards-preview" title="Permanent link">&para;</a></h2>
+<p>You must check PH assumption before reporting results.</p>
+<p>In later chapters we will do this deeply using:</p>
+<ul>
+<li>Schoenfeld residuals</li>
+<li>PH tests</li>
+<li>plots</li>
+</ul>
+<p>Quick preview:</p>
+<h3 id="python-lifelines">Python (lifelines)<a class="headerlink" href="#python-lifelines" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="n">cph</span><span class="o">.</span><span class="n">check_assumptions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">show_plots</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<h3 id="r-survival">R (survival)<a class="headerlink" href="#r-survival" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">cox.zph</span><span class="p">(</span><span class="n">fit</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+- Small p-value suggests PH violation.</p>
+<hr />
+<h2 id="10-how-to-report-cox-results">10. How to report Cox results<a class="headerlink" href="#10-how-to-report-cox-results" title="Permanent link">&para;</a></h2>
+<p>A standard reporting sentence:</p>
+<blockquote>
+<p>“In a multivariable Cox proportional hazards model adjusting for age and sex, treatment was associated with improved survival (HR 0.61, 95% CI 0.48–0.77, p &lt; 0.001).”</p>
+</blockquote>
+<p>Key elements:
+ - model type (Cox PH)
+ - adjusted covariates
+ - HR, CI, p-value
+ - direction and clinical interpretation</p>
+<hr />
+<h2 id="11-common-mistakes">11. Common mistakes<a class="headerlink" href="#11-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-interpreting-hr-as-a-probability">Mistake 1: interpreting HR as a probability<a class="headerlink" href="#mistake-1-interpreting-hr-as-a-probability" title="Permanent link">&para;</a></h3>
+<p>HR is a ratio of hazard rates, not survival probability.</p>
+<p>Fix: interpret as instantaneous risk rate ratio.</p>
+<h3 id="mistake-2-ignoring-ph-assumption">Mistake 2: ignoring PH assumption<a class="headerlink" href="#mistake-2-ignoring-ph-assumption" title="Permanent link">&para;</a></h3>
+<p>If PH violated, HR may change over time and “one HR” can mislead.</p>
+<p>Fix: check PH; use time-varying effects if needed.</p>
+<h3 id="mistake-3-using-cox-for-competing-risks-outcome">Mistake 3: using Cox for competing risks outcome<a class="headerlink" href="#mistake-3-using-cox-for-competing-risks-outcome" title="Permanent link">&para;</a></h3>
+<p>If competing risks present, standard Cox does not directly estimate cumulative incidence.</p>
+<p>Fix: use competing risks methods (CIF, Fine–Gray).</p>
+<h3 id="mistake-4-nonlinear-continuous-covariates">Mistake 4: nonlinear continuous covariates<a class="headerlink" href="#mistake-4-nonlinear-continuous-covariates" title="Permanent link">&para;</a></h3>
+<p>Age effect might not be linear in log-hazard.</p>
+<p>Fix: consider splines / transformations.</p>
+<hr />
+<h2 id="12-key-takeaways">12. Key takeaways<a class="headerlink" href="#12-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Cox PH models hazard: <span class="arithmatex">\(h(t|X)=h_0(t)\exp(\beta^TX)\)</span>.</li>
+<li>Main output: hazard ratio <span class="arithmatex">\(\exp(\beta)\)</span>.</li>
+<li>Proportional hazards assumption: HR constant over time.</li>
+<li>Cox estimates <span class="arithmatex">\(\beta\)</span> using partial likelihood and risk sets.</li>
+<li>Always check PH before interpreting results.</li>
+<li>Cox is the standard regression tool for survival analysis.</li>
+</ul>
+<hr />
+<h2 id="13-exercises">13. Exercises<a class="headerlink" href="#13-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+ 1. Simulate data where treatment has no effect (set beta_trt = 0). Fit Cox. What HR do you estimate?  
+ 2. Interpret HR = 1.25 in plain language.  
+ 3. Compute HR for a 10-year age increase when HR per year is 1.04.  
+ 4. Fit Cox in both Python and R and compare coefficients/HR.  
+ 5. Simulate a scenario where treatment effect changes over time (early benefit, late harm) and check PH diagnostics (preview with cox.zph / check_assumptions).
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

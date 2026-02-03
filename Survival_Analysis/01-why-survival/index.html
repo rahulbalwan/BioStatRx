@@ -1,0 +1,2451 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/01-why-survival/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-time-event-censoring/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Why Survival Analysis? - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#why-survival-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Why Survival Analysis?
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-survival-data-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The survival-data mindset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-counts-as-an-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What counts as an “event”?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-censoring-and-why-is-it-normal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. What is censoring and why is it normal?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. What is censoring and why is it normal?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-right-censoring-most-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Right censoring (most common)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-what-censoring-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 What censoring means
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-a-key-assumption-often-stated-in-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 A key assumption (often stated in papers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-not-just-use-logistic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Why not just use logistic regression?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Why not just use logistic regression?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-logistic-regression-loses-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Logistic regression loses timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-logistic-regression-struggles-with-unequal-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Logistic regression struggles with unequal follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-why-not-compare-mean-time-to-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Why not compare mean time-to-event?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-survival-analysis-gives-you-biostat-deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What survival analysis gives you (biostat deliverables)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What survival analysis gives you (biostat deliverables)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-kaplanmeier-survival-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Kaplan–Meier survival curve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-hypothesis-testing-log-rank-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Hypothesis testing: log-rank test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-regression-modeling-cox-proportional-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Regression modeling: Cox proportional hazards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-extensions-for-real-medical-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Extensions for real medical data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-clear-visual-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. A clear visual intuition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. A clear visual intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-timeline-event-vs-censoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Timeline: event vs censoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-diagram-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Diagram (Mermaid)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-survival-data-structure-what-you-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The survival data structure (what you store)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-simulation-build-survival-data-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Simulation: build survival data (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Simulation: build survival data (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-python-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Python simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-r-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 R simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-short-why-survival-analysis-example-clinical-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. A short “why survival analysis” example (clinical reasoning)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-quick-self-check-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Quick self-check exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-recurrent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-survival-data-mindset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The survival-data mindset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-counts-as-an-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. What counts as an “event”?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-is-censoring-and-why-is-it-normal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. What is censoring and why is it normal?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. What is censoring and why is it normal?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-right-censoring-most-common" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Right censoring (most common)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-what-censoring-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 What censoring means
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-a-key-assumption-often-stated-in-papers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 A key assumption (often stated in papers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-why-not-just-use-logistic-regression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Why not just use logistic regression?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Why not just use logistic regression?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-logistic-regression-loses-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Logistic regression loses timing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-logistic-regression-struggles-with-unequal-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Logistic regression struggles with unequal follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-why-not-compare-mean-time-to-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Why not compare mean time-to-event?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-survival-analysis-gives-you-biostat-deliverables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. What survival analysis gives you (biostat deliverables)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What survival analysis gives you (biostat deliverables)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-kaplanmeier-survival-curve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Kaplan–Meier survival curve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-hypothesis-testing-log-rank-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Hypothesis testing: log-rank test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-regression-modeling-cox-proportional-hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Regression modeling: Cox proportional hazards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-extensions-for-real-medical-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Extensions for real medical data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-a-clear-visual-intuition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. A clear visual intuition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. A clear visual intuition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-timeline-event-vs-censoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Timeline: event vs censoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-diagram-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Diagram (Mermaid)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-the-survival-data-structure-what-you-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. The survival data structure (what you store)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-simulation-build-survival-data-python-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Simulation: build survival data (Python + R)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Simulation: build survival data (Python + R)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-python-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Python simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-r-simulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 R simulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-a-short-why-survival-analysis-example-clinical-reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. A short “why survival analysis” example (clinical reasoning)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-key-takeaway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Key takeaway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-quick-self-check-exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Quick self-check exercises
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="why-survival-analysis">Why Survival Analysis?<a class="headerlink" href="#why-survival-analysis" title="Permanent link">&para;</a></h1>
+<p>Survival analysis is the branch of statistics used when your outcome is <strong>time until an event happens</strong> and some subjects <strong>do not experience the event during follow-up</strong> (they are <strong>censored</strong>).</p>
+<p>In biostatistics, this appears constantly:</p>
+<ul>
+<li><strong>Clinical trials:</strong> time to death, relapse, progression, adverse event</li>
+<li><strong>Epidemiology:</strong> time to infection, disease onset, hospitalization</li>
+<li><strong>Health services:</strong> time to readmission, ICU discharge</li>
+<li><strong>Devices / reliability:</strong> time to implant failure</li>
+</ul>
+<p>What makes survival analysis different from ordinary regression is that it uses <strong>both</strong>:
+1) <strong>the event indicator</strong> (did the event happen?), and<br />
+2) <strong>the follow-up time</strong> (when did it happen, or how long did we observe without it happening?).</p>
+<hr />
+<h2 id="1-the-survival-data-mindset">1. The survival-data mindset<a class="headerlink" href="#1-the-survival-data-mindset" title="Permanent link">&para;</a></h2>
+<p>A survival study is like watching patients over time:</p>
+<ul>
+<li>Some have the event (e.g., death) during the study → we observe their event time.</li>
+<li>Some do not have the event before the study ends or they are lost → we only know they survived up to their last contact.</li>
+</ul>
+<p>This “partial information” is not missing data. It is <strong>valid information</strong> that must be used correctly.</p>
+<hr />
+<h2 id="2-what-counts-as-an-event">2. What counts as an “event”?<a class="headerlink" href="#2-what-counts-as-an-event" title="Permanent link">&para;</a></h2>
+<p>An <strong>event</strong> is the endpoint you care about, defined precisely.</p>
+<p>Examples:
+- <strong>Death</strong>
+- <strong>Relapse</strong>
+- <strong>Hospital readmission</strong>
+- <strong>Infection</strong>
+- <strong>Device failure</strong></p>
+<p>Your event must be <strong>unambiguous</strong>:
+- What exactly qualifies as relapse?
+- Is death from any cause counted, or only disease-specific death?
+- If someone has two readmissions, is it the first only (time-to-first-event) or recurrent events?</p>
+<p>(We cover competing risks and recurrent events later.)</p>
+<hr />
+<h2 id="3-what-is-censoring-and-why-is-it-normal">3. What is censoring and why is it normal?<a class="headerlink" href="#3-what-is-censoring-and-why-is-it-normal" title="Permanent link">&para;</a></h2>
+<h3 id="31-right-censoring-most-common">3.1 Right censoring (most common)<a class="headerlink" href="#31-right-censoring-most-common" title="Permanent link">&para;</a></h3>
+<p>A subject is <strong>right-censored</strong> if the event has not occurred by the last time we observe them.</p>
+<p>Common reasons:
+- <strong>Administrative censoring:</strong> study ends while subject is event-free
+- <strong>Lost to follow-up:</strong> subject stops coming, moves away, etc.
+- <strong>Withdrawal:</strong> subject leaves the study</p>
+<h3 id="32-what-censoring-means">3.2 What censoring means<a class="headerlink" href="#32-what-censoring-means" title="Permanent link">&para;</a></h3>
+<p>If a subject is censored at time 3 years, it means:</p>
+<blockquote>
+<p>They survived at least 3 years, but we do not know what happened after.</p>
+</blockquote>
+<p>This is useful information.</p>
+<h3 id="33-a-key-assumption-often-stated-in-papers">3.3 A key assumption (often stated in papers)<a class="headerlink" href="#33-a-key-assumption-often-stated-in-papers" title="Permanent link">&para;</a></h3>
+<p>Most standard survival methods assume <strong>non-informative censoring</strong>:</p>
+<blockquote>
+<p>Given the covariates in the model, censoring is independent of the event process.</p>
+</blockquote>
+<p>If sicker patients are more likely to drop out (informative censoring), naive survival analysis can be biased.</p>
+<hr />
+<h2 id="4-why-not-just-use-logistic-regression">4. Why not just use logistic regression?<a class="headerlink" href="#4-why-not-just-use-logistic-regression" title="Permanent link">&para;</a></h2>
+<p>A common approach is to pick a time horizon (say 5 years) and define:</p>
+<ul>
+<li>Event by 5 years: yes/no</li>
+</ul>
+<p>Then use logistic regression.</p>
+<h3 id="41-logistic-regression-loses-timing">4.1 Logistic regression loses timing<a class="headerlink" href="#41-logistic-regression-loses-timing" title="Permanent link">&para;</a></h3>
+<p>Consider two patients:</p>
+<ul>
+<li>Patient A dies at <strong>1 month</strong></li>
+<li>Patient B dies at <strong>59 months</strong></li>
+<li>Both are “dead by 5 years”</li>
+</ul>
+<p>Logistic regression treats them the same, but clinically they are very different.</p>
+<p>Survival analysis uses the full timing information.</p>
+<h3 id="42-logistic-regression-struggles-with-unequal-follow-up">4.2 Logistic regression struggles with unequal follow-up<a class="headerlink" href="#42-logistic-regression-struggles-with-unequal-follow-up" title="Permanent link">&para;</a></h3>
+<p>Suppose the study is 5 years, but a patient is only followed for 2 years and is alive at last contact.</p>
+<p>How do you label them for “dead by 5 years”?</p>
+<ul>
+<li>Exclude them → wastes data</li>
+<li>Label them “alive by 5 years” → wrong (we don’t know)</li>
+<li>Impute → adds strong assumptions</li>
+</ul>
+<p>Survival analysis handles this naturally through censoring.</p>
+<hr />
+<h2 id="5-why-not-compare-mean-time-to-event">5. Why not compare mean time-to-event?<a class="headerlink" href="#5-why-not-compare-mean-time-to-event" title="Permanent link">&para;</a></h2>
+<p>Another naive approach is to compare average survival times between groups.</p>
+<p>Problem:
+- Censored times are not true event times.
+- The mean becomes biased unless censoring is handled explicitly.</p>
+<p>Survival analysis methods are designed to incorporate censored follow-up properly.</p>
+<hr />
+<h2 id="6-what-survival-analysis-gives-you-biostat-deliverables">6. What survival analysis gives you (biostat deliverables)<a class="headerlink" href="#6-what-survival-analysis-gives-you-biostat-deliverables" title="Permanent link">&para;</a></h2>
+<p>Survival analysis lets you estimate and report:</p>
+<h3 id="61-kaplanmeier-survival-curve">6.1 Kaplan–Meier survival curve<a class="headerlink" href="#61-kaplanmeier-survival-curve" title="Permanent link">&para;</a></h3>
+<p>A nonparametric estimate of survival probability over time:
+- 1-year survival
+- 5-year survival
+- median survival
+- confidence intervals
+- tick marks for censoring</p>
+<h3 id="62-hypothesis-testing-log-rank-test">6.2 Hypothesis testing: log-rank test<a class="headerlink" href="#62-hypothesis-testing-log-rank-test" title="Permanent link">&para;</a></h3>
+<p>Compares entire survival curves between groups.</p>
+<h3 id="63-regression-modeling-cox-proportional-hazards">6.3 Regression modeling: Cox proportional hazards<a class="headerlink" href="#63-regression-modeling-cox-proportional-hazards" title="Permanent link">&para;</a></h3>
+<p>Estimates effects of predictors (age, treatment, biomarkers) on the <strong>hazard</strong> via hazard ratios.</p>
+<h3 id="64-extensions-for-real-medical-data">6.4 Extensions for real medical data<a class="headerlink" href="#64-extensions-for-real-medical-data" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Time-dependent covariates</strong> (treatment switching, biomarkers over time)</li>
+<li><strong>Parametric models</strong> (Weibull, log-normal for extrapolation)</li>
+<li><strong>Competing risks</strong> (death prevents relapse)</li>
+<li><strong>Frailty</strong> (hospital/site clustering)</li>
+<li><strong>Recurrent events</strong> (multiple infections/hospitalizations)</li>
+</ul>
+<hr />
+<h2 id="7-a-clear-visual-intuition">7. A clear visual intuition<a class="headerlink" href="#7-a-clear-visual-intuition" title="Permanent link">&para;</a></h2>
+<h3 id="71-timeline-event-vs-censoring">7.1 Timeline: event vs censoring<a class="headerlink" href="#71-timeline-event-vs-censoring" title="Permanent link">&para;</a></h3>
+<p>Here’s the conceptual picture:</p>
+<ul>
+<li>“X” means event occurs</li>
+<li>“|” means censored</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Patient 1: 0 ----------- X
+Patient 2: 0 ------------------ |
+Patient 3: 0 ----- X
+Patient 4: 0 ---------- |
+</code></pre></div>
+<p>Survival analysis uses <strong>all</strong> the information from each line.</p>
+<h3 id="72-diagram-mermaid">7.2 Diagram (Mermaid)<a class="headerlink" href="#72-diagram-mermaid" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart LR
+A[Start follow-up] --&gt; B[Event occurs]
+A --&gt; C[Censored: study ends]
+A --&gt; D[Censored: lost to follow-up]</code></pre>
+<hr />
+<h2 id="8-the-survival-data-structure-what-you-store">8. The survival data structure (what you store)<a class="headerlink" href="#8-the-survival-data-structure-what-you-store" title="Permanent link">&para;</a></h2>
+<p>A minimal survival dataset has:</p>
+<ul>
+<li><code>time</code>: follow-up time until event or censoring</li>
+<li><code>event</code>: 1 if event, 0 if censored</li>
+<li>plus predictors (age, sex, treatment, biomarker, etc.)</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">time</th>
+<th style="text-align: right;">event</th>
+<th style="text-align: right;">age</th>
+<th style="text-align: right;">trt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-simulation-build-survival-data-python-r">9. Simulation: build survival data (Python + R)<a class="headerlink" href="#9-simulation-build-survival-data-python-r" title="Permanent link">&para;</a></h2>
+<p>This simulation shows how survival data are created from:
+- true event time <span class="arithmatex">\(T\)</span>
+- censoring time <span class="arithmatex">\(C\)</span>
+- observed time <span class="arithmatex">\(Y = \min(T, C)\)</span>
+- event indicator <span class="arithmatex">\(\delta = I(T \le C)\)</span></p>
+<h3 id="91-python-simulation">9.1 Python simulation<a class="headerlink" href="#91-python-simulation" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="c1"># True event times (e.g., time to relapse)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Censoring times (e.g., study end, dropout)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Observed survival data</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+<span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span> <span class="o">&lt;=</span> <span class="n">C</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;true_event_time_T&quot;</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
+    <span class="s2">&quot;censor_time_C&quot;</span><span class="p">:</span> <span class="n">C</span><span class="p">,</span>
+    <span class="s2">&quot;observed_time&quot;</span><span class="p">:</span> <span class="n">time</span><span class="p">,</span>
+    <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="n">event</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;observed_time&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p><strong>What to look for</strong>
+- <code>event = 1</code> means you truly observed the event time.
+- <code>event = 0</code> means you only observed follow-up up to censoring time.</p>
+<p>Try changing censoring intensity:
+- More censoring: <code>C = np.random.uniform(2, 8, size=n)</code>
+- Less censoring: <code>C = np.random.uniform(2, 25, size=n)</code></p>
+<hr />
+<h3 id="92-r-simulation">9.2 R simulation<a class="headerlink" href="#92-r-simulation" title="Permanent link">&para;</a></h3>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">101</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">40</span>
+
+<span class="c1"># True event times</span>
+<span class="bp">T</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">/</span><span class="m">10</span><span class="p">)</span><span class="w">   </span><span class="c1"># mean = 10</span>
+
+<span class="c1"># Censoring times</span>
+<span class="n">C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">)</span>
+
+<span class="n">time</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">pmin</span><span class="p">(</span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+<span class="n">event</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="bp">T</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">C</span><span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">  </span><span class="n">true_event_time_T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">,</span>
+<span class="w">  </span><span class="n">censor_time_C</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">C</span><span class="p">,</span>
+<span class="w">  </span><span class="n">observed_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">,</span>
+<span class="w">  </span><span class="n">event</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">event</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="p">[</span><span class="nf">order</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">observed_time</span><span class="p">),</span><span class="w"> </span><span class="p">]</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p><strong>Try</strong>
+- More censoring: <code>C &lt;- runif(n, 2, 8)</code>
+- Less censoring: <code>C &lt;- runif(n, 2, 25)</code></p>
+<hr />
+<h2 id="10-a-short-why-survival-analysis-example-clinical-reasoning">10. A short “why survival analysis” example (clinical reasoning)<a class="headerlink" href="#10-a-short-why-survival-analysis-example-clinical-reasoning" title="Permanent link">&para;</a></h2>
+<p>Imagine a cancer study:</p>
+<ul>
+<li>Some patients relapse early (month 3)</li>
+<li>Some relapse later (month 30)</li>
+<li>Some never relapse during the study (censored)</li>
+</ul>
+<p>A model that only uses “relapse yes/no” at a cutoff:
+- ignores early vs late relapse
+- mishandles different follow-up lengths</p>
+<p>Survival analysis uses:
+- exact timing when observed
+- partial follow-up when censored
+- and produces clinically interpretable curves and hazard ratios</p>
+<hr />
+<h2 id="11-key-takeaway">11. Key takeaway<a class="headerlink" href="#11-key-takeaway" title="Permanent link">&para;</a></h2>
+<p>Use survival analysis when:
+- The outcome is <strong>time-to-event</strong>, and/or
+- There is <strong>censoring</strong>, and/or
+- Follow-up times vary across participants.</p>
+<p>Survival analysis is not just “another model.”<br />
+It is the correct framework whenever <strong>time and censoring are part of the outcome</strong>.</p>
+<hr />
+<h2 id="12-quick-self-check-exercises">12. Quick self-check exercises<a class="headerlink" href="#12-quick-self-check-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+1. Give two reasons logistic regression is not ideal for time-to-event data.  
+2. Explain censoring in one sentence, in plain language.  
+3. In the simulation, increase censoring and compute the proportion censored. What happens to information?  
+4. Give 3 biostat studies where the event is not death.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2355 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Rahul">
+      
+      
+        <link rel="canonical" href="https://rahulbalwan.github.io/BioStatRx/Survival_Analysis/14-recurrent-events/">
+      
+      
+        <link rel="prev" href="../13-frailty-models/">
+      
+      
+        <link rel="next" href="../15-survival-analysis-summary-workflow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Recurrent Events - BioStatRx</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#recurrent-events-multiple-events-per-subject" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="BioStatRx" class="md-header__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BioStatRx
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Recurrent Events
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BioStatRx" class="md-nav__button md-logo" aria-label="BioStatRx" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BioStatRx
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Foundations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Foundations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Probability_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Probability & Statistics Review
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Regression/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Regression
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Analysis
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Survival Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-why-survival/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Survival Analysis?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-time-event-censoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-to-Event & Censoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-survival-hazard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival & Hazard Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-risk-sets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Risk Sets & Event Times
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-kaplan-meier/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kaplan–Meier Estimator
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-km-confidence-intervals-median/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KM Confidence Intervals & Median
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-logrank-test/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Log-rank Test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-cox-proportional-hazards/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Proportional Hazards
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-cox-diagnostics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cox Diagnostics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-dependent-covariates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Time-dependent Covariates
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-parametric-survival-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parametric Survival Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-competing-risks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Competing Risks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-frailty-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frailty Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Recurrent Events
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-recurrent-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a recurrent event?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-time-to-first-event-can-be-insufficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why “time to first event” can be insufficient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-recurrent-events-vs-competing-risks-vs-terminal-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Recurrent events vs competing risks vs terminal events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-structure-for-recurrent-events-startstop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Data structure for recurrent events (start–stop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-key-modeling-challenge-within-subject-dependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key modeling challenge: within-subject dependence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-main-recurrent-event-model-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Main recurrent-event model families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Main recurrent-event model families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-andersengill-ag-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Andersen–Gill (AG) model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-prenticewilliamspeterson-pwp-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Prentice–Williams–Peterson (PWP) models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-frailty-models-for-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Frailty models for recurrence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-andersengill-model-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Andersen–Gill model in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Andersen–Gill model in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-model-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Model form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-dependence-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Dependence handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-pwp-models-event-order-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. PWP models (event-order models)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. PWP models (event-order models)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-total-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Total-time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-gap-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Gap-time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-survival-analysis-summary-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Survival Summary & Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Advanced Topics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Advanced Topics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Clinical_Trials/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clinical Trials
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Bayesian_Statistics/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Statistics
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Infectious_Disease_Modelling/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Infectious Disease Modelling
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Machine_Learning/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Machine Learning
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Meta_Analysis/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Meta Analysis
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../Reproducible_Research/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducible Research
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-a-recurrent-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is a recurrent event?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-why-time-to-first-event-can-be-insufficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Why “time to first event” can be insufficient
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-recurrent-events-vs-competing-risks-vs-terminal-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Recurrent events vs competing risks vs terminal events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-structure-for-recurrent-events-startstop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Data structure for recurrent events (start–stop)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-key-modeling-challenge-within-subject-dependence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Key modeling challenge: within-subject dependence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-main-recurrent-event-model-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Main recurrent-event model families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Main recurrent-event model families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-andersengill-ag-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Andersen–Gill (AG) model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-prenticewilliamspeterson-pwp-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Prentice–Williams–Peterson (PWP) models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-frailty-models-for-recurrence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Frailty models for recurrence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-andersengill-model-in-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Andersen–Gill model in detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Andersen–Gill model in detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-model-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Model form
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-dependence-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Dependence handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-pwp-models-event-order-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. PWP models (event-order models)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. PWP models (event-order models)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-total-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.1 Total-time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-gap-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8.2 Gap-time
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="recurrent-events-multiple-events-per-subject">Recurrent Events (Multiple Events per Subject)<a class="headerlink" href="#recurrent-events-multiple-events-per-subject" title="Permanent link">&para;</a></h1>
+<p>Many biostatistics outcomes are not “time to the first event.”</p>
+<p>Instead, subjects can experience the event <strong>multiple times</strong>.</p>
+<p>Examples:
+ - repeated hospitalizations
+ - recurrent infections (UTI, malaria episodes)
+ - repeated asthma exacerbations
+ - recurrent falls in geriatrics
+ - repeated device malfunctions</p>
+<p>These are <strong>recurrent events</strong>.</p>
+<p>If you use standard survival analysis on only the first event, you lose information.</p>
+<p>This chapter covers:</p>
+<ul>
+<li>what recurrent event data looks like  </li>
+<li>why standard Cox is not enough  </li>
+<li>major recurrent-event approaches  </li>
+<li>Andersen–Gill (AG) model  </li>
+<li>PWP models (total-time and gap-time)  </li>
+<li>robust SE and frailty  </li>
+<li>Python + R implementation  </li>
+</ul>
+<hr />
+<h2 id="1-what-is-a-recurrent-event">1. What is a recurrent event?<a class="headerlink" href="#1-what-is-a-recurrent-event" title="Permanent link">&para;</a></h2>
+<p>A recurrent event means:</p>
+<blockquote>
+<p>A subject can experience the same event multiple times during follow-up.</p>
+</blockquote>
+<p>We observe multiple event times:</p>
+<div class="arithmatex">\[
+T_{i1}, T_{i2}, \dots
+\]</div>
+<p>And the process may stop at:
+ - study end
+ - dropout
+ - death (terminal event)</p>
+<hr />
+<h2 id="2-why-time-to-first-event-can-be-insufficient">2. Why “time to first event” can be insufficient<a class="headerlink" href="#2-why-time-to-first-event-can-be-insufficient" title="Permanent link">&para;</a></h2>
+<p>If you analyze only first hospitalization:</p>
+<ul>
+<li>you ignore later hospitalizations (important clinically)</li>
+<li>you underestimate disease burden</li>
+<li>treatment might reduce recurrence even if first event is similar</li>
+</ul>
+<p>So recurrent event analysis helps quantify total burden.</p>
+<hr />
+<h2 id="3-recurrent-events-vs-competing-risks-vs-terminal-events">3. Recurrent events vs competing risks vs terminal events<a class="headerlink" href="#3-recurrent-events-vs-competing-risks-vs-terminal-events" title="Permanent link">&para;</a></h2>
+<p>Important distinction:</p>
+<ul>
+<li>Recurrent event: can happen multiple times</li>
+<li>Competing risk: different event prevents event of interest</li>
+<li>Terminal event: death stops recurrence process</li>
+</ul>
+<p>In many studies you have both:
+ - repeated hospitalizations
+ - followed by death</p>
+<p>That is a more advanced joint modeling topic, but we mention it.</p>
+<hr />
+<h2 id="4-data-structure-for-recurrent-events-startstop">4. Data structure for recurrent events (start–stop)<a class="headerlink" href="#4-data-structure-for-recurrent-events-startstop" title="Permanent link">&para;</a></h2>
+<p>Recurrent event data typically uses <strong>counting process</strong> format:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">id</th>
+<th style="text-align: right;">start</th>
+<th style="text-align: right;">stop</th>
+<th style="text-align: right;">event</th>
+<th>covariates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td>...</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1</td>
+<td>...</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>each row represents a time interval at risk</li>
+<li>event=1 indicates event occurred at end of interval</li>
+<li>after an event, subject re-enters risk set (with new interval)</li>
+</ul>
+<hr />
+<h2 id="5-key-modeling-challenge-within-subject-dependence">5. Key modeling challenge: within-subject dependence<a class="headerlink" href="#5-key-modeling-challenge-within-subject-dependence" title="Permanent link">&para;</a></h2>
+<p>Events for the same subject are correlated:</p>
+<ul>
+<li>some patients are “frequent flyers”</li>
+<li>unmeasured frailty may increase recurrence risk</li>
+</ul>
+<p>So we must adjust for correlation:
+ - robust SE
+ - frailty
+ - event-order models</p>
+<hr />
+<h2 id="6-main-recurrent-event-model-families">6. Main recurrent-event model families<a class="headerlink" href="#6-main-recurrent-event-model-families" title="Permanent link">&para;</a></h2>
+<h3 id="61-andersengill-ag-model">6.1 Andersen–Gill (AG) model<a class="headerlink" href="#61-andersengill-ag-model" title="Permanent link">&para;</a></h3>
+<ul>
+<li>treats recurrent events as a counting process</li>
+<li>subject is at risk again immediately after each event</li>
+<li>assumes same baseline hazard for all events</li>
+<li>uses robust SE (cluster by subject)</li>
+</ul>
+<p>Great for:
+ - overall recurrence rate comparison</p>
+<p>Limitations:
+ - does not explicitly model event order
+ - assumes same risk mechanism for first and later events</p>
+<h3 id="62-prenticewilliamspeterson-pwp-models">6.2 Prentice–Williams–Peterson (PWP) models<a class="headerlink" href="#62-prenticewilliamspeterson-pwp-models" title="Permanent link">&para;</a></h3>
+<p>These model event order:</p>
+<ul>
+<li>PWP Total-time: time measured from baseline</li>
+<li>PWP Gap-time: time resets after each event</li>
+</ul>
+<p>These are good when:
+ - event 2 depends on having event 1
+ - baseline hazard differs by event number</p>
+<h3 id="63-frailty-models-for-recurrence">6.3 Frailty models for recurrence<a class="headerlink" href="#63-frailty-models-for-recurrence" title="Permanent link">&para;</a></h3>
+<p>Random effect per subject:
+ - frequent-event subjects have higher frailty
+ - accounts for unobserved heterogeneity</p>
+<hr />
+<h2 id="7-andersengill-model-in-detail">7. Andersen–Gill model in detail<a class="headerlink" href="#7-andersengill-model-in-detail" title="Permanent link">&para;</a></h2>
+<h3 id="71-model-form">7.1 Model form<a class="headerlink" href="#71-model-form" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+h_i(t)=h_0(t)\exp(\beta^TX_i(t))
+\]</div>
+<p>But each subject can have multiple events.</p>
+<p>Key concept: counting process <span class="arithmatex">\(N_i(t)\)</span>:
+ - counts how many events by time <span class="arithmatex">\(t\)</span></p>
+<p>AG treats each event as contributing to Cox partial likelihood with risk sets.</p>
+<h3 id="72-dependence-handling">7.2 Dependence handling<a class="headerlink" href="#72-dependence-handling" title="Permanent link">&para;</a></h3>
+<p>Standard errors are usually computed using:</p>
+<ul>
+<li>robust sandwich estimator clustered by subject (id)</li>
+</ul>
+<p>In R: <code>cluster(id)</code><br />
+In Python: robust=True can help, but full recurrent support is limited</p>
+<hr />
+<h2 id="8-pwp-models-event-order-models">8. PWP models (event-order models)<a class="headerlink" href="#8-pwp-models-event-order-models" title="Permanent link">&para;</a></h2>
+<h3 id="81-total-time">8.1 Total-time<a class="headerlink" href="#81-total-time" title="Permanent link">&para;</a></h3>
+<p>Time is measured from baseline.
+Event strata created by event number.</p>
+<h3 id="82-gap-time">8.2 Gap-time<a class="headerlink" href="#82-gap-time" title="Permanent link">&para;</a></h3>
+<p>Time resets after each event.
+Good when you care about time between recurrences.</p>
+<hr />
+<h1 id="part-a-r">PART A — R<a class="headerlink" href="#part-a-r" title="Permanent link">&para;</a></h1>
+<p>R’s <code>survival</code> package is the standard for recurrent event modeling.</p>
+<p>We will show:
+ - how to build recurrent-event dataset
+ - fit AG model
+ - fit PWP total-time and gap-time</p>
+<hr />
+<h2 id="9a-simulate-recurrent-event-data-r">9A. Simulate recurrent event data (R)<a class="headerlink" href="#9a-simulate-recurrent-event-data-r" title="Permanent link">&para;</a></h2>
+<p>We simulate:
+ - 300 subjects
+ - treatment reduces recurrence rate
+ - each subject can have up to 3 events
+ - random censoring</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">set.seed</span><span class="p">(</span><span class="m">2028</span><span class="p">)</span>
+
+<span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">300</span>
+<span class="n">trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbinom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rnorm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span>
+
+<span class="c1"># baseline recurrence rate</span>
+<span class="n">base</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.15</span>
+
+<span class="n">beta_trt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-0.50</span>
+<span class="n">beta_age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.02</span>
+
+<span class="n">max_events</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">3</span>
+
+<span class="n">rows</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">()</span>
+<span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span>
+
+<span class="kr">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">  </span><span class="c1"># subject-specific frailty-like multiplier (optional)</span>
+<span class="w">  </span><span class="n">u</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rgamma</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">shape</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">scale</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span><span class="w">  </span><span class="c1"># mean 1</span>
+
+<span class="w">  </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="n">event_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+
+<span class="w">  </span><span class="n">censor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">runif</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span>
+
+<span class="w">  </span><span class="kr">while</span><span class="w"> </span><span class="p">(</span><span class="n">event_count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">max_events</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1"># hazard for next event (exponential gap time for simplicity)</span>
+<span class="w">    </span><span class="n">h</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">beta_age</span><span class="o">*</span><span class="p">(</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="m">-60</span><span class="p">))</span>
+
+<span class="w">    </span><span class="n">gap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rexp</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="o">=</span><span class="n">h</span><span class="p">)</span>
+<span class="w">    </span><span class="n">t_next</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">gap</span>
+
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="n">t_next</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">censor</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1"># event occurs</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+<span class="w">        </span><span class="n">start</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+<span class="w">        </span><span class="n">stop</span><span class="o">=</span><span class="n">t_next</span><span class="p">,</span>
+<span class="w">        </span><span class="n">event</span><span class="o">=</span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">event_number</span><span class="o">=</span><span class="n">event_count</span><span class="m">+1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">trt</span><span class="o">=</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<span class="w">        </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+
+<span class="w">      </span><span class="n">t</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">t_next</span>
+<span class="w">      </span><span class="n">event_count</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">event_count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1"># censored before next event</span>
+<span class="w">      </span><span class="n">rows</span><span class="p">[[</span><span class="n">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span>
+<span class="w">        </span><span class="n">start</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+<span class="w">        </span><span class="n">stop</span><span class="o">=</span><span class="n">censor</span><span class="p">,</span>
+<span class="w">        </span><span class="n">event</span><span class="o">=</span><span class="m">0</span><span class="p">,</span>
+<span class="w">        </span><span class="n">event_number</span><span class="o">=</span><span class="n">event_count</span><span class="m">+1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">trt</span><span class="o">=</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+<span class="w">        </span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">      </span><span class="p">)</span>
+<span class="w">      </span><span class="n">idx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">      </span><span class="kr">break</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">d</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span><span class="w"> </span><span class="n">rows</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="10a-andersengill-model-in-r">10A. Andersen–Gill model in R<a class="headerlink" href="#10a-andersengill-model-in-r" title="Permanent link">&para;</a></h2>
+<p>Andersen–Gill is just Cox with start–stop and robust SE clustered by id:</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">survival</span><span class="p">)</span>
+
+<span class="n">fit_ag</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">cluster</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_ag</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - HR for <code>trt</code> compares recurrence hazard at any moment between groups.
+ - Robust SE accounts for within-subject correlation.</p>
+<hr />
+<h2 id="11a-pwp-total-time-model-event-strata">11A. PWP Total-Time model (event strata)<a class="headerlink" href="#11a-pwp-total-time-model-event-strata" title="Permanent link">&para;</a></h2>
+<p>PWP total-time uses strata by event number:
+- each event number has its own baseline hazard</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">fit_pwp_tt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">strata</span><span class="p">(</span><span class="n">event_number</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">cluster</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_pwp_tt</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - HRs compare covariate effects across event strata.
+ - baseline hazard differs by event number.</p>
+<hr />
+<h2 id="12a-pwp-gap-time-model">12A. PWP Gap-Time model<a class="headerlink" href="#12a-pwp-gap-time-model" title="Permanent link">&para;</a></h2>
+<p>For gap-time, we reset time within each event interval:</p>
+<p>Define:
+ - gap_start = 0 for each interval
+ - gap_stop = stop - start</p>
+<div class="admonition interactive">
+<p class="admonition-title">R</p>
+<div class="highlight"><pre><span></span><code><span class="n">d</span><span class="o">$</span><span class="n">gap_start</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="n">d</span><span class="o">$</span><span class="n">gap_stop</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">stop</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="o">$</span><span class="n">start</span>
+
+<span class="n">fit_pwp_gt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">coxph</span><span class="p">(</span><span class="nf">Surv</span><span class="p">(</span><span class="n">gap_start</span><span class="p">,</span><span class="w"> </span><span class="n">gap_stop</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">trt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">strata</span><span class="p">(</span><span class="n">event_number</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">cluster</span><span class="p">(</span><span class="n">id</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">fit_pwp_gt</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Interpretation:
+ - models time between events
+ - baseline hazard differs by event number</p>
+<hr />
+<h2 id="13a-plotting-cumulative-mean-function">13A. Plotting cumulative mean function<a class="headerlink" href="#13a-plotting-cumulative-mean-function" title="Permanent link">&para;</a></h2>
+<p>Another descriptive way to visualize recurrence is cumulative events over time.</p>
+<p>A simple approach:
+ - estimate mean cumulative function by group</p>
+<p>(Advanced: use <code>survfit</code> on counting process, or specialized packages.)</p>
+<hr />
+<h1 id="part-b-python">PART B — PYTHON<a class="headerlink" href="#part-b-python" title="Permanent link">&para;</a></h1>
+<p>Python currently lacks full native tooling for recurrent events compared to R.
+But you can still do:</p>
+<ul>
+<li>create start–stop data  </li>
+<li>use <code>CoxTimeVaryingFitter</code> as an AG-style model  </li>
+<li>use robust SE cautiously  </li>
+<li>or do marginal approaches externally  </li>
+</ul>
+<p>We show an AG-style approach using lifelines time-varying fitter.</p>
+<hr />
+<h2 id="14b-simulate-recurrent-events-and-build-startstop-data-python">14B. Simulate recurrent events and build start–stop data (Python)<a class="headerlink" href="#14b-simulate-recurrent-events-and-build-startstop-data-python" title="Permanent link">&para;</a></h2>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">2028</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="n">trt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">beta_trt</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.50</span>
+<span class="n">beta_age</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">max_events</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># mean 1</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">censor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">ev</span> <span class="o">&lt;</span> <span class="n">max_events</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">u</span> <span class="o">*</span> <span class="n">base</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">beta_trt</span><span class="o">*</span><span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta_age</span><span class="o">*</span><span class="p">(</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">60</span><span class="p">))</span>
+        <span class="n">gap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">t_next</span> <span class="o">=</span> <span class="n">t</span> <span class="o">+</span> <span class="n">gap</span>
+
+        <span class="k">if</span> <span class="n">t_next</span> <span class="o">&lt;=</span> <span class="n">censor</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t_next</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ev</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t_next</span>
+            <span class="n">ev</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">censor</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ev</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">trt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="k">break</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;start&quot;</span><span class="p">,</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span><span class="s2">&quot;event&quot;</span><span class="p">,</span><span class="s2">&quot;event_number&quot;</span><span class="p">,</span><span class="s2">&quot;treatment&quot;</span><span class="p">,</span><span class="s2">&quot;age&quot;</span><span class="p">])</span>
+<span class="n">d</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<hr />
+<h2 id="15b-andersengill-style-fit-in-python-lifelines">15B. Andersen–Gill style fit in Python (lifelines)<a class="headerlink" href="#15b-andersengill-style-fit-in-python-lifelines" title="Permanent link">&para;</a></h2>
+<p>We fit start–stop using <code>CoxTimeVaryingFitter</code>.</p>
+<div class="admonition interactive">
+<p class="admonition-title">Python</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">lifelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoxTimeVaryingFitter</span>
+
+<span class="n">ctv</span> <span class="o">=</span> <span class="n">CoxTimeVaryingFitter</span><span class="p">()</span>
+<span class="n">ctv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">id_col</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">start_col</span><span class="o">=</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">stop_col</span><span class="o">=</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">event_col</span><span class="o">=</span><span class="s2">&quot;event&quot;</span><span class="p">)</span>
+<span class="n">ctv</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p>Important note:
+ - lifelines standard errors for recurrent events may not match R’s robust cluster(id) sandwich perfectly.
+ - For publication-grade recurrent-event analysis, R is typically preferred.</p>
+<hr />
+<h2 id="16-which-recurrent-event-method-should-you-choose">16. Which recurrent-event method should you choose?<a class="headerlink" href="#16-which-recurrent-event-method-should-you-choose" title="Permanent link">&para;</a></h2>
+<h3 id="161-if-you-want-a-simple-overall-recurrence-rate-effect">16.1 If you want a simple “overall recurrence rate” effect:<a class="headerlink" href="#161-if-you-want-a-simple-overall-recurrence-rate-effect" title="Permanent link">&para;</a></h3>
+<p>Andersen–Gill with robust SE</p>
+<h3 id="162-if-you-believe-event-order-matters">16.2 If you believe event order matters:<a class="headerlink" href="#162-if-you-believe-event-order-matters" title="Permanent link">&para;</a></h3>
+<p>PWP total-time or gap-time</p>
+<h3 id="163-if-you-believe-subjects-have-different-baseline-recurrence-tendencies">16.3 If you believe subjects have different baseline recurrence tendencies:<a class="headerlink" href="#163-if-you-believe-subjects-have-different-baseline-recurrence-tendencies" title="Permanent link">&para;</a></h3>
+<p>frailty model (random effect per subject)</p>
+<p>Often, analysts do:
+ - AG as primary
+ - PWP as sensitivity analysis
+ - frailty as additional robustness check</p>
+<hr />
+<h2 id="17-reporting-recurrent-event-results-biostat-style">17. Reporting recurrent-event results (biostat style)<a class="headerlink" href="#17-reporting-recurrent-event-results-biostat-style" title="Permanent link">&para;</a></h2>
+<p>Example:</p>
+<blockquote>
+<p>“Recurrent hospitalizations were analyzed using an Andersen–Gill Cox model with robust sandwich standard errors clustered by subject. Treatment reduced the hospitalization hazard (HR 0.72, 95% CI …).”</p>
+</blockquote>
+<p>For PWP:</p>
+<blockquote>
+<p>“Event-order was accounted for using PWP models stratified by event number.”</p>
+</blockquote>
+<p>Always report:
+ - model type (AG / PWP)
+ - use of robust SE / frailty
+ - what time scale (total-time vs gap-time)
+ - interpretation of HR</p>
+<hr />
+<h2 id="18-common-mistakes">18. Common mistakes<a class="headerlink" href="#18-common-mistakes" title="Permanent link">&para;</a></h2>
+<h3 id="mistake-1-treat-repeated-events-as-independent-rows-without-clustering-correction">Mistake 1: treat repeated events as independent rows without clustering correction<a class="headerlink" href="#mistake-1-treat-repeated-events-as-independent-rows-without-clustering-correction" title="Permanent link">&para;</a></h3>
+<p>This underestimates SE.</p>
+<h3 id="mistake-2-ignore-death-as-terminal-event">Mistake 2: ignore death as terminal event<a class="headerlink" href="#mistake-2-ignore-death-as-terminal-event" title="Permanent link">&para;</a></h3>
+<p>Death ends recurrence. Treating it as censoring might be informative.</p>
+<h3 id="mistake-3-interpret-ag-hr-as-first-event-effect">Mistake 3: interpret AG HR as first-event effect<a class="headerlink" href="#mistake-3-interpret-ag-hr-as-first-event-effect" title="Permanent link">&para;</a></h3>
+<p>AG HR is about <strong>overall recurrence hazard</strong>, not first-event survival.</p>
+<h3 id="mistake-4-too-few-events-per-subject-but-still-using-complex-models">Mistake 4: too few events per subject but still using complex models<a class="headerlink" href="#mistake-4-too-few-events-per-subject-but-still-using-complex-models" title="Permanent link">&para;</a></h3>
+<p>If almost everyone has 0–1 events, use standard Cox.</p>
+<hr />
+<h2 id="19-key-takeaways">19. Key takeaways<a class="headerlink" href="#19-key-takeaways" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Recurrent events require start–stop counting-process data.</li>
+<li>Within-subject correlation must be handled (robust SE, frailty, event-strata).</li>
+<li>Andersen–Gill is the common baseline recurrent-event model.</li>
+<li>PWP models incorporate event order (total-time / gap-time).</li>
+<li>R has best support; Python can approximate via time-varying Cox.</li>
+</ul>
+<hr />
+<h2 id="20-exercises">20. Exercises<a class="headerlink" href="#20-exercises" title="Permanent link">&para;</a></h2>
+<details>
+<summary>Click to try</summary>
+
+ 1. Simulate recurrent events with strong treatment effect and fit AG model. Interpret HR.  
+ 2. Fit PWP total-time and compare with AG. Does effect change?  
+ 3. Fit PWP gap-time and interpret what changes.  
+ 4. Increase within-subject heterogeneity (frailty variance) and see how robust SE changes inference.  
+ 5. Write a “Methods” paragraph describing recurrent-event analysis of hospitalizations.
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.prune", "navigation.top", "toc.follow", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
