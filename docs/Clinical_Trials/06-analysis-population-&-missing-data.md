@@ -1,4 +1,4 @@
-# 06 — Analysis Populations (ITT, Per-Protocol, As-Treated) + Missing Data
+# Analysis Populations (ITT, Per-Protocol, As-Treated) + Missing Data
 
 A trial’s design starts with randomization, but the credibility of results often depends on how we define:
 

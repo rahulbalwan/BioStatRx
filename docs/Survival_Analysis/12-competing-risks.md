@@ -1,4 +1,4 @@
-# 12. Competing Risks (CIF, Cause-Specific Hazards, Fine–Gray) 
+# Competing Risks (CIF, Cause-Specific Hazards, Fine–Gray) 
 
 In many medical studies, subjects can fail from **different causes**.
 

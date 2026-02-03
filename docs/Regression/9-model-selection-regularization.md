@@ -1,5 +1,4 @@
-# Model Selection & Regularization (Ridge / LASSO) — Biostat perspective
-
+# Model Selection & Regularization (Ridge / LASSO) 
 When you have many predictors:
 - clinical + lab + genetic variables
 - high-dimensional EHR features

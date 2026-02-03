@@ -1,4 +1,4 @@
-# Cox Proportional Hazards Regression (Time-to-Event) — Biostat Focus
+# Cox Proportional Hazards Regression (Time-to-Event)
 
 Cox regression is used for **survival / time-to-event outcomes**, where:
 - not everyone experiences the event (censoring)

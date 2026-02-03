@@ -1,4 +1,4 @@
-# 02 — Randomization & Allocation Concealment
+# Randomization & Allocation Concealment
 
 Randomization is the design feature that makes a clinical trial fundamentally different from an observational study.  
 It protects the treatment comparison from confounding and forms the basis for valid inference.

@@ -1,4 +1,4 @@
-# 03. Survival Function, Hazard Function, and Their Relationship
+# Survival Function, Hazard Function, and Their Relationship
 
 This chapter introduces the two most important functions in survival analysis:
 

@@ -1,4 +1,4 @@
-# Simple Linear Regression (Biostat)
+# Simple Linear Regression
 
 Simple linear regression models a **continuous outcome** using **one predictor**.
 

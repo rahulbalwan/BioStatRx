@@ -1,4 +1,4 @@
-# Logistic Regression (Binary Outcomes) — Biostat Focus
+# Logistic Regression (Binary Outcomes)
 
 Logistic regression is used when the outcome is **binary**:
 - Disease yes/no

@@ -1,4 +1,4 @@
-# 04. Risk Sets and Event Times (The Engine Behind KM, Log-rank, and Cox)
+# Risk Sets and Event Times (The Engine Behind KM, Log-rank, and Cox)
 
 If survival analysis had one “engine” that powers everything, it would be:
 

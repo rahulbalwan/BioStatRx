@@ -71,29 +71,29 @@ Below is the recommended learning path. Each page includes:
 - interpretation in biostatistical language
 
 ### Foundations
-1. **01 — Why Survival Analysis?** (what makes time-to-event special)  
-2. **02 — Censoring and Follow-up** (right censoring, informative censoring)  
-3. **03 — Survival and Hazard Functions** (S(t), h(t), H(t), intuition)  
-4. **04 — Risk Sets and Event Times** (the engine behind KM + Cox)
+1. **Why Survival Analysis?** (what makes time-to-event special)  
+2. **Censoring and Follow-up** (right censoring, informative censoring)  
+3. **urvival and Hazard Functions** (S(t), h(t), H(t), intuition)  
+4. **Risk Sets and Event Times** (the engine behind KM + Cox)
 
 ### Kaplan–Meier + Hypothesis Testing
-5. **05 — Kaplan–Meier Estimator** (step-by-step, manual + software)  
-6. **06 — KM Confidence Intervals + Median Survival**  
-7. **07 — Log-rank Test** (observed vs expected events)
+5. **Kaplan–Meier Estimator** (step-by-step, manual + software)  
+6. **KM Confidence Intervals + Median Survival**  
+7. **Log-rank Test** (observed vs expected events)
 
 ### Regression modeling (core)
-8. **08 — Cox Proportional Hazards Model** (HR interpretation, partial likelihood intuition)  
-9. **09 — Cox Diagnostics** (PH checks, Schoenfeld residuals, functional form, influence)  
-10. **10 — Time-dependent Covariates** (start–stop format, avoid immortal time bias)
+8. **Cox Proportional Hazards Model** (HR interpretation, partial likelihood intuition)  
+9. **Cox Diagnostics** (PH checks, Schoenfeld residuals, functional form, influence)  
+10. **Time-dependent Covariates** (start–stop format, avoid immortal time bias)
 
 ### Beyond Cox
-11. **11 — Parametric Survival Models** (Weibull, log-normal, AFT; AIC + overlays)  
-12. **12 — Competing Risks** (CIF, cause-specific Cox, Fine–Gray)  
-13. **13 — Frailty Models** (clustering + unobserved heterogeneity)  
-14. **14 — Recurrent Events** (Andersen–Gill, PWP total-time/gap-time)
+11. **Parametric Survival Models** (Weibull, log-normal, AFT; AIC + overlays)  
+12. **Competing Risks** (CIF, cause-specific Cox, Fine–Gray)  
+13. **Frailty Models** (clustering + unobserved heterogeneity)  
+14. **Recurrent Events** (Andersen–Gill, PWP total-time/gap-time)
 
 ### Putting it all together
-15. **15 — Reporting + Publication-Quality Plots/Tables** (KM with risk table, Cox tables, Methods writing)
+15. **Reporting + Publication-Quality Plots/Tables** (KM with risk table, Cox tables, Methods writing)
 
 ---
 

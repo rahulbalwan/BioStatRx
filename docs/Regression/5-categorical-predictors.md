@@ -1,4 +1,4 @@
-# Categorical Predictors (Dummy Coding) — Biostat Interpretation
+# Categorical Predictors (Dummy Coding)
 
 Many biostat predictors are categorical:
 - sex (female/male)

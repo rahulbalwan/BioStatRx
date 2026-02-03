@@ -1,4 +1,4 @@
-# 15. Survival Analysis Reporting, Tables, and Publication-Quality Plots
+# Survival Analysis Reporting, Tables, and Publication-Quality Plots
 
 You now know the core survival methods. The next step is to present results **like a real biostatistics paper**.
 

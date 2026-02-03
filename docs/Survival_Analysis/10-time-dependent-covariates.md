@@ -1,4 +1,4 @@
-# 10. Time-Dependent Covariates (Extended Cox Model) 
+# Time-Dependent Covariates (Extended Cox Model) 
 
 In many real clinical and epidemiological studies, covariates **change over time**.
 

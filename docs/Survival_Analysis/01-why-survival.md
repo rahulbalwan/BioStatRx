@@ -1,4 +1,4 @@
-# 01. Why Survival Analysis?
+# Why Survival Analysis?
 
 Survival analysis is the branch of statistics used when your outcome is **time until an event happens** and some subjects **do not experience the event during follow-up** (they are **censored**).
 

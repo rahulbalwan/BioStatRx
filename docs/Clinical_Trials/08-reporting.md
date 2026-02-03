@@ -1,4 +1,4 @@
-# 08 — Reporting & Interpretation 
+# Reporting & Interpretation 
 
 A clinical trial result is only useful if it is reported clearly and reproducibly.
 

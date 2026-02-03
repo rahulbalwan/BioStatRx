@@ -1,4 +1,4 @@
-# 07 — Safety Analysis and Adverse Events (AE/SAE) + Practical Reporting
+# Safety Analysis and Adverse Events (AE/SAE) + Practical Reporting
 
 Efficacy is only half the story. In clinical trials, safety evaluation is equally important.
 

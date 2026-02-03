@@ -1,4 +1,4 @@
-# 03 — Trial Designs (Parallel, Cross-over, Cluster, Factorial, Adaptive)
+# Trial Designs (Parallel, Cross-over, Cluster, Factorial, Adaptive)
 
 A trial design is the blueprint that determines:
 - how participants are assigned to interventions

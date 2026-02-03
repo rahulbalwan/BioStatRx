@@ -1,4 +1,4 @@
-# 02. Time, Event, and Censoring (Survival Data Foundations)
+# Time, Event, and Censoring (Survival Data Foundations)
 
 This chapter builds the **core foundations** of survival analysis:
 

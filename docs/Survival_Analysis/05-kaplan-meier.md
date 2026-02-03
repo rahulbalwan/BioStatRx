@@ -1,4 +1,4 @@
-# 05. Kaplan–Meier Estimator (KM)
+# Kaplan–Meier Estimator (KM)
 
 Kaplan–Meier (KM) is the **standard nonparametric method** to estimate the survival function:
 

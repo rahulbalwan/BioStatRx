@@ -1,4 +1,4 @@
-# Negative Binomial Regression (Overdispersed Counts) — Biostat Focus
+# Negative Binomial Regression (Overdispersed Counts) 
 
 Negative Binomial (NB) regression is used for **count outcomes** when Poisson regression fails due to **overdispersion**:
 

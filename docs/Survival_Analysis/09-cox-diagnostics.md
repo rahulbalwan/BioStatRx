@@ -1,4 +1,4 @@
-# 09. Cox Model Diagnostics and Assumption Checking
+# Cox Model Diagnostics and Assumption Checking
 
 A Cox model is **not complete** when you fit it.
 

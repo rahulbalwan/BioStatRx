@@ -50,38 +50,36 @@ nav:
 
       - Survival Analysis:
           - Introduction: Survival_Analysis/index.md
-          - 01 — Why Survival Analysis?: Survival_Analysis/01-why-survival.md
-          - 02 — Time-to-Event & Censoring: Survival_Analysis/02-time-event-censoring.md
-          - 03 — Survival & Hazard Functions: Survival_Analysis/03-survival-hazard.md
-          - 04 — Risk Sets & Event Times: Survival_Analysis/04-risk-sets.md
-          - 05 — Kaplan–Meier Estimator: Survival_Analysis/05-kaplan-meier.md
-          - 06 — KM Confidence Intervals & Median: Survival_Analysis/06-km-confidence-intervals-median.md
-          - 07 — Log-rank Test: Survival_Analysis/07-logrank-test.md
-          - 08 — Cox Proportional Hazards: Survival_Analysis/08-cox-proportional-hazards.md
-          - 09 — Cox Diagnostics: Survival_Analysis/09-cox-diagnostics.md
-          - 10 — Time-dependent Covariates: Survival_Analysis/10-time-dependent-covariates.md
-          - 11 — Parametric Survival Models: Survival_Analysis/11-parametric-survival-models.md
-          - 12 — Competing Risks: Survival_Analysis/12-competing-risks.md
-          - 13 — Frailty Models: Survival_Analysis/13-frailty-models.md
-          - 14 — Recurrent Events: Survival_Analysis/14-recurrent-events.md
-          - 15 — Survival Summary & Workflow: Survival_Analysis/15-survival-analysis-summary-workflow.md
+          - Why Survival Analysis?: Survival_Analysis/01-why-survival.md
+          - Time-to-Event & Censoring: Survival_Analysis/02-time-event-censoring.md
+          - Survival & Hazard Functions: Survival_Analysis/03-survival-hazard.md
+          - Risk Sets & Event Times: Survival_Analysis/04-risk-sets.md
+          - Kaplan–Meier Estimator: Survival_Analysis/05-kaplan-meier.md
+          - KM Confidence Intervals & Median: Survival_Analysis/06-km-confidence-intervals-median.md
+          - Log-rank Test: Survival_Analysis/07-logrank-test.md
+          - Cox Proportional Hazards: Survival_Analysis/08-cox-proportional-hazards.md
+          - Cox Diagnostics: Survival_Analysis/09-cox-diagnostics.md
+          - Time-dependent Covariates: Survival_Analysis/10-time-dependent-covariates.md
+          - Parametric Survival Models: Survival_Analysis/11-parametric-survival-models.md
+          - Competing Risks: Survival_Analysis/12-competing-risks.md
+          - Frailty Models: Survival_Analysis/13-frailty-models.md
+          - Recurrent Events: Survival_Analysis/14-recurrent-events.md
+          - Survival Summary & Workflow: Survival_Analysis/15-survival-analysis-summary-workflow.md
 
   - Advanced Topics:
-      - Bayesian Statistics: Bayesian_Statistics/index.md
-
-      # --- Clinical Trials block (added) ---
       - Clinical Trials:
           - Overview: Clinical_Trials/index.md
-          - 01 — Foundations & Phases: Clinical_Trials/01-clinical-trials-foundations-&-phases.md
-          - 02 — Randomization & Allocation Concealment: Clinical_Trials/02-randomization-&-allocation-concealment.md
-          - 03 — Trial Designs: Clinical_Trials/03-trial-designs.md
-          - 04 — Outcomes, Endpoints & Estimands: Clinical_Trials/04-outcomes-endpoints-&-estimands.md
-          - 05 — Sample Size & Power: Clinical_Trials/05-sample-size-&-power.md
-          - 06 — Analysis Population & Missing Data: Clinical_Trials/06-analysis-population-&-missing-data.md
-          - 07 — Safety Analysis & Adverse Events: Clinical_Trials/07-safety-analysis-adverse-events.md
-          - 08 — Reporting & Interpretation: Clinical_Trials/08-reporting.md
-      # --- end Clinical Trials block ---
-
+          - Foundations & Phases: Clinical_Trials/01-clinical-trials-foundations-&-phases.md
+          - Randomization & Allocation Concealment: Clinical_Trials/02-randomization-&-allocation-concealment.md
+          - Trial Designs: Clinical_Trials/03-trial-designs.md
+          - Outcomes, Endpoints & Estimands: Clinical_Trials/04-outcomes-endpoints-&-estimands.md
+          - Sample Size & Power: Clinical_Trials/05-sample-size-&-power.md
+          - Analysis Population & Missing Data: Clinical_Trials/06-analysis-population-&-missing-data.md
+          - Safety Analysis & Adverse Events: Clinical_Trials/07-safety-analysis-adverse-events.md
+          - Reporting & Interpretation: Clinical_Trials/08-reporting.md
+      
+      - Bayesian Statistics: Bayesian_Statistics/index.md
+      
       - Infectious Disease Modelling: Infectious_Disease_Modelling/index.md
       - Machine Learning: Machine_Learning/index.md
       - Meta Analysis: Meta_Analysis/index.md

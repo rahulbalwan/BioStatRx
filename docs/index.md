@@ -1,6 +1,6 @@
 # Welcome to BioStatRx
 
-Hi — I’m Rahul.
+Hi, I’m Rahul.
 
 I’m building **BioStatRx** to share clear, practical notes and hands-on code for **biostatistics, medical statistics, and health data science**, with examples in **R and Python**.
 
@@ -8,15 +8,16 @@ I’m building **BioStatRx** to share clear, practical notes and hands-on code f
 
 ## About Me
 
-### Education
-- **BSc (Statistics)** — University of Delhi, India  
-- **MSc (Statistics)** — IIT Kanpur, India  
-- **MSc (Medical Statistics & Health Data Science)** — University of Bristol, UK  
 
 ### Background
 I hail from **India** and currently reside in the **United Kingdom**.
 
 In 2020, I founded an e-tutoring platform called **StatisticaHub**, and since then I’ve mentored **500+ international students** across a wide range of **mathematics and statistics** courses worldwide (2020-2025).
+
+### Education
+- **BSc (Statistics)** — University of Delhi, India  
+- **MSc (Statistics)** — IIT Kanpur, India  
+- **MSc (Medical Statistics & Health Data Science)** — University of Bristol, UK  
 
 ---
 

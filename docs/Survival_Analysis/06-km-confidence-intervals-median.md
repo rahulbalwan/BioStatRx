@@ -1,4 +1,4 @@
-# 06. Kaplan–Meier Confidence Intervals and Median Survival 
+# Kaplan–Meier Confidence Intervals and Median Survival 
 
 Kaplan–Meier gives an estimate of survival:
 

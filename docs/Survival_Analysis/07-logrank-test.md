@@ -1,4 +1,4 @@
-# 07. Log-Rank Test (Comparing Survival Curves) 
+# Log-Rank Test (Comparing Survival Curves) 
 
 Kaplan–Meier curves give a **visual comparison** between groups.
 

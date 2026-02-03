@@ -1,4 +1,4 @@
-# 14. Recurrent Events (Multiple Events per Subject) 
+# Recurrent Events (Multiple Events per Subject) 
 
 Many biostatistics outcomes are not “time to the first event.”
 

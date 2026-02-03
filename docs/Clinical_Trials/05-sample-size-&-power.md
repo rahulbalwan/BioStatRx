@@ -1,4 +1,4 @@
-# 05 — Sample Size & Power
+# Sample Size & Power
 
 A clinical trial that is too small may fail to detect a clinically meaningful effect.  
 A trial that is too large can waste resources or expose unnecessary participants to risk.

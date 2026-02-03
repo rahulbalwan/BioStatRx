@@ -1,4 +1,4 @@
-# 04 — Outcomes, Endpoints, and Estimands
+# Outcomes, Endpoints, and Estimands
 
 Clinical trials are not just about collecting data — they are about answering a very specific question *clearly and unambiguously*.
 

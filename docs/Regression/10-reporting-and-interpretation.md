@@ -1,4 +1,4 @@
-# Reporting Regression Results (Biostat / Clinical Style)
+# Reporting Regression Results 
 
 A regression model is only useful if you report it clearly:
 - effect sizes

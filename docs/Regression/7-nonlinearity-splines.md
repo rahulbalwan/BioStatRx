@@ -1,4 +1,4 @@
-# Nonlinearity & Splines (Biostat-friendly)
+# Nonlinearity & Splines
 
 Many biological relationships are **not linear**:
 - dose-response curves

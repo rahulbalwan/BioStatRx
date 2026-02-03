@@ -1,4 +1,4 @@
-# Interactions (Effect Modification) in Biostatistics
+# Interactions (Effect Modification)
 
 In biostat, we often ask:
 - Does treatment work differently by sex?

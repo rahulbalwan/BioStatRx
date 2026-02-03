@@ -1,4 +1,4 @@
-# 08. Cox Proportional Hazards Model (Cox PH) 
+# Cox Proportional Hazards Model (Cox PH) 
 
 Kaplan–Meier and log-rank help you **describe** and **compare** survival curves.
 

@@ -1,4 +1,4 @@
-# 11. Parametric Survival Models (Exponential, Weibull, Log-normal, AFT) 
+# Parametric Survival Models (Exponential, Weibull, Log-normal, AFT) 
 
 So far you’ve learned:
 

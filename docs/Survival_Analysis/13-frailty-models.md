@@ -1,4 +1,4 @@
-# 13. Frailty Models (Unobserved Heterogeneity + Clustering) 
+# Frailty Models (Unobserved Heterogeneity + Clustering) 
 
 In many biostatistics datasets, subjects are **not independent**.
 

@@ -1,4 +1,4 @@
-# 01 — Clinical Trials Foundations & Phases 
+# Clinical Trials Foundations & Phases 
 
 Clinical trials are the gold standard for answering causal questions in medicine and public health.  
 Unlike observational studies, trials are designed to **control bias** (especially confounding) using **randomization**, structured follow-up, and pre-specified analysis plans.

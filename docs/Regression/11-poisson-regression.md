@@ -1,4 +1,4 @@
-# Poisson Regression (Counts & Rates) — Biostat Focus
+# Poisson Regression (Counts & Rates) 
 
 Poisson regression is used for **count outcomes**:
 - number of infections
