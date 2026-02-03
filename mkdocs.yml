@@ -77,12 +77,22 @@ nav:
           - Analysis Population & Missing Data: Clinical_Trials/06-analysis-population-&-missing-data.md
           - Safety Analysis & Adverse Events: Clinical_Trials/07-safety-analysis-adverse-events.md
           - Reporting & Interpretation: Clinical_Trials/08-reporting.md
-      
-      - Bayesian Statistics: Bayesian_Statistics/index.md
-      - Infectious Disease Modelling: Infectious_Disease_Modelling/index.md
-      - Machine Learning: Machine_Learning/index.md
-      - Meta Analysis: Meta_Analysis/index.md
-      - Reproducible Research: Reproducible_Research/index.md
+
+      - Bayesian Statistics:
+          - Overview: Bayesian_Statistics/index.md
+
+      - Infectious Disease Modelling:
+          - Overview: Infectious_Disease_Modelling/index.md
+
+      - Machine Learning:
+          - Overview: Machine_Learning/index.md
+
+      - Meta Analysis:
+          - Overview: Meta_Analysis/index.md
+
+      - Reproducible Research:
+          - Overview: Reproducible_Research/index.md
+
 
 markdown_extensions:
   - admonition
