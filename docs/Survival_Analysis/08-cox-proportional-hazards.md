@@ -429,45 +429,45 @@ A standard reporting sentence:
 > “In a multivariable Cox proportional hazards model adjusting for age and sex, treatment was associated with improved survival (HR 0.61, 95% CI 0.48–0.77, p < 0.001).”
 
 Key elements:
-- model type (Cox PH)
-- adjusted covariates
-- HR, CI, p-value
-- direction and clinical interpretation
+ - model type (Cox PH)
+ - adjusted covariates
+ - HR, CI, p-value
+ - direction and clinical interpretation
 
 ---
 
-## 11. Common mistakes and fixes
+## 11. Common mistakes 
 
 ### Mistake 1: interpreting HR as a probability
-HR is a ratio of hazard rates, not survival probability.
+ HR is a ratio of hazard rates, not survival probability.
 
-Fix: interpret as instantaneous risk rate ratio.
+ Fix: interpret as instantaneous risk rate ratio.
 
 ### Mistake 2: ignoring PH assumption
-If PH violated, HR may change over time and “one HR” can mislead.
+ If PH violated, HR may change over time and “one HR” can mislead.
 
-Fix: check PH; use time-varying effects if needed.
+ Fix: check PH; use time-varying effects if needed.
 
 ### Mistake 3: using Cox for competing risks outcome
-If competing risks present, standard Cox does not directly estimate cumulative incidence.
+ If competing risks present, standard Cox does not directly estimate cumulative incidence.
 
-Fix: use competing risks methods (CIF, Fine–Gray).
+ Fix: use competing risks methods (CIF, Fine–Gray).
 
 ### Mistake 4: nonlinear continuous covariates
-Age effect might not be linear in log-hazard.
+ Age effect might not be linear in log-hazard.
 
-Fix: consider splines / transformations.
+ Fix: consider splines / transformations.
 
 ---
 
 ## 12. Key takeaways
 
-- Cox PH models hazard: \(h(t|X)=h_0(t)\exp(\beta^TX)\).
-- Main output: hazard ratio \(\exp(\beta)\).
-- Proportional hazards assumption: HR constant over time.
-- Cox estimates \(\beta\) using partial likelihood and risk sets.
-- Always check PH before interpreting results.
-- Cox is the standard regression tool for survival analysis.
+ - Cox PH models hazard: \(h(t|X)=h_0(t)\exp(\beta^TX)\).
+ - Main output: hazard ratio \(\exp(\beta)\).
+ - Proportional hazards assumption: HR constant over time.
+ - Cox estimates \(\beta\) using partial likelihood and risk sets.
+ - Always check PH before interpreting results.
+ - Cox is the standard regression tool for survival analysis.
 
 ---
 
@@ -476,10 +476,10 @@ Fix: consider splines / transformations.
 <details>
 <summary>Click to try</summary>
 
-1. Simulate data where treatment has no effect (set beta_trt = 0). Fit Cox. What HR do you estimate?  
-2. Interpret HR = 1.25 in plain language.  
-3. Compute HR for a 10-year age increase when HR per year is 1.04.  
-4. Fit Cox in both Python and R and compare coefficients/HR.  
-5. Simulate a scenario where treatment effect changes over time (early benefit, late harm) and check PH diagnostics (preview with cox.zph / check_assumptions).
+ 1. Simulate data where treatment has no effect (set beta_trt = 0). Fit Cox. What HR do you estimate?  
+ 2. Interpret HR = 1.25 in plain language.  
+ 3. Compute HR for a 10-year age increase when HR per year is 1.04.  
+ 4. Fit Cox in both Python and R and compare coefficients/HR.  
+ 5. Simulate a scenario where treatment effect changes over time (early benefit, late harm) and check PH diagnostics (preview with cox.zph / check_assumptions).
 
 </details>

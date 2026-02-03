@@ -110,7 +110,7 @@ Try:
     print("AUC:", round(roc_auc_score(yte, pred), 3))
     ```
 
-Biostat note:
+Note:
 - Penalization is common in **risk prediction** models
 - For causal interpretation, regularization can complicate inference (needs careful reporting)
 

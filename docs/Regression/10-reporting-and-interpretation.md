@@ -105,7 +105,7 @@ A regression model is only useful if you report it clearly:
 
 ---
 
-## 4. Writing the interpretation (templates)
+## 4. Writing the interpretation
 
 ### Linear regression interpretation template
 > After adjusting for **[covariates]**, a **[unit]** increase in **X** was associated with a **β** change in **Y** (95% CI: [L, U]).
@@ -119,7 +119,7 @@ Add clinical translation:
 
 ---
 
-## 5. Checklist (before publishing)
+## 5. Checklist
 
 - Units correct and interpretable
 - Reference groups clearly stated

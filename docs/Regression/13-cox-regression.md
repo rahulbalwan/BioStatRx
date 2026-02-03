@@ -1,14 +1,14 @@
 # Cox Proportional Hazards Regression (Time-to-Event)
 
 Cox regression is used for **survival / time-to-event outcomes**, where:
-- not everyone experiences the event (censoring)
-- time matters (not just event yes/no)
+ - not everyone experiences the event (censoring)
+ - time matters (not just event yes/no)
 
 Examples:
-- time to death
-- time to relapse
-- time to hospitalization
-- time to disease onset
+ - time to death
+ - time to relapse
+ - time to hospitalization
+ - time to disease onset
 
 ---
 
@@ -16,12 +16,12 @@ Examples:
 
 ### Time, event, censoring
 For each subject $i$:
-- $T_i$ = observed time
-- $\delta_i$ = event indicator (1=event occurred, 0=censored)
+ - $T_i$ = observed time
+ - $\delta_i$ = event indicator (1=event occurred, 0=censored)
 
 Censoring (typical):
-- lost to follow-up
-- study ends before event
+ - lost to follow-up
+ - study ends before event
 
 ---
 

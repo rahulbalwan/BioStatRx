@@ -78,8 +78,7 @@ Censoring happens when:
 > we stop observing a subject before the event is observed.
 
 So we know:
-- they survived up to last contact  
-but we do not know what happens after.
+ - they survived up to last contact but we do not know what happens after.
 
 ### 3.2 Right censoring (most common)
 Right censoring means the true event time is later than what we observe:
@@ -143,9 +142,9 @@ Most KM and Cox analyses assume:
 If patients with severe disease are more likely to drop out, censoring can be informative and bias results.
 
 Practical hints to reduce bias:
-- improve follow-up
-- record reasons for dropout
-- sensitivity analyses
+ - improve follow-up
+ - record reasons for dropout
+ - sensitivity analyses
 
 ---
 
@@ -157,12 +156,13 @@ Let:
 
 We observe:
 
-\[
+$$
 Y = \min(T, C)
-\]
-\[
-\delta = I(T \le C)
-\]
+$$
+
+$$
+\delta = \mathbb{I}(T \le C)
+$$
 
 This is the core survival data structure.
 
@@ -199,10 +199,10 @@ Patient 4: 0 ---------- |
 ```
 
 At time = 6:
-- patient 1 already had event
-- patient 3 already had event
-- patient 2 still at risk (if censor > 6)
-- patient 4 maybe censored earlier
+ - patient 1 already had event
+ - patient 3 already had event
+ - patient 2 still at risk (if censor > 6)
+ - patient 4 maybe censored earlier
 
 ---
 
@@ -297,16 +297,16 @@ Censoring proportion:
 ## 10. A concrete clinical example
 
 Suppose:
-- Study duration = 5 years
-- Patient followed 3 years and then lost
-- No relapse observed
+ - Study duration = 5 years
+ - Patient followed 3 years and then lost
+ - No relapse observed
 
 We record:
-- time = 3
-- event = 0
+ - time = 3
+ - event = 0
 
 We do NOT record:
-- event = “no relapse”
+ - event = “no relapse”
 
 Because we **don’t know** after 3 years.
 
@@ -314,7 +314,7 @@ That is the key conceptual difference.
 
 ---
 
-## 11. Common mistakes (and fixes)
+## 11. Common mistakes
 
 ### Mistake 1: treat censored as “event-free”
 Fix: censoring means unknown beyond last time.

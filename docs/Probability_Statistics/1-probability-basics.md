@@ -1,6 +1,6 @@
 # Probability Basics
 
-Probability measures the **likelihood of an event** occurring. It is fundamental for statistical analyses and forms the foundation for modeling uncertainty in real-world phenomena.
+Probability measures the **likelihood of an event** occurring. It is fundamental for statistical analysis and forms the foundation for modeling uncertainty in real-world phenomena.
 
 ---
 

@@ -4,12 +4,12 @@ You now know the core survival methods. The next step is to present results **li
 
 This chapter focuses on:
 
-- what to report (minimum standards)  
-- how to write survival results in Methods + Results  
-- publication-quality KM plots with number-at-risk tables  
-- Cox regression tables with HR, CI, p-values  
-- common reporting mistakes to avoid  
-- Python + R code for clean outputs  
+ - what to report (minimum standards)  
+ - how to write survival results in Methods + Results  
+ - publication-quality KM plots with number-at-risk tables  
+ - Cox regression tables with HR, CI, p-values  
+ - common reporting mistakes to avoid  
+ - Python + R code for clean outputs  
 
 ---
 
@@ -18,36 +18,36 @@ This chapter focuses on:
 ### 1.1 Kaplan–Meier (KM)
 A KM analysis should report:
 
-- definition of time origin and endpoint
-- number of subjects and number of events
-- median follow-up time (often)
-- median survival with 95% CI (or “not reached”)
-- survival probabilities at clinically relevant times (1-year, 5-year)
-- KM plot with censor ticks and number-at-risk table
-- group comparison p-value (log-rank)
+ - definition of time origin and endpoint
+ - number of subjects and number of events
+ - median follow-up time (often)
+ - median survival with 95% CI (or “not reached”)
+ - survival probabilities at clinically relevant times (1-year, 5-year)
+ - KM plot with censor ticks and number-at-risk table
+ - group comparison p-value (log-rank)
 
 ### 1.2 Cox regression
 A Cox analysis should report:
 
-- covariates included (and why)
-- HR, 95% CI, p-values
-- PH assumption checks (Schoenfeld)
-- model performance (optional but common: concordance/C-index)
-- how missing data was handled
-- robust SE or clustering strategy if applicable
+ - covariates included (and why)
+ - HR, 95% CI, p-values
+ - PH assumption checks (Schoenfeld)
+ - model performance (optional but common: concordance/C-index)
+ - how missing data was handled
+ - robust SE or clustering strategy if applicable
 
 ---
 
-## 2. Recommended workflow (paper-style)
+## 2. Recommended workflow 
 
 A typical clinical paper flow:
 
-1) Descriptive summary: baseline table (not covered deeply here)
-2) KM curves by group + log-rank p-value
-3) Cox model (unadjusted then adjusted)
-4) PH checks
-5) Sensitivity analyses 
-6) Report clinically meaningful estimates (5-year survival, median)
+ 1) Descriptive summary: baseline table (not covered deeply here)
+ 2) KM curves by group + log-rank p-value
+ 3) Cox model (unadjusted then adjusted)
+ 4) PH checks
+ 5) Sensitivity analyses 
+ 6) Report clinically meaningful estimates (5-year survival, median)
 
 ---
 
@@ -58,10 +58,10 @@ A typical clinical paper flow:
 > Time-to-event was defined as time from [time zero] to [event definition]. Patients without an event were censored at last follow-up. Kaplan–Meier methods were used to estimate survival functions and median survival times with 95% confidence intervals. Survival distributions were compared using the log-rank test. Cox proportional hazards regression was used to estimate hazard ratios (HRs) and 95% confidence intervals, adjusting for [covariates]. Proportional hazards assumptions were assessed using Schoenfeld residuals. All analyses were conducted in [R/Python], and statistical tests were two-sided with α=0.05.
 
 Replace:
-- [time zero]
-- [event definition]
-- [covariates]
-- [R/Python]
+ - [time zero]
+ - [event definition]
+ - [covariates]
+ - [R/Python]
 
 ---
 
@@ -75,13 +75,13 @@ Replace:
 
 What makes a plot “publication quality”?
 
-- clear labels + units  
-- censor tick marks  
-- confidence bands (optional)  
-- number-at-risk table  
-- clean style and legible fonts  
-- not over-cluttered  
-- shows group legend clearly  
+ - clear labels + units  
+ - censor tick marks  
+ - confidence bands (optional)  
+ - number-at-risk table  
+ - clean style and legible fonts  
+ - not over-cluttered  
+ - shows group legend clearly  
 
 ---
 
@@ -150,10 +150,10 @@ R ecosystem is strongest for survival plotting via `survminer`.
     ```
 
 This produces:
-- KM curve with CI
-- censor ticks
-- log-rank p-value
-- number-at-risk table
+ - KM curve with CI
+ - censor ticks
+ - log-rank p-value
+ - number-at-risk table
 
 ---
 
@@ -355,53 +355,53 @@ To produce a clean HR table:
 
 ---
 
-## 14. Best-practice reporting checklist 
+## 14. Reporting checklist 
 
 ### KM
-- [ ] Define time zero and event precisely
-- [ ] Report N, events, censoring
-- [ ] Show KM curve with censor ticks
-- [ ] Provide median survival + CI (or not reached)
-- [ ] Provide survival at relevant times + CI
-- [ ] Provide number at risk table
-- [ ] Log-rank p-value
+ - Define time zero and event precisely
+ - Report N, events, censoring
+ - Show KM curve with censor ticks
+ - Provide median survival + CI (or not reached)
+ - Provide survival at relevant times + CI
+ - Provide number at risk table
+ - Log-rank p-value
 
 ### Cox
-- [ ] Report covariates and coding
-- [ ] HR + 95% CI + p-value
-- [ ] Check PH (Schoenfeld)
-- [ ] Handle clustering if needed
-- [ ] Mention missing data handling
-- [ ] Provide model performance 
+ - Report covariates and coding
+ - HR + 95% CI + p-value
+ - Check PH (Schoenfeld)
+ - Handle clustering if needed
+ - Mention missing data handling
+ - Provide model performance 
 
 ---
 
 ## 15. Common reporting mistakes 
 
 ### Mistake 1: “Survival differed” without p-value or effect size
-Fix: report log-rank p and Cox HR.
+ Fix: report log-rank p and Cox HR.
 
 ### Mistake 2: HR reported without CI
-Fix: always include 95% CI.
+ Fix: always include 95% CI.
 
 ### Mistake 3: “Median survival” with no time unit
-Fix: specify months/years.
+ Fix: specify months/years.
 
 ### Mistake 4: not stating censoring rules
-Fix: define censoring explicitly.
+ Fix: define censoring explicitly.
 
 ### Mistake 5: not checking PH
-Fix: report Schoenfeld-based check.
+ Fix: report Schoenfeld-based check.
 
 ---
 
 ## 16. Key takeaways
 
-- Good survival reporting requires both estimates and uncertainty.
-- Use KM + risk table + log-rank for descriptive comparison.
-- Use Cox for adjusted HR with CI and p-values.
-- Always mention PH checking.
-- Use R survminer for best publication plots; Python lifelines is strong but risk tables are manual.
+ - Good survival reporting requires both estimates and uncertainty.
+ - Use KM + risk table + log-rank for descriptive comparison.
+ - Use Cox for adjusted HR with CI and p-values.
+ - Always mention PH checking.
+ - Use R survminer for best publication plots; Python lifelines is strong but risk tables are manual.
 
 ---
 
@@ -410,10 +410,10 @@ Fix: report Schoenfeld-based check.
 <details>
 <summary>Click to try</summary>
 
-1. Make a KM plot with risk table (R) and replicate the same in Python using manual risk table.  
-2. Write a Methods paragraph for a study with time-to-relapse outcome.  
-3. Write a Results paragraph reporting median survival and adjusted HR.  
-4. Fit Cox, check PH, and report how you would write it in a paper.  
-5. Create a table of 1-, 3-, 5-year survival with 95% CI for each group.
+ 1. Make a KM plot with risk table (R) and replicate the same in Python using manual risk table.  
+ 2. Write a Methods paragraph for a study with time-to-relapse outcome.  
+ 3. Write a Results paragraph reporting median survival and adjusted HR.  
+ 4. Fit Cox, check PH, and report how you would write it in a paper.  
+ 5. Create a table of 1-, 3-, 5-year survival with 95% CI for each group.
 
 </details>

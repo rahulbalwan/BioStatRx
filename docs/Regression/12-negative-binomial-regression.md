@@ -6,24 +6,24 @@ Negative Binomial (NB) regression is used for **count outcomes** when Poisson re
 - Overdispersion: $\mathrm{Var}(Y) \gg \mathbb{E}[Y]$ (very common in health data)
 
 Examples:
-- number of ER visits (many zeros + a few heavy users)
-- infections per patient-year
-- asthma exacerbations per year
-- adverse events per person-time
+ - number of ER visits (many zeros + a few heavy users)
+ - infections per patient-year
+ - asthma exacerbations per year
+ - adverse events per person-time
 
 ---
 
-## 1. Why overdispersion happens (biostat reality)
+## 1. Why overdispersion happens 
 
 Common reasons:
-- unmeasured heterogeneity (frailty): some patients are “high risk”
-- clustering (hospital/site/provider effects)
-- event dependence (prior event increases future risk)
-- excess zeros (sometimes)
+ - unmeasured heterogeneity (frailty): some patients are “high risk”
+ - clustering (hospital/site/provider effects)
+ - event dependence (prior event increases future risk)
+ - excess zeros (sometimes)
 
 Poisson under overdispersion typically gives:
-- too-small standard errors
-- overly optimistic p-values / narrow CI
+ - too-small standard errors
+ - overly optimistic p-values / narrow CI
 
 ---
 
@@ -46,7 +46,7 @@ $$
 
 ---
 
-## 3. Interpretation: IRR stays the same idea
+## 3. Interpretation: 
 
 Exponentiated coefficients are still **incidence rate ratios (IRR)**:
 
@@ -142,13 +142,13 @@ What you’ll usually see:
 
 ---
 
-## 6. When to use what (quick decision guide)
+## 6. When to use what
 
 - Poisson + offset is fine when **Deviance/df ~ 1**
 - If **Deviance/df >> 1**, consider:
-  - Negative Binomial (best general default)
-  - Poisson with robust SE (mild overdispersion)
-  - Zero-inflated models (many structural zeros)
+ - Negative Binomial (best general default)
+ - Poisson with robust SE (mild overdispersion)
+ - Zero-inflated models (many structural zeros)
 
 ---
 

@@ -3,31 +3,31 @@
 In many biostatistics datasets, subjects are **not independent**.
 
 Examples:
-- patients clustered within hospitals/centers
-- family members share genetics and environment
-- repeated patients within the same physician practice
-- multi-country clinical trials with site effects
+ - patients clustered within hospitals/centers
+ - family members share genetics and environment
+ - repeated patients within the same physician practice
+ - multi-country clinical trials with site effects
 
 If we ignore clustering, standard Cox regression often gives:
 
-- standard errors too small  
-- p-values too optimistic  
-- confidence intervals too narrow  
+ - standard errors too small  
+ - p-values too optimistic  
+ - confidence intervals too narrow  
 
 Sometimes we also have **unobserved heterogeneity**:
-- two patients with same covariates still have different risk because of unmeasured factors.
+ - two patients with same covariates still have different risk because of unmeasured factors.
 
 Frailty models handle both.
 
 This chapter covers:
 
-- what frailty is  
-- shared frailty for clustering  
-- individual frailty for unobserved heterogeneity  
-- interpretation  
-- how to fit in **R** (best support)  
-- best practices for **Python** (robust SE + stratification alternatives)  
-- what to report in papers  
+ - what frailty is  
+ - shared frailty for clustering  
+ - individual frailty for unobserved heterogeneity  
+ - interpretation  
+ - how to fit in **R**  
+ - best practices for **Python** (robust SE + stratification alternatives)  
+ - what to report in papers  
 
 ---
 
@@ -54,16 +54,16 @@ Frailty is like “random risk multiplier” not explained by measured covariate
 ## 2. Why frailty matters (clinical intuition)
 
 Even after adjusting for:
-- age
-- sex
-- treatment
-- stage
+ - age
+ - sex
+ - treatment
+ - stage
 
 some hospitals may have higher mortality because:
-- different surgical skill
-- ICU quality
-- patient mix not fully captured
-- protocols
+ - different surgical skill
+ - ICU quality
+ - patient mix not fully captured
+ - protocols
 
 Frailty models capture this unmeasured cluster risk.
 
@@ -80,11 +80,11 @@ Example: hospital clustering
 h_{ij}(t)=u_j h_0(t)\exp(\beta^T X_{ij})
 \]
 
-- \(j\) indexes clusters (hospital)
-- \(i\) indexes patients in cluster
+ - \(j\) indexes clusters (hospital)
+ - \(i\) indexes patients in cluster
 
 Interpretation:
-- hospitals have random baseline risk differences
+ - hospitals have random baseline risk differences
 
 ### 3.2 Individual frailty
 Each subject has their own frailty (unobserved heterogeneity).
@@ -100,15 +100,15 @@ Used more in:
 Frailty must be positive, so common choices:
 
 ### 4.1 Gamma frailty 
-- mathematically convenient
-- leads to closed-form marginal likelihood in some cases
+ - mathematically convenient
+ - leads to closed-form marginal likelihood in some cases
 
 ### 4.2 Log-normal frailty
-- random effect on log-hazard scale
-- more flexible but computationally heavier
+ - random effect on log-hazard scale
+ - more flexible but computationally heavier
 
 In practice:
-- gamma shared frailty is a standard default.
+ - gamma shared frailty is a standard default.
 
 ---
 
@@ -125,35 +125,35 @@ Hazard ratios remain conditional on frailty (cluster effect).
 
 ---
 
-## 6. Frailty vs robust standard errors (important distinction)
+## 6. Frailty vs robust standard errors
 
 ### Robust SE (sandwich)
-- adjusts SE for clustering
-- does NOT model cluster heterogeneity
-- does NOT estimate cluster variance
+ - adjusts SE for clustering
+ - does NOT model cluster heterogeneity
+ - does NOT estimate cluster variance
 
 ### Frailty model
-- explicitly models clustering as random effect
-- estimates variance of frailty
-- can improve predictions and interpretation
+ - explicitly models clustering as random effect
+ - estimates variance of frailty
+ - can improve predictions and interpretation
 
 Rule of thumb:
-- if you just need correct inference: robust SE
-- if you want to model heterogeneity: frailty
+ - if you just need correct inference: robust SE
+ - if you want to model heterogeneity: frailty
 
 Many papers:
-- use robust SE for simplicity
-- use frailty when clustering is central
+ - use robust SE for simplicity
+ - use frailty when clustering is central
 
 ---
 
-# PART A — PYTHON (practical approach)
+# PART A — PYTHON 
 
 Python currently has limited frailty support compared to R.
 The most common practical options in Python:
 
-- robust standard errors (cluster correction)  
-- stratified Cox (different baseline hazards per cluster)  
+ - robust standard errors (cluster correction)  
+ - stratified Cox (different baseline hazards per cluster)  
 
 We show both.
 
@@ -162,10 +162,10 @@ We show both.
 ## 7A. Simulate clustered survival data (Python)
 
 We create:
-- 10 hospitals
-- each hospital has its own frailty multiplier
-- treatment reduces hazard
-- age increases hazard
+ - 10 hospitals
+ - each hospital has its own frailty multiplier
+ - treatment reduces hazard
+ - age increases hazard
 
 !!! interactive "Python"
     ```python
@@ -235,9 +235,9 @@ We create:
     ```
 
 What you’ll often see:
-- coefficients similar
-- SE larger with robust=True
-- p-values less optimistic
+ - coefficients similar
+ - SE larger with robust=True
+ - p-values less optimistic
 
 Note:
 `robust=True` is a general sandwich correction and does not require specifying cluster ID explicitly in lifelines.
@@ -276,9 +276,9 @@ R has excellent frailty support via the `survival` package.
 
 We will show:
 
-- shared frailty (gamma)  
-- robust SE alternative  
-- interpretation and reporting  
+ - shared frailty (gamma)  
+ - robust SE alternative  
+ - interpretation and reporting  
 
 ---
 
@@ -351,25 +351,25 @@ This is the real frailty model:
     ```
 
 Output includes:
-- HRs for covariates
-- an estimate of frailty variance (often shown as “theta” or variance parameter)
-- likelihood ratio test for frailty term
+ - HRs for covariates
+ - an estimate of frailty variance (often shown as “theta” or variance parameter)
+ - likelihood ratio test for frailty term
 
 ---
 
 ## 14B. Interpreting frailty variance
 
 If frailty variance ≈ 0:
-- little clustering/unobserved heterogeneity
-- frailty may not be needed
+ - little clustering/unobserved heterogeneity
+ - frailty may not be needed
 
 If frailty variance is large:
-- strong between-hospital heterogeneity
-- ignoring clustering likely distorted inference
+ - strong between-hospital heterogeneity
+ - ignoring clustering likely distorted inference
 
 Often reported as:
-- variance estimate
-- p-value from LRT comparing with/without frailty
+ - variance estimate
+ - p-value from LRT comparing with/without frailty
 
 ---
 
@@ -389,24 +389,24 @@ Most clinical papers interpret conditional HRs.
 ## 16. When to prefer frailty vs stratification
 
 ### Stratification:
-- controls for cluster baseline differences
-- no estimate of cluster variance
-- does not assume random effects distribution
-- can handle many strata if enough events per stratum
+ - controls for cluster baseline differences
+ - no estimate of cluster variance
+ - does not assume random effects distribution
+ - can handle many strata if enough events per stratum
 
 ### Frailty:
-- models random cluster effect
-- estimates cluster heterogeneity
-- can improve prediction
-- assumes frailty distribution (gamma/lognormal)
+ - models random cluster effect
+ - estimates cluster heterogeneity
+ - can improve prediction
+ - assumes frailty distribution (gamma/lognormal)
 
 Use frailty when:
-- clustering is an important scientific feature
-- you want to quantify heterogeneity between clusters
+ - clustering is an important scientific feature
+ - you want to quantify heterogeneity between clusters
 
 ---
 
-## 17. Reporting examples (biostat style)
+## 17. Reporting examples 
 
 ### Robust SE report
 > “Cox models used robust sandwich standard errors clustered by hospital.”
@@ -424,29 +424,29 @@ Then report:
 ## 18. Common mistakes
 
 ### Mistake 1: ignore clustering entirely
-Leads to under-estimated SE.
+ Leads to under-estimated SE.
 
 ### Mistake 2: treat hospital as a normal covariate with many levels
-This wastes degrees of freedom and can be unstable.
+ This wastes degrees of freedom and can be unstable.
 
-Better options:
-- strata(hospital)
-- cluster(hospital) robust SE
-- frailty(hospital)
+ Better options:
+  - strata(hospital)
+  - cluster(hospital) robust SE
+  - frailty(hospital)
 
 ### Mistake 3: interpret frailty as measured covariate
-Frailty is unobserved heterogeneity; not directly measured.
+ Frailty is unobserved heterogeneity; not directly measured.
 
 ---
 
 ## 19. Key takeaways
 
-- Frailty models add a multiplicative random effect to hazard.
-- Shared frailty handles clustering (hospital, family, center).
-- Robust SE adjusts inference but does not model heterogeneity.
-- Stratification controls baseline differences without estimating effects.
-- R provides full frailty modeling (`frailty()` in coxph).
-- Python best practice: robust SE and/or stratified Cox.
+ - Frailty models add a multiplicative random effect to hazard.
+ - Shared frailty handles clustering (hospital, family, center).
+ - Robust SE adjusts inference but does not model heterogeneity.
+ - Stratification controls baseline differences without estimating effects.
+ - R provides full frailty modeling (`frailty()` in coxph).
+ - Python best practice: robust SE and/or stratified Cox.
 
 ---
 
@@ -455,10 +455,10 @@ Frailty is unobserved heterogeneity; not directly measured.
 <details>
 <summary>Click to try</summary>
 
-1. Simulate data with strong hospital frailty and fit: standard Cox vs robust SE vs frailty. Compare SE and p-values.  
-2. Increase frailty variance by changing gamma distribution parameters; observe stronger clustering effects.  
-3. Fit stratified Cox by hospital and compare treatment HR to frailty model.  
-4. Interpret frailty variance in plain language.  
-5. Write a short “Methods” paragraph describing a frailty model analysis for a multi-center trial.
+ 1. Simulate data with strong hospital frailty and fit: standard Cox vs robust SE vs frailty. Compare SE and p-values.  
+ 2. Increase frailty variance by changing gamma distribution parameters; observe stronger clustering effects.  
+ 3. Fit stratified Cox by hospital and compare treatment HR to frailty model.  
+ 4. Interpret frailty variance in plain language.  
+ 5. Write a short “Methods” paragraph describing a frailty model analysis for a multi-center trial.
 
 </details>

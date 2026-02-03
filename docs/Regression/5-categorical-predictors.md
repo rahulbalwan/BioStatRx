@@ -101,7 +101,7 @@ Same idea, but exponentiate coefficients to get OR vs reference group.
 
 ---
 
-## 4. Practical tips (biostat)
+## 4. Practical tips
 
 - Always state the **reference group** in reporting
 - Make reference clinically meaningful (e.g., placebo, never-smoker)

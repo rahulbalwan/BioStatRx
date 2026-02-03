@@ -11,11 +11,11 @@ The standard hypothesis test for comparing **entire survival curves** is:
 # Log-rank test
 
 This chapter explains:
-- intuition (observed vs expected)
-- full formulas
-- what the p-value means clinically
-- assumptions and limitations
-- implementation in Python and R
+ - intuition (observed vs expected)
+ - full formulas
+ - what the p-value means clinically
+ - assumptions and limitations
+ - implementation in Python and R
 
 ---
 
@@ -27,8 +27,8 @@ Suppose we have two groups:
 - Group 1: Treatment
 
 We observe:
-- follow-up time
-- event indicator
+ - follow-up time
+ - event indicator
 - group membership
 
 We want to test:
@@ -156,10 +156,8 @@ Important:
 
 Log-rank is most powerful when:
 
-hazard ratio is roughly constant over time  
-(i.e., proportional hazards holds approximately)
-
-If curves cross strongly, log-rank can lose power.
+ - hazard ratio is roughly constant over time (i.e., proportional hazards holds approximately)
+ - If curves cross strongly, log-rank can lose power.
 
 ---
 
@@ -167,17 +165,15 @@ If curves cross strongly, log-rank can lose power.
 
 ### 9.1 Crossing survival curves (non-proportional hazards)
 If treatment helps early but harms later, curves may cross.
-
 Log-rank (which weights all times equally) can become misleading.
 
 In such cases consider:
-- weighted log-rank tests
-- Cox models with time interaction
-- restricted mean survival time (RMST)
+ - weighted log-rank tests
+ - Cox models with time interaction
+ - restricted mean survival time (RMST)
 
 ### 9.2 Heavy censoring late in follow-up
 Risk sets become tiny; late information is unstable.
-
 Always check “number at risk” tables.
 
 ### 9.3 Ties
@@ -186,7 +182,7 @@ Multiple events at the same time:
 
 ---
 
-## 10. A worked mini-example (conceptual)
+## 10. Example (conceptual)
 
 Suppose at one event time:
 
@@ -194,14 +190,16 @@ Suppose at one event time:
 - total events at this time: 10
 
 Expected treated events:
-\[
-E=10\cdot\frac{60}{100}=6
-\]
+
+$$
+E = 10 \cdot \frac{60}{100} = 6
+$$
 
 If observed treated events are 2, then:
-\[
-O-E = 2-6 = -4
-\]
+
+$$
+O - E = 2 - 6 = -4
+$$
 
 This indicates treatment may reduce event risk at that time.
 
@@ -212,9 +210,9 @@ Log-rank repeats this at all event times and sums.
 ## 11. Implementation in Python (lifelines)
 
 We will:
-1) simulate two-group survival data  
-2) plot KM curves  
-3) run log-rank test  
+ 1) simulate two-group survival data  
+ 2) plot KM curves  
+ 3) run log-rank test  
 
 ### 11.1 Python simulation + KM curves
 
@@ -283,18 +281,18 @@ Output includes:
 
 ### 11.3 Sensitivity experiments (recommended)
 Try:
-- Make group means equal → p-value should be large
-- Make treatment much better → p-value should be tiny
-- Increase censoring → test loses power
+ - Make group means equal → p-value should be large
+ - Make treatment much better → p-value should be tiny
+ - Increase censoring → test loses power
 
 ---
 
 ## 12. Implementation in R (survival package)
 
 We will:
-1) simulate data  
-2) fit KM curves  
-3) run log-rank test via `survdiff()`  
+ 1) simulate data  
+ 2) fit KM curves  
+ 3) run log-rank test via `survdiff()`  
 
 ### 12.1 R simulation + KM curves
 
@@ -353,19 +351,19 @@ To compute p-value:
 ## 13. Log-rank vs Cox: what’s the difference?
 
 ### Log-rank test
-- compares groups only
-- gives p-value only
-- does NOT adjust for covariates
+ - compares groups only
+ - gives p-value only
+ - does NOT adjust for covariates
 
 ### Cox regression
-- gives hazard ratio (effect size)
-- adjusts for covariates (age, sex, biomarkers)
-- provides CI, p-values, model building
+ - gives hazard ratio (effect size)
+ - adjusts for covariates (age, sex, biomarkers)
+ - provides CI, p-values, model building
 
 Workflow in medical papers:
-1. KM plot
-2. log-rank p-value
-3. Cox hazard ratio (adjusted)
+ 1. KM plot
+ 2. log-rank p-value
+ 3. Cox hazard ratio (adjusted)
 
 ---
 
@@ -384,10 +382,10 @@ Workflow in medical papers:
 <details>
 <summary>Click to try</summary>
 
-1. Explain why log-rank uses risk sets rather than full sample size.  
-2. Simulate data where two groups have equal hazards. What p-value do you get?  
-3. Simulate crossing survival curves (early benefit, late harm). What happens to log-rank?  
-4. Why is log-rank not a substitute for Cox regression?  
-5. Fit KM in R and Python and confirm log-rank p-values agree.
+ 1. Explain why log-rank uses risk sets rather than full sample size.  
+ 2. Simulate data where two groups have equal hazards. What p-value do you get?  
+ 3. Simulate crossing survival curves (early benefit, late harm). What happens to log-rank?  
+ 4. Why is log-rank not a substitute for Cox regression?  
+ 5. Fit KM in R and Python and confirm log-rank p-values agree.
 
 </details>

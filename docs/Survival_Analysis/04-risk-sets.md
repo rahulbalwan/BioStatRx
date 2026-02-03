@@ -88,47 +88,61 @@ E: 0 -------- |
 
 ### 3.2 Risk sets step-by-step
 
-#### Just before time 2
+#### Just before time 2  
 Everyone is at risk:
-\[
-R(2) = \{A,B,C,D,E\},\quad n_1=5
-\]
+
+$$
+R(2) = \{A,B,C,D,E\}, \quad n_1 = 5
+$$
+
 Event occurs (A), so after time 2:
-\[
-\{B,C,D,E\}
-\]
 
-#### Just before time 4
-\[
-R(4)=\{B,C,D,E\},\quad n_2=4
-\]
+$$
+R(2^+) = \{B,C,D,E\}
+$$
+
+#### Just before time 4  
+
+$$
+R(4) = \{B,C,D,E\}, \quad n_2 = 4
+$$
+
 Event occurs (B), so after time 4:
-\[
-\{C,D,E\}
-\]
 
-#### Just before time 5
-\[
-R(5)=\{C,D,E\},\quad n_3=3
-\]
+$$
+R(4^+) = \{C,D,E\}
+$$
+
+#### Just before time 5  
+
+$$
+R(5) = \{C,D,E\}, \quad n_3 = 3
+$$
+
 C is censored at 5, so after time 5:
-\[
-\{D,E\}
-\]
 
-#### Just before time 7
-\[
-R(7)=\{D,E\},\quad n_4=2
-\]
+$$
+R(5^+) = \{D,E\}
+$$
+
+#### Just before time 7  
+
+$$
+R(7) = \{D,E\}, \quad n_4 = 2
+$$
+
 Event occurs (D), so after time 7:
-\[
-\{E\}
-\]
 
-#### Just before time 8
-\[
-R(8)=\{E\},\quad n_5=1
-\]
+$$
+R(7^+) = \{E\}
+$$
+
+#### Just before time 8  
+
+$$
+R(8) = \{E\}, \quad n_5 = 1
+$$
+
 E is censored, then risk set becomes empty.
 
 ---
@@ -144,12 +158,11 @@ Kaplan–Meier estimator:
 \]
 
 Where:
-- \(n_j\) = size of risk set at event time \(t_j\)
-- \(d_j\) = number of events at that time
+ - \(n_j\) = size of risk set at event time \(t_j\)
+ - \(d_j\) = number of events at that time
 
 So the denominator in KM is always:
-
-the risk set at that time, NOT the original sample size.
+ - the risk set at that time, NOT the original sample size.
 
 ---
 
@@ -308,9 +321,9 @@ At each event time, survival analysis compares:
 That comparison group is the risk set.
 
 This is why:
-- censoring affects denominators
-- late estimates are less precise (risk sets small)
-- Kaplan–Meier and Cox are fundamentally conditional methods
+ - censoring affects denominators
+ - late estimates are less precise (risk sets small)
+ - Kaplan–Meier and Cox are fundamentally conditional methods
 
 ---
 

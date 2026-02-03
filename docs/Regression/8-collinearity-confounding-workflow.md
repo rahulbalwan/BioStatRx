@@ -83,7 +83,7 @@ Rule of thumb:
 
 ---
 
-## 5. Practical workflow (biostat standard)
+## 5. Practical workflow
 
 1. Plot data (relationships + missingness patterns)
 2. Decide estimand: prediction vs association vs causal interpretation

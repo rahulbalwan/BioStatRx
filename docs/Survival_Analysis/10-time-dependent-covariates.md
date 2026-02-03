@@ -3,11 +3,11 @@
 In many real clinical and epidemiological studies, covariates **change over time**.
 
 Examples:
-- treatment starts later or changes dose
-- biomarkers change (CD4 count, blood pressure, viral load)
-- smoking status changes
-- a patient becomes infected or vaccinated during follow-up
-- hospital discharge changes risk of in-hospital outcomes
+ - treatment starts later or changes dose
+ - biomarkers change (CD4 count, blood pressure, viral load)
+ - smoking status changes
+ - a patient becomes infected or vaccinated during follow-up
+ - hospital discharge changes risk of in-hospital outcomes
 
 Standard Cox assumes covariates are fixed:
 
@@ -45,27 +45,25 @@ The model is still Cox PH—same idea—but covariates can update.
 
 ---
 
-## 2. Two concepts students confuse (important)
+## 2. Two concepts
 
 ### 2.1 Time-dependent covariate
 The covariate value changes over time.
-
-Example:
-- treatment: 0 before drug starts, 1 after drug starts
+ Example:
+  - treatment: 0 before drug starts, 1 after drug starts
 
 ### 2.2 Time-varying effect (non-PH)
 The effect of a covariate changes over time (PH violation).
-
-Example:
-- treatment HR = 0.6 early but 1.1 late
+ Example:
+  - treatment HR = 0.6 early but 1.1 late
 
 These are different:
-- Time-dependent covariate is about **X(t)**
-- Time-varying effect is about **β(t)**
+ - Time-dependent covariate is about **X(t)**
+ - Time-varying effect is about **β(t)**
 
 ---
 
-## 3. Why time-dependent covariates matter (biostat motivation)
+## 3. Why time-dependent covariates matter
 
 ### 3.1 Treatment initiation happens after baseline
 Example: observational study of statin use.
@@ -80,7 +78,7 @@ This creates a major bias.
 
 ---
 
-## 4. Immortal time bias (the classic deadly mistake)
+## 4. Immortal time bias 
 
 Immortal time bias occurs when:
 
@@ -115,12 +113,12 @@ Each row represents a time interval where covariates are constant.
 
 ---
 
-## 6. Worked example: delayed treatment
+## 6.Example: delayed treatment
 
 A patient:
-- enters at time 0
-- starts treatment at time 5
-- experiences event at time 10
+ - enters at time 0
+ - starts treatment at time 5
+ - experiences event at time 10
 
 Correct representation:
 
@@ -130,24 +128,24 @@ Correct representation:
 | 1 | 5 | 10 | 1 | 1 |
 
 Now the model knows:
-- untreated from 0 to 5
-- treated from 5 to 10
+ - untreated from 0 to 5
+ - treated from 5 to 10
 
 ---
 
 ## 7. Practical steps to build time-dependent dataset
 
 ### Step 1
-Identify covariates that change (treatment start, biomarker measurement times)
+ Identify covariates that change (treatment start, biomarker measurement times)
 
 ### Step 2
-Split each subject’s follow-up into intervals
+ Split each subject’s follow-up into intervals
 
 ### Step 3
-Create start–stop rows with updated covariates
+ Create start–stop rows with updated covariates
 
 ### Step 4
-Fit extended Cox using start–stop format
+ Fit extended Cox using start–stop format
 
 ---
 
@@ -394,7 +392,7 @@ Compare:
 
 ---
 
-## 14. Interpretation rules (must be clear)
+## 14. Interpretation rules 
 
 ### 14.1 Treatment HR in time-dependent Cox
 HR compares:
@@ -416,63 +414,63 @@ Interpretation:
 
 ---
 
-## 15. Common real biostat scenarios
+## 15. Common scenarios
 
 ### 15.1 Treatment switching
 Patients may:
-- stop drug
-- start new drug
-- change dose
+ - stop drug
+ - start new drug
+ - change dose
 
 Time-dependent Cox handles this by updating treatment status across intervals.
 
 ### 15.2 Longitudinal biomarkers
 If measurements occur at repeated visits:
-- split follow-up at visit times
-- carry-forward biomarker value until next measurement
+ - split follow-up at visit times
+ - carry-forward biomarker value until next measurement
 
 ---
 
-## 16. Common mistakes and best practices
+## 16. Common mistakes 
 
 ### Mistake 1: coding “ever treated” as baseline
-→ immortal time bias
+ → immortal time bias
 
-Fix: use start–stop data and time-dependent treatment variable.
+ Fix: use start–stop data and time-dependent treatment variable.
 
 ### Mistake 2: using event time itself to define covariate (reverse causality)
-Example:
-- covariate measured after event
-This can create bias.
+ Example:
+ - covariate measured after event
+ This can create bias.
 
-Fix: ensure covariate values are known BEFORE each interval.
+ Fix: ensure covariate values are known BEFORE each interval.
 
 ### Mistake 3: too many splits without reason
-Very fine splitting can become heavy computationally.
+ Very fine splitting can become heavy computationally.
 
-Fix: split only when covariates change or at visit times.
+ Fix: split only when covariates change or at visit times.
 
 ---
 
 ## 17. Key takeaways
 
-- Time-dependent covariates are covariates \(X(t)\) that change over time.
-- Use start–stop (counting-process) format.
-- Extended Cox handles delayed treatment and longitudinal predictors correctly.
-- Avoid immortal time bias by not using baseline “ever treated.”
-- Interpretation is about **current covariate value at time t**.
+ - Time-dependent covariates are covariates \(X(t)\) that change over time.
+ - Use start–stop (counting-process) format.
+ - Extended Cox handles delayed treatment and longitudinal predictors correctly.
+ - Avoid immortal time bias by not using baseline “ever treated.”
+ - Interpretation is about **current covariate value at time t**.
 
 ---
 
-## 18. Exercises (high-value practice)
+## 18. Exercises
 
 <details>
 <summary>Click to try</summary>
 
-1. Simulate delayed treatment and compare HR from correct time-dependent Cox vs wrong baseline ever-treated Cox.  
-2. Add a biomarker measured every 3 months; create start–stop intervals and fit model.  
-3. Create treatment switching (0→1→0) and model it.  
-4. In R, fit time-dependent Cox with `Surv(start, stop, event)`. Confirm matches Python results.  
-5. Explain immortal time bias in one paragraph with a real clinical example.
+ 1. Simulate delayed treatment and compare HR from correct time-dependent Cox vs wrong baseline ever-treated Cox.  
+ 2. Add a biomarker measured every 3 months; create start–stop intervals and fit model.  
+ 3. Create treatment switching (0→1→0) and model it.  
+ 4. In R, fit time-dependent Cox with `Surv(start, stop, event)`. Confirm matches Python results.  
+ 5. Explain immortal time bias in one paragraph with a real clinical example.
 
 </details>

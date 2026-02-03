@@ -154,7 +154,7 @@ This is foundational for Cox regression and parametric survival models.
 
 ---
 
-## 7. Common hazard shapes in biostatistics
+## 7. Common hazard shapes
 
 ### 7.1 Constant hazard (Exponential model)
 Examples: random failures (often unrealistic for humans)

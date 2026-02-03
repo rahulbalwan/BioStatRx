@@ -5,11 +5,11 @@ Many biostatistics outcomes are not “time to the first event.”
 Instead, subjects can experience the event **multiple times**.
 
 Examples:
-- repeated hospitalizations
-- recurrent infections (UTI, malaria episodes)
-- repeated asthma exacerbations
-- recurrent falls in geriatrics
-- repeated device malfunctions
+ - repeated hospitalizations
+ - recurrent infections (UTI, malaria episodes)
+ - repeated asthma exacerbations
+ - recurrent falls in geriatrics
+ - repeated device malfunctions
 
 These are **recurrent events**.
 
@@ -17,13 +17,13 @@ If you use standard survival analysis on only the first event, you lose informat
 
 This chapter covers:
 
-- what recurrent event data looks like  
-- why standard Cox is not enough  
-- major recurrent-event approaches  
-- Andersen–Gill (AG) model  
-- PWP models (total-time and gap-time)  
-- robust SE and frailty  
-- Python + R implementation  
+ - what recurrent event data looks like  
+ - why standard Cox is not enough  
+ - major recurrent-event approaches  
+ - Andersen–Gill (AG) model  
+ - PWP models (total-time and gap-time)  
+ - robust SE and frailty  
+ - Python + R implementation  
 
 ---
 
@@ -40,9 +40,9 @@ T_{i1}, T_{i2}, \dots
 \]
 
 And the process may stop at:
-- study end
-- dropout
-- death (terminal event)
+ - study end
+ - dropout
+ - death (terminal event)
 
 ---
 
@@ -50,9 +50,9 @@ And the process may stop at:
 
 If you analyze only first hospitalization:
 
-- you ignore later hospitalizations (important clinically)
-- you underestimate disease burden
-- treatment might reduce recurrence even if first event is similar
+ - you ignore later hospitalizations (important clinically)
+ - you underestimate disease burden
+ - treatment might reduce recurrence even if first event is similar
 
 So recurrent event analysis helps quantify total burden.
 
@@ -62,13 +62,13 @@ So recurrent event analysis helps quantify total burden.
 
 Important distinction:
 
-- Recurrent event: can happen multiple times
-- Competing risk: different event prevents event of interest
-- Terminal event: death stops recurrence process
+ - Recurrent event: can happen multiple times
+ - Competing risk: different event prevents event of interest
+ - Terminal event: death stops recurrence process
 
 In many studies you have both:
-- repeated hospitalizations
-- followed by death
+ - repeated hospitalizations
+ - followed by death
 
 That is a more advanced joint modeling topic, but we mention it.
 
@@ -84,9 +84,9 @@ Recurrent event data typically uses **counting process** format:
 | 1 | 5 | 9 | 1 | ... |
 | 1 | 9 | 14 | 0 | ... |
 
-- each row represents a time interval at risk
-- event=1 indicates event occurred at end of interval
-- after an event, subject re-enters risk set (with new interval)
+ - each row represents a time interval at risk
+ - event=1 indicates event occurred at end of interval
+ - after an event, subject re-enters risk set (with new interval)
 
 ---
 
@@ -94,45 +94,45 @@ Recurrent event data typically uses **counting process** format:
 
 Events for the same subject are correlated:
 
-- some patients are “frequent flyers”
-- unmeasured frailty may increase recurrence risk
+ - some patients are “frequent flyers”
+ - unmeasured frailty may increase recurrence risk
 
 So we must adjust for correlation:
-- robust SE
-- frailty
-- event-order models
+ - robust SE
+ - frailty
+ - event-order models
 
 ---
 
-## 6. Main recurrent-event model families (biostat overview)
+## 6. Main recurrent-event model families 
 
-### 6.1 Andersen–Gill (AG) model (most common starter)
-- treats recurrent events as a counting process
-- subject is at risk again immediately after each event
-- assumes same baseline hazard for all events
-- uses robust SE (cluster by subject)
+### 6.1 Andersen–Gill (AG) model 
+ - treats recurrent events as a counting process
+ - subject is at risk again immediately after each event
+ - assumes same baseline hazard for all events
+ - uses robust SE (cluster by subject)
 
 Great for:
-- overall recurrence rate comparison
+ - overall recurrence rate comparison
 
 Limitations:
-- does not explicitly model event order
-- assumes same risk mechanism for first and later events
+ - does not explicitly model event order
+ - assumes same risk mechanism for first and later events
 
 ### 6.2 Prentice–Williams–Peterson (PWP) models
 These model event order:
 
-- PWP Total-time: time measured from baseline
-- PWP Gap-time: time resets after each event
+ - PWP Total-time: time measured from baseline
+ - PWP Gap-time: time resets after each event
 
 These are good when:
-- event 2 depends on having event 1
-- baseline hazard differs by event number
+ - event 2 depends on having event 1
+ - baseline hazard differs by event number
 
 ### 6.3 Frailty models for recurrence
 Random effect per subject:
-- frequent-event subjects have higher frailty
-- accounts for unobserved heterogeneity
+ - frequent-event subjects have higher frailty
+ - accounts for unobserved heterogeneity
 
 ---
 
@@ -146,7 +146,7 @@ h_i(t)=h_0(t)\exp(\beta^TX_i(t))
 But each subject can have multiple events.
 
 Key concept: counting process \(N_i(t)\):
-- counts how many events by time \(t\)
+ - counts how many events by time \(t\)
 
 AG treats each event as contributing to Cox partial likelihood with risk sets.
 
@@ -172,24 +172,24 @@ Good when you care about time between recurrences.
 
 ---
 
-# PART A — R (best tool for recurrent events)
+# PART A — R 
 
 R’s `survival` package is the standard for recurrent event modeling.
 
 We will show:
-- how to build recurrent-event dataset
-- fit AG model
-- fit PWP total-time and gap-time
+ - how to build recurrent-event dataset
+ - fit AG model
+ - fit PWP total-time and gap-time
 
 ---
 
 ## 9A. Simulate recurrent event data (R)
 
 We simulate:
-- 300 subjects
-- treatment reduces recurrence rate
-- each subject can have up to 3 events
-- random censoring
+ - 300 subjects
+ - treatment reduces recurrence rate
+ - each subject can have up to 3 events
+ - random censoring
 
 !!! interactive "R"
     ```r
@@ -279,8 +279,8 @@ Andersen–Gill is just Cox with start–stop and robust SE clustered by id:
     ```
 
 Interpretation:
-- HR for `trt` compares recurrence hazard at any moment between groups.
-- Robust SE accounts for within-subject correlation.
+ - HR for `trt` compares recurrence hazard at any moment between groups.
+ - Robust SE accounts for within-subject correlation.
 
 ---
 
@@ -296,8 +296,8 @@ PWP total-time uses strata by event number:
     ```
 
 Interpretation:
-- HRs compare covariate effects across event strata.
-- baseline hazard differs by event number.
+ - HRs compare covariate effects across event strata.
+ - baseline hazard differs by event number.
 
 ---
 
@@ -306,8 +306,8 @@ Interpretation:
 For gap-time, we reset time within each event interval:
 
 Define:
-- gap_start = 0 for each interval
-- gap_stop = stop - start
+ - gap_start = 0 for each interval
+ - gap_stop = stop - start
 
 !!! interactive "R"
     ```r
@@ -319,8 +319,8 @@ Define:
     ```
 
 Interpretation:
-- models time between events
-- baseline hazard differs by event number
+ - models time between events
+ - baseline hazard differs by event number
 
 ---
 
@@ -328,21 +328,21 @@ Interpretation:
 Another descriptive way to visualize recurrence is cumulative events over time.
 
 A simple approach:
-- estimate mean cumulative function by group
+ - estimate mean cumulative function by group
 
 (Advanced: use `survfit` on counting process, or specialized packages.)
 
 ---
 
-# PART B — PYTHON (practical options)
+# PART B — PYTHON 
 
 Python currently lacks full native tooling for recurrent events compared to R.
 But you can still do:
 
-- create start–stop data  
-- use `CoxTimeVaryingFitter` as an AG-style model  
-- use robust SE cautiously  
-- or do marginal approaches externally  
+ - create start–stop data  
+ - use `CoxTimeVaryingFitter` as an AG-style model  
+ - use robust SE cautiously  
+ - or do marginal approaches externally  
 
 We show an AG-style approach using lifelines time-varying fitter.
 
@@ -407,26 +407,26 @@ We fit start–stop using `CoxTimeVaryingFitter`.
     ```
 
 Important note:
-- lifelines standard errors for recurrent events may not match R’s robust cluster(id) sandwich perfectly.
-- For publication-grade recurrent-event analysis, R is typically preferred.
+ - lifelines standard errors for recurrent events may not match R’s robust cluster(id) sandwich perfectly.
+ - For publication-grade recurrent-event analysis, R is typically preferred.
 
 ---
 
 ## 16. Which recurrent-event method should you choose?
 
 ### 16.1 If you want a simple “overall recurrence rate” effect:
-Andersen–Gill with robust SE
+ Andersen–Gill with robust SE
 
 ### 16.2 If you believe event order matters:
-PWP total-time or gap-time
+ PWP total-time or gap-time
 
 ### 16.3 If you believe subjects have different baseline recurrence tendencies:
-frailty model (random effect per subject)
+ frailty model (random effect per subject)
 
 Often, analysts do:
-- AG as primary
-- PWP as sensitivity analysis
-- frailty as additional robustness check
+ - AG as primary
+ - PWP as sensitivity analysis
+ - frailty as additional robustness check
 
 ---
 
@@ -441,36 +441,36 @@ For PWP:
 > “Event-order was accounted for using PWP models stratified by event number.”
 
 Always report:
-- model type (AG / PWP)
-- use of robust SE / frailty
-- what time scale (total-time vs gap-time)
-- interpretation of HR
+ - model type (AG / PWP)
+ - use of robust SE / frailty
+ - what time scale (total-time vs gap-time)
+ - interpretation of HR
 
 ---
 
 ## 18. Common mistakes
 
 ### Mistake 1: treat repeated events as independent rows without clustering correction
-This underestimates SE.
+ This underestimates SE.
 
 ### Mistake 2: ignore death as terminal event
-Death ends recurrence. Treating it as censoring might be informative.
+ Death ends recurrence. Treating it as censoring might be informative.
 
 ### Mistake 3: interpret AG HR as first-event effect
-AG HR is about **overall recurrence hazard**, not first-event survival.
+ AG HR is about **overall recurrence hazard**, not first-event survival.
 
 ### Mistake 4: too few events per subject but still using complex models
-If almost everyone has 0–1 events, use standard Cox.
+ If almost everyone has 0–1 events, use standard Cox.
 
 ---
 
 ## 19. Key takeaways
 
-- Recurrent events require start–stop counting-process data.
-- Within-subject correlation must be handled (robust SE, frailty, event-strata).
-- Andersen–Gill is the common baseline recurrent-event model.
-- PWP models incorporate event order (total-time / gap-time).
-- R has best support; Python can approximate via time-varying Cox.
+ - Recurrent events require start–stop counting-process data.
+ - Within-subject correlation must be handled (robust SE, frailty, event-strata).
+ - Andersen–Gill is the common baseline recurrent-event model.
+ - PWP models incorporate event order (total-time / gap-time).
+ - R has best support; Python can approximate via time-varying Cox.
 
 ---
 
@@ -479,10 +479,10 @@ If almost everyone has 0–1 events, use standard Cox.
 <details>
 <summary>Click to try</summary>
 
-1. Simulate recurrent events with strong treatment effect and fit AG model. Interpret HR.  
-2. Fit PWP total-time and compare with AG. Does effect change?  
-3. Fit PWP gap-time and interpret what changes.  
-4. Increase within-subject heterogeneity (frailty variance) and see how robust SE changes inference.  
-5. Write a “Methods” paragraph describing recurrent-event analysis of hospitalizations.
+ 1. Simulate recurrent events with strong treatment effect and fit AG model. Interpret HR.  
+ 2. Fit PWP total-time and compare with AG. Does effect change?  
+ 3. Fit PWP gap-time and interpret what changes.  
+ 4. Increase within-subject heterogeneity (frailty variance) and see how robust SE changes inference.  
+ 5. Write a “Methods” paragraph describing recurrent-event analysis of hospitalizations.
 
 </details>

@@ -2,7 +2,7 @@
 
 Multiple linear regression extends linear regression to **multiple predictors**.
 
-Biostat example:
+Example:
 - Outcome: SBP (mmHg)
 - Predictors: age, BMI, sex, smoking
 - Goal: estimate association of BMI with SBP **adjusting** for age, etc.

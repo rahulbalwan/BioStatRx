@@ -3,8 +3,8 @@
 In many medical studies, subjects can fail from **different causes**.
 
 Example (oncology):
-- Event of interest: relapse
-- Competing event: death before relapse
+ - Event of interest: relapse
+ - Competing event: death before relapse
 
 If a patient dies, they can no longer relapse.
 
@@ -14,12 +14,12 @@ This changes the meaning of “risk” and breaks naive Kaplan–Meier.
 
 This chapter gives maximum clarity on:
 
-- why KM is wrong under competing risks  
-- cumulative incidence function (CIF)  
-- cause-specific hazard models  
-- Fine–Gray subdistribution hazard model  
-- interpretation and reporting  
-- Python + R code with plots  
+ - why KM is wrong under competing risks  
+ - cumulative incidence function (CIF)  
+ - cause-specific hazard models  
+ - Fine–Gray subdistribution hazard model  
+ - interpretation and reporting  
+ - Python + R code with plots  
 
 ---
 
@@ -27,10 +27,10 @@ This chapter gives maximum clarity on:
 
 A competing risk is an event that:
 
-1) prevents the event of interest from happening, and  
-2) is not just censoring.
+ 1) prevents the event of interest from happening, and  
+ 2) is not just censoring.
 
-### 1.1 Example (classic)
+### 1.1 Example
 Event of interest: relapse  
 Competing event: death
 
@@ -82,8 +82,8 @@ S(t) + \sum_{k=1}^K F_k(t) = 1
 \]
 
 Where:
-- \(S(t)\) = probability of no event yet
-- \(F_k(t)\) = probability of event k by time t
+ - \(S(t)\) = probability of no event yet
+ - \(F_k(t)\) = probability of event k by time t
 
 ---
 
@@ -122,8 +122,8 @@ Interpretation of HR:
 > HR compares instantaneous hazard of cause k among those still event-free.
 
 Important:
-- This HR is NOT directly a HR on CIF probability.
-- HR on cause-specific hazard and Fine–Gray can differ.
+ - This HR is NOT directly a HR on CIF probability.
+ - HR on cause-specific hazard and Fine–Gray can differ.
 
 ---
 
@@ -141,21 +141,21 @@ Interpretation:
 
 This is often interpreted as:
 
-- covariate increases/decreases cumulative incidence probability.
+ - covariate increases/decreases cumulative incidence probability.
 
 ---
 
 ## 7. When to use which model?
 
 ### Use cause-specific Cox when:
-- scientific question is about biological mechanism
-- “does treatment reduce relapse hazard among those alive?”
-- you want hazard-based interpretation
+ - scientific question is about biological mechanism
+ - “does treatment reduce relapse hazard among those alive?”
+ - you want hazard-based interpretation
 
 ### Use Fine–Gray when:
-- scientific question is about absolute risk prediction
-- “what is probability of relapse by 5 years accounting for death?”
-- clinical decision-making and prognosis
+ - scientific question is about absolute risk prediction
+ - “what is probability of relapse by 5 years accounting for death?”
+ - clinical decision-making and prognosis
 
 Many papers report BOTH.
 
@@ -176,8 +176,8 @@ We will still provide best-possible Python workflow.
 
 We simulate two event types:
 
-- 1 = relapse (event of interest)
-- 2 = death (competing event)
+ - 1 = relapse (event of interest)
+ - 2 = death (competing event)
 
 !!! interactive "Python"
     ```python
@@ -222,9 +222,9 @@ We simulate two event types:
     ```
 
 Status meanings:
-- 0 = censored
-- 1 = relapse
-- 2 = death (competing)
+ - 0 = censored
+ - 1 = relapse
+ - 2 = death (competing)
 
 ---
 
@@ -292,8 +292,8 @@ This code computes CIF by:
     ```
 
 Interpretation:
-- CIF(t) is probability of event by time t.
-- These curves typically add up with survival probability.
+ - CIF(t) is probability of event by time t.
+ - These curves typically add up with survival probability.
 
 ---
 
@@ -302,8 +302,8 @@ Interpretation:
 ### 11A.1 Relapse model (treat death as censored)
 
 Create event indicator:
-- event=1 if relapse
-- event=0 if death or censoring
+ - event=1 if relapse
+ - event=0 if death or censoring
 
 !!! interactive "Python"
     ```python
@@ -320,7 +320,7 @@ Create event indicator:
     ```
 
 Interpretation:
-- HR applies to relapse hazard among those event-free.
+ - HR applies to relapse hazard among those event-free.
 
 ### 11A.2 Death model (treat relapse as censored)
 
@@ -341,8 +341,8 @@ Interpretation:
 ## 12A. Why Fine–Gray is harder in Python
 Fine–Gray regression is not fully supported in standard lifelines workflows.
 You can:
-- estimate CIF nonparametrically 
-- fit cause-specific Cox 
+ - estimate CIF nonparametrically 
+ - fit cause-specific Cox 
 But for Fine–Gray regression, R is recommended.
 
 ---
@@ -351,9 +351,9 @@ But for Fine–Gray regression, R is recommended.
 
 In R, competing risks is commonly handled with:
 
-- `cmprsk` (Fine–Gray)  
-- `survival` (cause-specific Cox)  
-- `riskRegression` (CIF prediction / model comparison)  
+ - `cmprsk` (Fine–Gray)  
+ - `survival` (cause-specific Cox)  
+ - `riskRegression` (CIF prediction / model comparison)  
 
 ---
 
@@ -425,7 +425,7 @@ In R, competing risks is commonly handled with:
     ```
 
 Interpretation:
-- This shows relapse probability over time accounting for death,
+ - This shows relapse probability over time accounting for death,
 separately by treatment group.
 
 ---
@@ -488,7 +488,7 @@ They can differ because:
 
 ---
 
-## 19. Practical reporting examples
+## 19. Reporting examples
 
 ### CIF reporting
 > “The 5-year cumulative incidence of relapse was 0.24 (accounting for competing risk of death).”
@@ -509,14 +509,14 @@ Always specify:
 ## 20. Common mistakes 
 
 ### Mistake 1: using KM to estimate relapse probability with death competing
-KM overestimates relapse probability.
+ KM overestimates relapse probability.
 
-Fix: use CIF.
+ Fix: use CIF.
 
 ### Mistake 2: interpreting cause-specific HR as directly affecting CIF probability
-Cause-specific HR affects hazard, not CIF directly.
+ Cause-specific HR affects hazard, not CIF directly.
 
-Fix: use Fine–Gray if question is CIF probability.
+ Fix: use Fine–Gray if question is CIF probability.
 
 ### Mistake 3: calling competing risks “censoring”
 Death is not censoring if relapse is endpoint.
@@ -527,12 +527,12 @@ Fix: treat as competing event.
 
 ## 21. Key takeaways
 
-- Competing risks occur when another event prevents event of interest.
-- KM is wrong for event probability under competing risks.
-- CIF is the correct event probability estimate.
-- Cause-specific Cox models hazard among those still event-free.
-- Fine–Gray models the cumulative incidence (probability) directly.
-- R is currently the best ecosystem for full competing risks regression.
+ - Competing risks occur when another event prevents event of interest.
+ - KM is wrong for event probability under competing risks.
+ - CIF is the correct event probability estimate.
+ - Cause-specific Cox models hazard among those still event-free.
+ - Fine–Gray models the cumulative incidence (probability) directly.
+ - R is currently the best ecosystem for full competing risks regression.
 
 ---
 
@@ -541,10 +541,10 @@ Fix: treat as competing event.
 <details>
 <summary>Click to try</summary>
 
-1. Simulate competing risks data and compare KM relapse estimate (treat death as censoring) vs CIF relapse estimate. Which is higher and why?  
-2. Fit cause-specific Cox for relapse and interpret HR clinically.  
-3. Fit Fine–Gray for relapse and interpret subdistribution HR.  
-4. Create a scenario where treatment reduces relapse but increases death. What happens to CIF of relapse?  
-5. Plot CIF curves by treatment and report 5-year relapse incidence.
+ 1. Simulate competing risks data and compare KM relapse estimate (treat death as censoring) vs CIF relapse estimate. Which is higher and why?  
+ 2. Fit cause-specific Cox for relapse and interpret HR clinically.  
+ 3. Fit Fine–Gray for relapse and interpret subdistribution HR.  
+ 4. Create a scenario where treatment reduces relapse but increases death. What happens to CIF of relapse?  
+ 5. Plot CIF curves by treatment and report 5-year relapse incidence.
 
 </details>

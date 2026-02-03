@@ -14,15 +14,15 @@ So in real papers you will see results like:
 - “Median survival = 18.3 months (95% CI: 15.1–22.7)”
 - “Median not reached”
 
-This chapter teaches you how to compute and interpret:
+This chapter teaches you how to compute and interpret with **both Python and R**.:
 
-standard errors  
-Greenwood variance  
-confidence intervals (with proper transformation)  
-median survival and its CI  
-reporting standards in clinical papers  
+ - standard errors  
+ - Greenwood variance  
+ - confidence intervals (with proper transformation)  
+ - median survival and its CI  
+ - reporting standards in clinical papers  
 
-with **both Python and R**.
+
 
 ---
 
@@ -89,9 +89,8 @@ Greenwood shows why uncertainty increases late in follow-up:
 - So variance accumulates faster
 
 Therefore:
-
-early CI is narrow  
-late CI is wide (often very wide)
+ - early CI is narrow  
+ - late CI is wide (often very wide)
 
 ---
 
@@ -111,7 +110,7 @@ So we typically use a transformation that keeps CI within [0,1].
 
 ---
 
-## 4. Log–log confidence intervals (standard in biostatistics)
+## 4. Log–log confidence intervals 
 
 A widely used approach is **log–log transformed CI** (often default in software).
 
@@ -120,12 +119,14 @@ Transform KM to a scale where normal approximation works better, compute CI, the
 
 A common form:
 
-\[
-CI_{lower}(t)=\hat S(t)^{\exp(z \cdot SE^*(t))}
-\]
-\[
-CI_{upper}(t)=\hat S(t)^{\exp(-z \cdot SE^*(t))}
-\]
+$$
+CI_{\text{lower}}(t)=\left[\hat S(t)\right]^{\exp\!\left(z\,SE^{*}(t)\right)}
+$$
+
+$$
+CI_{\text{upper}}(t)=\left[\hat S(t)\right]^{\exp\!\left(-z\,SE^{*}(t)\right)}
+$$
+
 
 where \(z=1.96\) for 95% CI and \(SE^*(t)\) is a standard error on the transformed scale.
 
@@ -454,7 +455,7 @@ Many clinical studies compare groups.
 
 ---
 
-## 10. How to report results (clinical writing style)
+## 10. How to report results 
 
 ### 10.1 Survival probability at fixed time
 Example:
@@ -472,26 +473,26 @@ Example:
 > “Median survival was not reached during follow-up.”
 
 Always specify:
-- time unit (months/years)
-- method (Kaplan–Meier)
-- CI level (usually 95%)
+ - time unit (months/years)
+ - method (Kaplan–Meier)
+ - CI level (usually 95%)
 
 ---
 
 ## 11. Common mistakes and how to avoid them
 
 ### Mistake 1: CI outside [0,1]
-Fix: use log–log CI (software default).
+ Fix: use log–log CI (software default).
 
 ### Mistake 2: interpreting CI overlap as hypothesis test
-CI overlap is not a formal test for group differences.
-Use log-rank or Cox for testing.
+ CI overlap is not a formal test for group differences.
+ Use log-rank or Cox for testing.
 
 ### Mistake 3: reporting mean survival without justification
 Mean requires strong assumptions; median is standard.
 
 ### Mistake 4: reporting late survival estimates with tiny risk set
-Late tail can be unstable; always check number at risk.
+ Late tail can be unstable; always check number at risk.
 
 ---
 

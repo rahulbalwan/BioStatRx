@@ -64,8 +64,8 @@ This is called the **product-limit estimator**.
 ## 3. How censoring affects KM
 
 Censoring:
-- does **not** create a drop in \(\hat S(t)\)
-- but it reduces the risk set size \(n_j\) at later times
+ - does **not** create a drop in \(\hat S(t)\)
+ - but it reduces the risk set size \(n_j\) at later times
 
 So censoring changes future steps indirectly.
 
@@ -74,10 +74,10 @@ So censoring changes future steps indirectly.
 ## 4. KM curve shape: why it’s a step function
 
 KM curve:
-- starts at 1.0
-- drops only at event times
-- stays flat between events
-- shows censoring as tick marks
+ - starts at 1.0
+ - drops only at event times
+ - stays flat between events
+ - shows censoring as tick marks
 
 Sketch:
 
@@ -94,7 +94,7 @@ S(t)
 
 ---
 
-## 5. Fully worked manual example (must understand)
+## 5. Example
 
 Dataset:
 
@@ -181,9 +181,9 @@ KM estimates:
     ```
 
 This shows:
-- risk set size
-- event count
-- updated KM survival
+ - risk set size
+ - event count
+ - updated KM survival
 
 ---
 
@@ -344,16 +344,16 @@ This shows:
 ## 9. What KM can and cannot do
 
 ### KM CAN:
-estimate survival probabilities over time  
-handle right censoring  
-visualize group differences  
-estimate median survival
+ - estimate survival probabilities over time  
+ - handle right censoring  
+ - visualize group differences  
+ - estimate median survival
 
 ### KM CANNOT:
-adjust for covariates (use Cox)  
-handle competing risks correctly (use CIF)  
-model time-varying covariates directly  
-provide causal inference alone
+ - adjust for covariates (use Cox)  
+ - handle competing risks correctly (use CIF)
+ - model time-varying covariates directly  
+ - provide causal inference alone
 
 ---
 

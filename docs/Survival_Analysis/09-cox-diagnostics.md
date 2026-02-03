@@ -7,9 +7,9 @@ In real biostatistical work, the correct workflow is:
 **Fit Cox** → **Check assumptions** → **Fix violations** → **Interpret HRs**
 
 If you skip diagnostics, your hazard ratios (HRs) may be:
-- biased
-- uninterpretable
-- misleading (especially under non-proportional hazards)
+ - biased
+ - uninterpretable
+ - misleading (especially under non-proportional hazards)
 
 This chapter is a **complete diagnostic toolkit** for Cox regression in biostatistics, with **both Python and R**.
 
@@ -27,15 +27,19 @@ Main assumptions you must check:
 
 ### A1) Proportional hazards (PH) most important
 Hazard ratios are constant over time:
-\[
-\frac{h(t|X_a)}{h(t|X_b)}=\exp(\beta^T(X_a-X_b)) \quad \text{does not depend on } t
-\]
+
+$$
+\frac{h(t \mid X_a)}{h(t \mid X_b)} = \exp\!\left(\beta^{\mathsf T}(X_a - X_b)\right)
+\quad \text{does not depend on } t
+$$
+
 
 ### A2) Correct functional form for continuous predictors
 Cox assumes a linear relationship in the **log-hazard**:
-\[
-\log h(t|X) = \log h_0(t) + \beta_1 X_1 + \cdots
-\]
+$$
+\log h(t \mid X) = \log h_0(t) + \beta_1 X_1 + \cdots
+$$
+
 So a continuous predictor effect is assumed **linear on log-hazard scale** unless you model nonlinearity.
 
 ### A3) Independent observations (or correctly handled clustering)
@@ -46,18 +50,18 @@ One or two subjects shouldn’t dominate your HR estimates.
 
 ---
 
-## 2. A practical diagnostic checklist (memorize)
+## 2. A practical diagnostic checklist 
 
 After fitting Cox:
 
-1) **KM curves / visual check**
-2) **PH test + Schoenfeld residual plots**
-3) **Log(-log) survival plots (group PH check)**
-4) **Functional form check for continuous predictors**
-5) **Influential observations (dfbeta, deviance residuals)**
-6) **Overall fit (concordance / C-index)**
-7) **Robust SE / clustering check**
-8) **Sensitivity analyses** (alternative models if needed)
+ 1) **KM curves / visual check**
+ 2) **PH test + Schoenfeld residual plots**
+ 3) **Log(-log) survival plots (group PH check)**
+ 4) **Functional form check for continuous predictors**
+ 5) **Influential observations (dfbeta, deviance residuals)**
+ 6) **Overall fit (concordance / C-index)**
+ 7) **Robust SE / clustering check**
+ 8) **Sensitivity analyses** (alternative models if needed)
 
 ---
 
@@ -148,7 +152,7 @@ We will simulate data with:
 
 ---
 
-## 5. PH assumption checks (the critical part)
+## 5. PH assumption checks
 
 ### 5.1 Visual pre-check: KM curves (group separation and crossing)
 
@@ -218,8 +222,8 @@ The plot shows residual trend over time:
     ```
 
 Interpretation:
-- lifelines prints warnings when PH is violated
-- shows plots (Schoenfeld-type diagnostics)
+ - lifelines prints warnings when PH is violated
+ - shows plots (Schoenfeld-type diagnostics)
 
 ---
 
@@ -262,14 +266,14 @@ If you have `survminer`, this is easier:
     ```
 
 Interpretation:
-- Parallel lines → PH plausible
-- Non-parallel / crossing → PH questionable
+ - Parallel lines → PH plausible
+ - Non-parallel / crossing → PH questionable
 
 Python doesn’t have a one-liner in lifelines for cloglog plots, but you can approximate by extracting survival estimates and plotting `np.log(-np.log(S))`.
 
 ---
 
-## 6. What to do if PH is violated (practical fixes)
+## 6. What to do if PH is violated
 
 PH violation is common. You have multiple solutions depending on the situation.
 
@@ -327,19 +331,19 @@ You lose HR estimate for the stratified variable, but PH becomes less problemati
 
 ### Option 3: Use alternative summaries (RMST) or parametric models
 If PH is badly violated:
-- Consider **restricted mean survival time (RMST)** (time-based effect)
-- Consider parametric models that allow more flexible hazards
+ - Consider **restricted mean survival time (RMST)** (time-based effect)
+ - Consider parametric models that allow more flexible hazards
 
-(We can add a dedicated RMST chapter later if you want.)
 
 ---
 
 ## 7. Checking functional form (linearity) for continuous predictors
 
 Cox assumes:
-\[
-\log h(t|X) \text{ is linear in } X
-\]
+$$
+\log h(t \mid X) \text{ is linear in } X
+$$
+
 
 If age effect is nonlinear (common!), a linear age term is wrong.
 
@@ -457,8 +461,8 @@ Cox does not have an R² like linear regression.
 Instead, common measure is:
 
 ### Concordance index (C-index)
-- 0.5 = random prediction
-- 1.0 = perfect discrimination
+ - 0.5 = random prediction
+ - 1.0 = perfect discrimination
 
 #### Python
 
@@ -514,7 +518,7 @@ Robust SE corrects inference (SE, CI), but does not model heterogeneity explicit
 
 ---
 
-## 11. Practical “PH violation” simulation (see it happen!)
+## 11. Practical “PH violation” simulation 
 
 To understand PH diagnostics, it helps to simulate data where treatment effect changes over time.
 
@@ -627,19 +631,19 @@ Examples of correct writing:
 
 ---
 
-## 13. Common mistakes (very common in student work)
+## 13. Common mistakes 
 
 ### Mistake 1: Interpret HR without checking PH
-Fix: Always run `cox.zph()` (R) or `check_assumptions()` (Python).
+ Fix: Always run `cox.zph()` (R) or `check_assumptions()` (Python).
 
 ### Mistake 2: Assume linear age effect automatically
-Fix: martingale residual check, use splines if needed.
+ Fix: martingale residual check, use splines if needed.
 
 ### Mistake 3: Ignore clustering
-Fix: robust SE or frailty.
+ Fix: robust SE or frailty.
 
 ### Mistake 4: Trust extreme late follow-up
-Fix: check number at risk and consider truncating analysis window.
+ Fix: check number at risk and consider truncating analysis window.
 
 ---
 
@@ -647,15 +651,15 @@ Fix: check number at risk and consider truncating analysis window.
 
 Cox diagnostics ensure:
 
-- HRs are interpretable (PH)
-- continuous covariates are modeled correctly (linearity)
-- inference is valid (robust SE/clustering)
-- results are not dominated by a few subjects (influence)
-- model has acceptable predictive performance (C-index)
+ - HRs are interpretable (PH)
+ - continuous covariates are modeled correctly (linearity)
+ - inference is valid (robust SE/clustering)
+ - results are not dominated by a few subjects (influence)
+ - model has acceptable predictive performance (C-index)
 
 If you remember only one thing:
 
-# Fit Cox → always check PH → then interpret.
+ # Fit Cox → always check PH → then interpret.
 
 ---
 
@@ -664,10 +668,10 @@ If you remember only one thing:
 <details>
 <summary>Click to try</summary>
 
-1. Fit Cox model in R and run `cox.zph()`. Which variables violate PH (if any)?  
-2. Make a dataset where treatment effect changes over time and confirm PH violation.  
-3. Use martingale residual plot to detect nonlinearity in age. Then refit with spline.  
-4. Create clustering (hospital variable) and compare standard SE vs robust SE.  
-5. Identify influential points via deviance residuals/dfbeta and refit after removing a few. Compare HR changes.
+ 1. Fit Cox model in R and run `cox.zph()`. Which variables violate PH (if any)?  
+ 2. Make a dataset where treatment effect changes over time and confirm PH violation.  
+ 3. Use martingale residual plot to detect nonlinearity in age. Then refit with spline.  
+ 4. Create clustering (hospital variable) and compare standard SE vs robust SE.  
+ 5. Identify influential points via deviance residuals/dfbeta and refit after removing a few. Compare HR changes.
 
 </details>

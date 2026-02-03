@@ -27,7 +27,7 @@ $$
 
 ---
 
-## 3. Splines (preferred in biostat)
+## 3. Splines (preferred)
 
 Splines allow smooth, flexible curves without forcing a global polynomial.
 
@@ -99,11 +99,11 @@ Try:
 
 ---
 
-## 5. Logistic regression + splines (common in risk modeling)
+## 5. Logistic regression + splines 
 
 Risk vs age is rarely linear in log-odds. Splines are standard in clinical prediction modeling.
 
-(We can add a full logistic spline demo later if you want.)
+
 
 ---
 

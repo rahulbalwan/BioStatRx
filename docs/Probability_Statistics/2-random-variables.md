@@ -6,12 +6,12 @@ A **random variable** is a variable that takes numerical values based on the out
 
 ## Types of Random Variables
 
-1. **Discrete Random Variables**
-   - Take **countable** values: integers, categories, or counts
-   - Examples: number of heads in coin tosses, number of patients who recover
+1. **Discrete random variables**
+   - Take **countable** values (integers or counts)
+   - Examples: number of heads in coin tosses; number of patients who recover
 
-2. **Continuous Random Variables**
-   - Take any **real value** in an interval
+2. **Continuous random variables**
+   - Take any **real value** within an interval
    - Examples: height, weight, blood pressure, time until failure
 
 ---

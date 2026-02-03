@@ -2,7 +2,7 @@
 
 Simple linear regression models a **continuous outcome** using **one predictor**.
 
-Examples in biostat:
+Examples:
 - Systolic BP explained by age
 - Cholesterol explained by BMI
 - Lung function explained by smoking pack-years
@@ -23,7 +23,7 @@ $$
 
 ---
 
-## 2. Biostat Interpretation
+## 2. Interpretation
 
 If $Y$ = systolic BP (mmHg) and $X$ = age (years), and you estimate $\hat\beta_1 = 0.8$:
 
@@ -109,7 +109,7 @@ If assumptions are reasonable, residuals should look:
 
 ---
 
-## 5. Inference: Confidence Interval for Slope (concept)
+## 5. Inference: Confidence Interval for Slope
 
 A 95% CI for $\beta_1$ is:
 $$
@@ -128,7 +128,7 @@ In practice you use a stats library (below).
 
 ---
 
-## 6. Exercises (Biostat flavored)
+## 6. Exercises
 
 <details>
 <summary>Click to try</summary>

@@ -75,7 +75,7 @@ This makes the model effectively:
 
 ---
 
-## 5. Interactive simulation: events with unequal follow-up (biostat realistic)
+## 5. Interactive simulation: events with unequal follow-up 
 
 !!! interactive "Python"
     ```python
@@ -139,7 +139,7 @@ Try:
 
 ---
 
-## 6. Overdispersion check (common in real biostat data)
+## 6. Overdispersion check 
 
 Poisson assumes variance ≈ mean. Real data often has **overdispersion**.
 
@@ -183,7 +183,7 @@ If Deviance/df is large (e.g., > 1.5–2), consider:
 
 ---
 
-## 8. Practical biostat examples
+## 8. Examples
 
 - **Incidence rate of infections** by treatment group (offset = person-time)
 - **Hospital visits** by exposure status adjusting for age/sex

@@ -2,16 +2,16 @@
 
 So far you’ve learned:
 
-- Kaplan–Meier (nonparametric)
-- Cox regression (semi-parametric)
+ - Kaplan–Meier (nonparametric)
+ - Cox regression (semi-parametric)
 
 Both are powerful, but sometimes we need:
 
-- smooth survival curves  
-- explicit survival formulas  
-- extrapolation beyond observed follow-up  
-- simulation and prediction  
-- health-economic modeling  
+ - smooth survival curves  
+ - explicit survival formulas  
+ - extrapolation beyond observed follow-up  
+ - simulation and prediction  
+ - health-economic modeling  
 
 For these, we use:
 
@@ -99,7 +99,7 @@ Common AFT models:
 
 ---
 
-## 3. Exponential model (the simplest)
+## 3. Exponential model
 
 ### 3.1 Assumption
 Hazard is constant:
@@ -114,16 +114,16 @@ S(t)=\exp(-\lambda t)
 \]
 
 ### 3.3 Interpretation
-- risk does not change over time
-- often unrealistic in humans
+ - risk does not change over time
+ - often unrealistic in humans
 
 Clinical contexts where exponential might be plausible:
-- device failure with constant rate
-- short follow-up where hazard seems flat
+ - device failure with constant rate
+ - short follow-up where hazard seems flat
 
 ---
 
-## 4. Weibull model (most important parametric model)
+## 4. Weibull model 
 
 Weibull is the survival distribution you will see most often in biostatistics.
 
@@ -143,9 +143,9 @@ h(t)=\frac{k}{\lambda}\left(\frac{t}{\lambda}\right)^{k-1}
 ### 4.3 Why Weibull is special
 Weibull can model different hazard shapes:
 
-- \(k=1\) → constant hazard (exponential)
-- \(k>1\) → increasing hazard
-- \(k<1\) → decreasing hazard
+ - \(k=1\) → constant hazard (exponential)
+ - \(k>1\) → increasing hazard
+ - \(k<1\) → decreasing hazard
 
 So Weibull is flexible and extremely useful.
 
@@ -161,12 +161,12 @@ So Weibull is flexible and extremely useful.
 ### 5.2 Hazard shape
 Log-normal hazard is non-monotonic:
 
-- rises early
-- peaks
-- declines
+ - rises early
+ - peaks
+ - declines
 
 Useful when:
-- early risk is high (post-surgery)
+ - early risk is high (post-surgery)
 - later risk declines
 
 ---
@@ -175,8 +175,8 @@ Useful when:
 
 Similar to log-normal but with heavier tails.
 
-- non-monotonic hazard
-- sometimes better for very long survivors
+ - non-monotonic hazard
+ - sometimes better for very long survivors
 
 ---
 
@@ -184,15 +184,15 @@ Similar to log-normal but with heavier tails.
 
 ### 7.1 Fit multiple models and compare
 Common criteria:
-- AIC
-- BIC
-- likelihood
-- visual fit to KM
+ - AIC
+ - BIC
+ - likelihood
+ - visual fit to KM
 
 ### 7.2 General rule of thumb
-- start with Weibull
-- compare with log-normal/log-logistic
-- consider exponential only if hazard looks flat
+ - start with Weibull
+ - compare with log-normal/log-logistic
+ - consider exponential only if hazard looks flat
 
 ---
 
@@ -201,11 +201,11 @@ Common criteria:
 Python parametric survival modeling is commonly done using `lifelines`.
 
 We will:
-1) simulate survival data  
-2) fit exponential / Weibull / log-normal  
-3) compare AIC  
-4) plot model fits against KM  
-5) fit AFT regression model  
+ 1) simulate survival data  
+ 2) fit exponential / Weibull / log-normal  
+ 3) compare AIC  
+ 4) plot model fits against KM  
+ 5) fit AFT regression model  
 
 ---
 
@@ -213,8 +213,8 @@ We will:
 
 We simulate Weibull survival with covariate effect:
 
-- age increases hazard
-- treatment improves survival
+ - age increases hazard
+ - treatment improves survival
 
 !!! interactive "Python"
     ```python
@@ -311,7 +311,7 @@ We simulate Weibull survival with covariate effect:
     ```
 
 Interpretation:
-- Best-fitting model tends to track KM curve more closely.
+ - Best-fitting model tends to track KM curve more closely.
 
 ---
 
@@ -331,11 +331,11 @@ Lifelines supports AFT regression models.
 ### 11A.1 Interpretation: Time Ratios
 In AFT models, exponentiated coefficients are time ratios:
 
-- TR > 1 → longer survival time
-- TR < 1 → shorter survival time
+ - TR > 1 → longer survival time
+ - TR < 1 → shorter survival time
 
 Example:
-- TR = 1.40 for treatment → treated survive 40% longer (on average, depending on model)
+ - TR = 1.40 for treatment → treated survive 40% longer (on average, depending on model)
 
 ---
 
@@ -438,17 +438,18 @@ Common distributions:
 ### Interpretation in survreg
 `survreg()` uses a different parameterization:
 
-- coefficients relate to log(time) directly
-- sign interpretation can be reversed compared to hazard models
+ - coefficients relate to log(time) directly
+ - sign interpretation can be reversed compared to hazard models
 
 A simple practical interpretation:
-- Positive coefficient → increases survival time
-- Negative coefficient → decreases survival time
+ - Positive coefficient → increases survival time
+ - Negative coefficient → decreases survival time
 
 To compute time ratio:
-\[
-TR=\exp(\beta)
-\]
+$$
+TR = \exp(\beta)
+$$
+
 
 !!! interactive "R"
     ```r
@@ -493,11 +494,11 @@ Lower AIC = better tradeoff between fit and complexity.
 ## 17B. Using flexsurv for many distributions
 
 `flexsurvreg()` gives access to:
-- exponential
-- Weibull
-- lognormal
-- loglogistic
-- Gompertz, etc.
+ - exponential
+ - Weibull
+ - lognormal
+ - loglogistic
+ - Gompertz, etc.
 
 !!! interactive "R"
     ```r
@@ -537,19 +538,19 @@ With `flexsurv`, easiest is to overlay predicted survival.
 
 ---
 
-## 19. How to interpret outputs (clinically)
+## 19. How to interpret outputs 
 
 ### 19.1 PH (hazard ratio) interpretation
 If using PH form (e.g., Weibull PH):
 
-- HR < 1 → lower hazard
-- HR > 1 → higher hazard
+ - HR < 1 → lower hazard
+ - HR > 1 → higher hazard
 
 ### 19.2 AFT interpretation (time ratio)
 If using AFT form:
 
-- TR = 1.40 → 40% longer survival time
-- TR = 0.80 → 20% shorter survival time
+ - TR = 1.40 → 40% longer survival time
+ - TR = 0.80 → 20% shorter survival time
 
 AFT is often easier to interpret for clinicians.
 
@@ -559,14 +560,14 @@ AFT is often easier to interpret for clinicians.
 
 Use parametric models when you need:
 
-- extrapolation beyond follow-up  
-- smooth survival curve + clear formula  
-- simulation / risk prediction  
-- cost-effectiveness modeling  
+ - extrapolation beyond follow-up  
+ - smooth survival curve + clear formula  
+ - simulation / risk prediction  
+ - cost-effectiveness modeling  
 
 Avoid if:
-- hazard shape unknown and complex
-- strong non-PH patterns and poor fit
+ - hazard shape unknown and complex
+ - strong non-PH patterns and poor fit
 
 ---
 
@@ -581,40 +582,40 @@ Or PH form:
 > “A Weibull proportional hazards model estimated treatment HR 0.68 (95% CI …).”
 
 Always specify:
-- distribution used
-- model form (PH or AFT)
-- interpretation (HR or TR)
-- fit assessment method (AIC, plots)
+ - distribution used
+ - model form (PH or AFT)
+ - interpretation (HR or TR)
+ - fit assessment method (AIC, plots)
 
 ---
 
 ## 22. Common mistakes
 
 ### Mistake 1: assuming exponential without checking
-Exponential assumes constant hazard—often wrong.
+ Exponential assumes constant hazard—often wrong.
 
 ### Mistake 2: choosing distribution only by AIC
-Also check:
-- KM overlay fit
-- clinical plausibility of hazard shape
+ Also check:
+ - KM overlay fit
+ - clinical plausibility of hazard shape
 
 ### Mistake 3: interpreting AFT coefficient as hazard ratio
-AFT outputs time ratios, not HR.
+ AFT outputs time ratios, not HR.
 
 ### Mistake 4: extrapolating too far
-Even parametric extrapolation can be unrealistic.
-Always justify extrapolation window.
+ Even parametric extrapolation can be unrealistic.
+ Always justify extrapolation window.
 
 ---
 
 ## 23. Key takeaways
 
-- Parametric survival models assume a distribution for \(T\).
-- Exponential = constant hazard.
-- Weibull = flexible hazard (increasing/decreasing).
-- Log-normal/log-logistic = non-monotonic hazards.
-- Model selection via AIC + visual KM overlay.
-- Regression can be PH or AFT; interpret HR vs TR correctly.
+ - Parametric survival models assume a distribution for \(T\).
+ - Exponential = constant hazard.
+ - Weibull = flexible hazard (increasing/decreasing).
+ - Log-normal/log-logistic = non-monotonic hazards.
+ - Model selection via AIC + visual KM overlay.
+ - Regression can be PH or AFT; interpret HR vs TR correctly.
 
 ---
 
@@ -623,10 +624,10 @@ Always justify extrapolation window.
 <details>
 <summary>Click to try</summary>
 
-1. Fit exponential and Weibull models and compare AIC. Which fits better?  
-2. Overlay fitted curves with KM and discuss which curve matches best.  
-3. Fit Weibull AFT regression and interpret treatment as a time ratio.  
-4. In R, fit log-normal and log-logistic and compare AIC.  
-5. Simulate data with decreasing hazard (\(k<1\)) and see which parametric model fits best.
+ 1. Fit exponential and Weibull models and compare AIC. Which fits better?  
+ 2. Overlay fitted curves with KM and discuss which curve matches best.  
+ 3. Fit Weibull AFT regression and interpret treatment as a time ratio.  
+ 4. In R, fit log-normal and log-logistic and compare AIC.  
+ 5. Simulate data with decreasing hazard (\(k<1\)) and see which parametric model fits best.
 
 </details>
